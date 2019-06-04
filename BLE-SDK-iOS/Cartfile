@@ -1,0 +1,8 @@
+github "EnterTech/BLESDK_Microphone" "master"
+github "EnterTech/Naptime-BLE-iOS" "master"
+github "EnterTech/IOS-Pods-DFU-Library" "master"
+github "EnterTech/BLESDK-Concentration" "master"
+github "EnterTech/BLESDK-Nap" "master"
+github "cobi-bike/Zip" "fix-minizip-reference"
+github "dexman/Minizip" "master"
+github "mxcl/PromiseKit" ~> 6.0

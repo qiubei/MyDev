@@ -1,0 +1,68 @@
+PODS:
+  - Files (2.0.1)
+  - InnerpeaceSDK (0.2.0):
+    - InnerpeaceSDK/BLE (= 0.2.0)
+    - RxBluetoothKit (~> 5.0.2)
+    - Zip
+  - InnerpeaceSDK/BLE (0.2.0):
+    - RxBluetoothKit (~> 5.0.2)
+    - Zip
+  - lottie-ios (2.5.0)
+  - NaptimeFileProtocol (0.4.0)
+  - RxBluetoothKit (5.0.2):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.3.1)
+  - SnapKit (4.0.1)
+  - SVProgressHUD (2.2.5)
+  - Zip (1.1.0)
+
+DEPENDENCIES:
+  - Files (~> 2.0.0)
+  - InnerpeaceSDK (from `../`)
+  - lottie-ios (~> 2.1)
+  - "NaptimeFileProtocol (from `git@github.com:EnterTech/Naptime-FileProtocol-iOS.git`, branch `develop`)"
+  - SnapKit (~> 4.0)
+  - SVProgressHUD
+  - Zip (from `https://github.com/cobi-bike/Zip.git`, branch `fix-minizip-reference`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Files
+    - lottie-ios
+    - RxBluetoothKit
+    - RxSwift
+    - SnapKit
+    - SVProgressHUD
+
+EXTERNAL SOURCES:
+  InnerpeaceSDK:
+    :path: "../"
+  NaptimeFileProtocol:
+    :branch: develop
+    :git: "git@github.com:EnterTech/Naptime-FileProtocol-iOS.git"
+  Zip:
+    :branch: fix-minizip-reference
+    :git: https://github.com/cobi-bike/Zip.git
+
+CHECKOUT OPTIONS:
+  NaptimeFileProtocol:
+    :commit: c36fd6077b71e575dd5d877ffc7b3995a94bea96
+    :git: "git@github.com:EnterTech/Naptime-FileProtocol-iOS.git"
+  Zip:
+    :commit: f19d14f4158fd708b482964347ba6edc85d40218
+    :git: https://github.com/cobi-bike/Zip.git
+
+SPEC CHECKSUMS:
+  Files: 2a80d8a2fafef38a7a590ef24634a829157e7305
+  InnerpeaceSDK: e199157ff572bee4830461b61a26158a90fe587e
+  lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
+  NaptimeFileProtocol: 49248787ced0e07f11578f07bc4857b3b65bd6e0
+  RxBluetoothKit: 3c5f29177dcc9e53960493b055e3ef2954d523a0
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  Zip: fa748987fc7ffef470c81d9928d223601179e338
+
+PODFILE CHECKSUM: 4a5592fff3bfe8f75844227f5a0c29795e3316e6
+
+COCOAPODS: 1.5.3

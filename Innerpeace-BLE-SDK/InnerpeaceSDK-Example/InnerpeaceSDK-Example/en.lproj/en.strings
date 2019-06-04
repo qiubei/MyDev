@@ -1,0 +1,68 @@
+/* 
+  en.strings
+  InnerpeaceSDK-Example
+
+  Created by Anonymous on 2018/6/14.
+  Copyright © 2018年 EnterTech. All rights reserved.
+*/
+
+"已经有设备连接" = "There is already a device connection";
+"正在连接..." = "Connecting...";
+"连接成功" = "Successed";
+"连接失败" = "Failed";
+"原始数据：" = "Raw Data";
+"分析数据：" = "Analyzed Data";
+"眨眼了" = "Blink";
+"电量：" = "Battery";
+"未知电量" = "Unknow signal";
+"已连接" = "Connected";
+"未连接" = "Disconnected";
+"固件更新" = "DFU Upgrade";
+"检测到有新的固件" = "Detected a new firmware";
+"不更新" = "Not";
+"更新" = "Update";
+"下载固件失败" = "Download file Failed";
+"设备名称" = "Device Name";
+"硬件版本" = "Hardware version";
+"固件版本" = "Firmware Version";
+"Mac 地址" = "Mac Addressd";
+"当前固件版本：\n" = "firmware version: \n";
+"正在搜索设备..." = "Searching Naptime Device";
+"请确保设备在手机附近。" = "Make sure the device is near your iPhone";
+"已找到设备，正在连接..." = "Device found,connecting...";
+"连接成功，开始使用吧！" = "Connect Successed,start your relax trip";
+"了解基本信息，从而更好地使用设备。" = "Learn more about Naptime";
+"连接失败，请重新尝试。" = "Connect failed, please try again";
+"重新连接设备" = "Reconnect";
+"开始体验" = "Start";
+"开始体验异常" = "Start Failed";
+"开启原始脑波监听" = "Start Raw Data's Observing";
+"开启实时数据处理监听" = "Start Analyzing Data's Observing real time";
+"结束体验" = "End";
+"关闭实时数据处理监听" = "Stop Raw Data's Observing";
+"原始脑波：" = "Raw Data:";
+"分析后数据：" = "Analyzed Data:";
+"本次体验结果：" = "Your Report:";
+"数据异常：数据为空" = "Data error: empty data";
+"原始数据监听" = "Raw Data Observer";
+"实时数据分析监听" = "Analyzing Data Observer";
+"眨眼信号监听" = "Blink Observer";
+"开启眨眼信号监听" = "Start blink observing";
+"关闭眨眼信号监听" = "Stop blink observing";
+"数据异常" = "Data error";
+"实时注意力分析数据:" = "Analyzing concentration data:";
+"数据分析异常" = "analyzed data error";
+"检测到眨眼信号" = "Received blink singal";
+"开启注意力谱曲监听" = "Start composition with concentration Observing";
+"关闭注意力谱曲监听" = "Stop composition with concentration Observing";
+"实时注意力谱曲分析数据：" = "Analyzing data with concentration real time";
+"结束本体体验异常： 没有数据" = "Stop Error: empty data";
+"实时脑波音乐分析数据：" = "Analyzing data:";
+"实时脑波分析监听" = "Analyzing data Observer";
+"一切就绪，开始使用！" = "Ready to use!";
+"注意力谱曲监听" = "Concentration Composition Observer";
+"原始脑波监听" = "Raw brain data Observer";
+"实时脑波分析的数据监听" = "Analyzing data Observer";
+"无法连接设备？" = "Cannot connect to the device?";
+"佩戴检测" = "Wear Detection";
+

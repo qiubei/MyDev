@@ -1,0 +1,761 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6CB77EDD20C4EE4A001D17E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB77EDC20C4EE4A001D17E3 /* AppDelegate.swift */; };
+		6CB77EE220C4EE4A001D17E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CB77EE020C4EE4A001D17E3 /* Main.storyboard */; };
+		6CB77EE420C4EE4B001D17E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CB77EE320C4EE4B001D17E3 /* Assets.xcassets */; };
+		6CB77EE720C4EE4B001D17E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CB77EE520C4EE4B001D17E3 /* LaunchScreen.storyboard */; };
+		6CB77EEF20C4EF25001D17E3 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB77EEE20C4EF25001D17E3 /* Description.swift */; };
+		B726B5B720CA317400AD9FAB /* 配对演示.json in Resources */ = {isa = PBXBuildFile; fileRef = B726B5B620CA317400AD9FAB /* 配对演示.json */; };
+		B74A60A421193AD300482B04 /* IPFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74A60A321193AD300482B04 /* IPFileManager.swift */; };
+		B764E98F20D26B4D007BE74E /* zh_CN.strings in Resources */ = {isa = PBXBuildFile; fileRef = B764E99120D26B4D007BE74E /* zh_CN.strings */; };
+		B764E99220D26B68007BE74E /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B764E99420D26B68007BE74E /* en.strings */; };
+		B764E99620D36F71007BE74E /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764E99520D36F71007BE74E /* Language.swift */; };
+		B79775B2213CED3D0093AC90 /* mlp.json in Resources */ = {isa = PBXBuildFile; fileRef = B79775B1213CED3D0093AC90 /* mlp.json */; };
+		B7BEB5D821B775CD00B12B95 /* DFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5C321B775CD00B12B95 /* DFUViewController.swift */; };
+		B7BEB5D921B775CD00B12B95 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5C421B775CD00B12B95 /* HomeViewController.swift */; };
+		B7BEB5DA21B775CD00B12B95 /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5C521B775CD00B12B95 /* DeviceInfoViewController.swift */; };
+		B7BEB5DB21B775CD00B12B95 /* WearStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5C621B775CD00B12B95 /* WearStateViewController.swift */; };
+		B7BEB5E421B775CD00B12B95 /* ReportBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5D221B775CD00B12B95 /* ReportBarController.swift */; };
+		B7BEB5E521B775CD00B12B95 /* RawFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5D321B775CD00B12B95 /* RawFileListViewController.swift */; };
+		B7BEB5E621B775CD00B12B95 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5D421B775CD00B12B95 /* RecordingViewController.swift */; };
+		B7BEB5E721B775CD00B12B95 /* RecordFileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BEB5D521B775CD00B12B95 /* RecordFileTableViewController.swift */; };
+		B7C59FC121B782DF00A81030 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FB521B782DE00A81030 /* BaseTableViewController.swift */; };
+		B7C59FC221B782DF00A81030 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FB621B782DE00A81030 /* BaseNavigationController.swift */; };
+		B7C59FC321B782DF00A81030 /* ConcentrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FB821B782DE00A81030 /* ConcentrationTableViewController.swift */; };
+		B7C59FC421B782DF00A81030 /* ReportTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FB921B782DE00A81030 /* ReportTableViewController.swift */; };
+		B7C59FC521B782DF00A81030 /* NapMusicTableviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FBA21B782DE00A81030 /* NapMusicTableviewController.swift */; };
+		B7C59FC621B782DF00A81030 /* ConcentrationMusicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FBB21B782DE00A81030 /* ConcentrationMusicTableViewController.swift */; };
+		B7C59FC721B782DF00A81030 /* NapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FBC21B782DE00A81030 /* NapViewController.swift */; };
+		B7C59FC821B782DF00A81030 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FBE21B782DF00A81030 /* ConnectViewController.swift */; };
+		B7C59FC921B782DF00A81030 /* CannotConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FBF21B782DF00A81030 /* CannotConnectViewController.swift */; };
+		B7C59FCA21B782DF00A81030 /* ConnectTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C59FC021B782DF00A81030 /* ConnectTipViewController.swift */; };
+		B7DCF33D2122A76B00D4D735 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DCF33C2122A76B00D4D735 /* Extension.swift */; };
+		B7F3FE1721C8EE5500018224 /* five.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B7F3FE1621C8EE5500018224 /* five.mp3 */; };
+		B7F3FE1921CA603000018224 /* NPPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F3FE1821CA603000018224 /* NPPlayer.swift */; };
+		BAEB7D0DFE517B4A7A535CD2 /* Pods_InnerpeaceSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FC83864C1166097DEBF012 /* Pods_InnerpeaceSDK_Example.framework */; };
+		FA276BAA215F6E9600EC93FF /* PromiseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA276BA8215F6E9600EC93FF /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FA276BAB215F6E9700EC93FF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA276BAA215F6E9600EC93FF /* PromiseKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		15FC83864C1166097DEBF012 /* Pods_InnerpeaceSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InnerpeaceSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		63626CE07D319A0095AF0E9C /* Pods-InnerpeaceSDK-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InnerpeaceSDK-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InnerpeaceSDK-Example/Pods-InnerpeaceSDK-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		6CB77ED920C4EE4A001D17E3 /* InnerpeaceSDK-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InnerpeaceSDK-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CB77EDC20C4EE4A001D17E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6CB77EE120C4EE4A001D17E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6CB77EE320C4EE4B001D17E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6CB77EE620C4EE4B001D17E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6CB77EE820C4EE4B001D17E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CB77EEE20C4EF25001D17E3 /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		B726B5B620CA317400AD9FAB /* 配对演示.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "配对演示.json"; sourceTree = "<group>"; };
+		B74A60A321193AD300482B04 /* IPFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFileManager.swift; sourceTree = "<group>"; };
+		B764E98B20D26A2E007BE74E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		B764E99020D26B4D007BE74E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/zh_CN.strings"; sourceTree = "<group>"; };
+		B764E99320D26B68007BE74E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/en.strings; sourceTree = "<group>"; };
+		B764E99520D36F71007BE74E /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		B79775B1213CED3D0093AC90 /* mlp.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mlp.json; sourceTree = "<group>"; };
+		B7BC9FE720DB880E00C0BCA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		B7BC9FED20DCCD9100C0BCA8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		B7BEB5C321B775CD00B12B95 /* DFUViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
+		B7BEB5C421B775CD00B12B95 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B7BEB5C521B775CD00B12B95 /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
+		B7BEB5C621B775CD00B12B95 /* WearStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WearStateViewController.swift; sourceTree = "<group>"; };
+		B7BEB5D221B775CD00B12B95 /* ReportBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportBarController.swift; sourceTree = "<group>"; };
+		B7BEB5D321B775CD00B12B95 /* RawFileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawFileListViewController.swift; sourceTree = "<group>"; };
+		B7BEB5D421B775CD00B12B95 /* RecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
+		B7BEB5D521B775CD00B12B95 /* RecordFileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordFileTableViewController.swift; sourceTree = "<group>"; };
+		B7C59FB521B782DE00A81030 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		B7C59FB621B782DE00A81030 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		B7C59FB821B782DE00A81030 /* ConcentrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentrationTableViewController.swift; sourceTree = "<group>"; };
+		B7C59FB921B782DE00A81030 /* ReportTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportTableViewController.swift; sourceTree = "<group>"; };
+		B7C59FBA21B782DE00A81030 /* NapMusicTableviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NapMusicTableviewController.swift; sourceTree = "<group>"; };
+		B7C59FBB21B782DE00A81030 /* ConcentrationMusicTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentrationMusicTableViewController.swift; sourceTree = "<group>"; };
+		B7C59FBC21B782DE00A81030 /* NapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NapViewController.swift; sourceTree = "<group>"; };
+		B7C59FBE21B782DF00A81030 /* ConnectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
+		B7C59FBF21B782DF00A81030 /* CannotConnectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannotConnectViewController.swift; sourceTree = "<group>"; };
+		B7C59FC021B782DF00A81030 /* ConnectTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectTipViewController.swift; sourceTree = "<group>"; };
+		B7DCF33C2122A76B00D4D735 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		B7F3FE1621C8EE5500018224 /* five.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = five.mp3; sourceTree = "<group>"; };
+		B7F3FE1821CA603000018224 /* NPPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPPlayer.swift; sourceTree = "<group>"; };
+		CAEFD3089A0A9E4121BC4E0F /* Pods-InnerpeaceSDK-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InnerpeaceSDK-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-InnerpeaceSDK-Example/Pods-InnerpeaceSDK-Example.release.xcconfig"; sourceTree = "<group>"; };
+		FA276BA8215F6E9600EC93FF /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6CB77ED620C4EE4A001D17E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAEB7D0DFE517B4A7A535CD2 /* Pods_InnerpeaceSDK_Example.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14B301E21342B5D39C3DFE4A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15FC83864C1166097DEBF012 /* Pods_InnerpeaceSDK_Example.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6CB77ED020C4EE4A001D17E3 = {
+			isa = PBXGroup;
+			children = (
+				FA276BA8215F6E9600EC93FF /* PromiseKit.framework */,
+				6CB77EDB20C4EE4A001D17E3 /* InnerpeaceSDK-Example */,
+				6CB77EDA20C4EE4A001D17E3 /* Products */,
+				8E757B0D738D2F80189C0CDB /* Pods */,
+				14B301E21342B5D39C3DFE4A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6CB77EDA20C4EE4A001D17E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6CB77ED920C4EE4A001D17E3 /* InnerpeaceSDK-Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6CB77EDB20C4EE4A001D17E3 /* InnerpeaceSDK-Example */ = {
+			isa = PBXGroup;
+			children = (
+				B74A60A221193A2500482B04 /* Manager */,
+				B726B5B320CA301C00AD9FAB /* Support Files */,
+				B726B5B420CA302F00AD9FAB /* ViewControllers */,
+				B7DCF33B2122A73200D4D735 /* Extension */,
+				B726B5B520CA314100AD9FAB /* Resources */,
+				6CB77EE020C4EE4A001D17E3 /* Main.storyboard */,
+				B764E99120D26B4D007BE74E /* zh_CN.strings */,
+				B764E99420D26B68007BE74E /* en.strings */,
+				B764E99520D36F71007BE74E /* Language.swift */,
+				B79775B1213CED3D0093AC90 /* mlp.json */,
+				6CB77EE820C4EE4B001D17E3 /* Info.plist */,
+				6CB77EEE20C4EF25001D17E3 /* Description.swift */,
+			);
+			path = "InnerpeaceSDK-Example";
+			sourceTree = "<group>";
+		};
+		8E757B0D738D2F80189C0CDB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				63626CE07D319A0095AF0E9C /* Pods-InnerpeaceSDK-Example.debug.xcconfig */,
+				CAEFD3089A0A9E4121BC4E0F /* Pods-InnerpeaceSDK-Example.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B726B5B320CA301C00AD9FAB /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6CB77EDC20C4EE4A001D17E3 /* AppDelegate.swift */,
+				6CB77EE320C4EE4B001D17E3 /* Assets.xcassets */,
+				6CB77EE520C4EE4B001D17E3 /* LaunchScreen.storyboard */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		B726B5B420CA302F00AD9FAB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B7C59FB721B782DE00A81030 /* Algorithm */,
+				B7C59FB421B782DE00A81030 /* Base */,
+				B7C59FBD21B782DF00A81030 /* Connect */,
+				B7BEB5D121B775CD00B12B95 /* File */,
+				B7BEB5C221B775CD00B12B95 /* Home */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B726B5B520CA314100AD9FAB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B7F3FE1621C8EE5500018224 /* five.mp3 */,
+				B726B5B620CA317400AD9FAB /* 配对演示.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B74A60A221193A2500482B04 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				B74A60A321193AD300482B04 /* IPFileManager.swift */,
+				B7F3FE1821CA603000018224 /* NPPlayer.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		B7BEB5C221B775CD00B12B95 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B7BEB5C321B775CD00B12B95 /* DFUViewController.swift */,
+				B7BEB5C421B775CD00B12B95 /* HomeViewController.swift */,
+				B7BEB5C521B775CD00B12B95 /* DeviceInfoViewController.swift */,
+				B7BEB5C621B775CD00B12B95 /* WearStateViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B7BEB5D121B775CD00B12B95 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				B7BEB5D221B775CD00B12B95 /* ReportBarController.swift */,
+				B7BEB5D321B775CD00B12B95 /* RawFileListViewController.swift */,
+				B7C59FB921B782DE00A81030 /* ReportTableViewController.swift */,
+				B7BEB5D521B775CD00B12B95 /* RecordFileTableViewController.swift */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
+		B7C59FB421B782DE00A81030 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				B7C59FB521B782DE00A81030 /* BaseTableViewController.swift */,
+				B7C59FB621B782DE00A81030 /* BaseNavigationController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		B7C59FB721B782DE00A81030 /* Algorithm */ = {
+			isa = PBXGroup;
+			children = (
+				B7C59FB821B782DE00A81030 /* ConcentrationTableViewController.swift */,
+				B7BEB5D421B775CD00B12B95 /* RecordingViewController.swift */,
+				B7C59FBA21B782DE00A81030 /* NapMusicTableviewController.swift */,
+				B7C59FBB21B782DE00A81030 /* ConcentrationMusicTableViewController.swift */,
+				B7C59FBC21B782DE00A81030 /* NapViewController.swift */,
+			);
+			path = Algorithm;
+			sourceTree = "<group>";
+		};
+		B7C59FBD21B782DF00A81030 /* Connect */ = {
+			isa = PBXGroup;
+			children = (
+				B7C59FBE21B782DF00A81030 /* ConnectViewController.swift */,
+				B7C59FBF21B782DF00A81030 /* CannotConnectViewController.swift */,
+				B7C59FC021B782DF00A81030 /* ConnectTipViewController.swift */,
+			);
+			path = Connect;
+			sourceTree = "<group>";
+		};
+		B7DCF33B2122A73200D4D735 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B7DCF33C2122A76B00D4D735 /* Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6CB77ED820C4EE4A001D17E3 /* InnerpeaceSDK-Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CB77EEB20C4EE4B001D17E3 /* Build configuration list for PBXNativeTarget "InnerpeaceSDK-Example" */;
+			buildPhases = (
+				D9E2DBF8F1648A2651DF4144 /* [CP] Check Pods Manifest.lock */,
+				6CB77ED520C4EE4A001D17E3 /* Sources */,
+				6CB77ED620C4EE4A001D17E3 /* Frameworks */,
+				6CB77ED720C4EE4A001D17E3 /* Resources */,
+				64D15296B13D9748359E4BEF /* [CP] Embed Pods Frameworks */,
+				FA276BAB215F6E9700EC93FF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "InnerpeaceSDK-Example";
+			productName = "InnerpeaceSDK-Example";
+			productReference = 6CB77ED920C4EE4A001D17E3 /* InnerpeaceSDK-Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6CB77ED120C4EE4A001D17E3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = EnterTech;
+				TargetAttributes = {
+					6CB77ED820C4EE4A001D17E3 = {
+						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 6CB77ED420C4EE4A001D17E3 /* Build configuration list for PBXProject "InnerpeaceSDK-Example" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 6CB77ED020C4EE4A001D17E3;
+			productRefGroup = 6CB77EDA20C4EE4A001D17E3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6CB77ED820C4EE4A001D17E3 /* InnerpeaceSDK-Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6CB77ED720C4EE4A001D17E3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B79775B2213CED3D0093AC90 /* mlp.json in Resources */,
+				6CB77EE720C4EE4B001D17E3 /* LaunchScreen.storyboard in Resources */,
+				B7F3FE1721C8EE5500018224 /* five.mp3 in Resources */,
+				B726B5B720CA317400AD9FAB /* 配对演示.json in Resources */,
+				6CB77EE420C4EE4B001D17E3 /* Assets.xcassets in Resources */,
+				B764E99220D26B68007BE74E /* en.strings in Resources */,
+				6CB77EE220C4EE4A001D17E3 /* Main.storyboard in Resources */,
+				B764E98F20D26B4D007BE74E /* zh_CN.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		64D15296B13D9748359E4BEF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-InnerpeaceSDK-Example/Pods-InnerpeaceSDK-Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Files/Files.framework",
+				"${PODS_ROOT}/../../frameworks/BLESDK.framework",
+				"${PODS_ROOT}/../../frameworks/BLESDK_Concentration.framework",
+				"${PODS_ROOT}/../../frameworks/BLESDK_ConcentrationMusic.framework",
+				"${PODS_ROOT}/../../frameworks/BLESDK_Microphone.framework",
+				"${PODS_ROOT}/../../frameworks/BLESDK_Nap.framework",
+				"${PODS_ROOT}/../../frameworks/BLESDK_NapMusic.framework",
+				"${PODS_ROOT}/../../frameworks/iOSDFULibrary.framework",
+				"${PODS_ROOT}/../../frameworks/NaptimeBLE.framework",
+				"${BUILT_PRODUCTS_DIR}/NaptimeFileProtocol/NaptimeFileProtocol.framework",
+				"${BUILT_PRODUCTS_DIR}/RxBluetoothKit/RxBluetoothKit.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Files.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLESDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLESDK_Concentration.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLESDK_ConcentrationMusic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLESDK_Microphone.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLESDK_Nap.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLESDK_NapMusic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSDFULibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaptimeBLE.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaptimeFileProtocol.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBluetoothKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InnerpeaceSDK-Example/Pods-InnerpeaceSDK-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9E2DBF8F1648A2651DF4144 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-InnerpeaceSDK-Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6CB77ED520C4EE4A001D17E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7BEB5E721B775CD00B12B95 /* RecordFileTableViewController.swift in Sources */,
+				B7C59FC421B782DF00A81030 /* ReportTableViewController.swift in Sources */,
+				B7BEB5E421B775CD00B12B95 /* ReportBarController.swift in Sources */,
+				B7C59FC721B782DF00A81030 /* NapViewController.swift in Sources */,
+				B7F3FE1921CA603000018224 /* NPPlayer.swift in Sources */,
+				B7BEB5E521B775CD00B12B95 /* RawFileListViewController.swift in Sources */,
+				B7BEB5D821B775CD00B12B95 /* DFUViewController.swift in Sources */,
+				B7BEB5DB21B775CD00B12B95 /* WearStateViewController.swift in Sources */,
+				B7C59FCA21B782DF00A81030 /* ConnectTipViewController.swift in Sources */,
+				6CB77EEF20C4EF25001D17E3 /* Description.swift in Sources */,
+				B7C59FC821B782DF00A81030 /* ConnectViewController.swift in Sources */,
+				B7C59FC521B782DF00A81030 /* NapMusicTableviewController.swift in Sources */,
+				6CB77EDD20C4EE4A001D17E3 /* AppDelegate.swift in Sources */,
+				B7BEB5D921B775CD00B12B95 /* HomeViewController.swift in Sources */,
+				B7C59FC121B782DF00A81030 /* BaseTableViewController.swift in Sources */,
+				B7C59FC321B782DF00A81030 /* ConcentrationTableViewController.swift in Sources */,
+				B7C59FC921B782DF00A81030 /* CannotConnectViewController.swift in Sources */,
+				B7C59FC621B782DF00A81030 /* ConcentrationMusicTableViewController.swift in Sources */,
+				B74A60A421193AD300482B04 /* IPFileManager.swift in Sources */,
+				B7BEB5E621B775CD00B12B95 /* RecordingViewController.swift in Sources */,
+				B764E99620D36F71007BE74E /* Language.swift in Sources */,
+				B7BEB5DA21B775CD00B12B95 /* DeviceInfoViewController.swift in Sources */,
+				B7C59FC221B782DF00A81030 /* BaseNavigationController.swift in Sources */,
+				B7DCF33D2122A76B00D4D735 /* Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6CB77EE020C4EE4A001D17E3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CB77EE120C4EE4A001D17E3 /* Base */,
+				B7BC9FE720DB880E00C0BCA8 /* en */,
+				B7BC9FED20DCCD9100C0BCA8 /* zh-Hans */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6CB77EE520C4EE4B001D17E3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CB77EE620C4EE4B001D17E3 /* Base */,
+				B764E98B20D26A2E007BE74E /* zh-Hans */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B764E99120D26B4D007BE74E /* zh_CN.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B764E99020D26B4D007BE74E /* zh-Hans */,
+			);
+			name = zh_CN.strings;
+			sourceTree = "<group>";
+		};
+		B764E99420D26B68007BE74E /* en.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B764E99320D26B68007BE74E /* en */,
+			);
+			name = en.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6CB77EE920C4EE4B001D17E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		6CB77EEA20C4EE4B001D17E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6CB77EEC20C4EE4B001D17E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63626CE07D319A0095AF0E9C /* Pods-InnerpeaceSDK-Example.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = B73YJ689CU;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "InnerpeaceSDK-Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"BLESDK\"",
+					"-framework",
+					"\"BLESDK_Concentration\"",
+					"-framework",
+					"\"BLESDK_ConcentrationMusic\"",
+					"-framework",
+					"\"BLESDK_Nap\"",
+					"-framework",
+					"\"BLESDK_NapMusic\"",
+					"-framework",
+					"\"BLESDK_Microphone\"",
+					"-framework",
+					"\"Files\"",
+					"-framework",
+					"\"Lottie\"",
+					"-framework",
+					"\"NaptimeBLE\"",
+					"-framework",
+					"\"NaptimeFileProtocol\"",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"RxBluetoothKit\"",
+					"-framework",
+					"\"RxSwift\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"Zip\"",
+					"-framework",
+					"\"iOSDFULibrary\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.entertech.InnerpeaceSDK.Example;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6CB77EED20C4EE4B001D17E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAEFD3089A0A9E4121BC4E0F /* Pods-InnerpeaceSDK-Example.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = B73YJ689CU;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "InnerpeaceSDK-Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"BLESDK\"",
+					"-framework",
+					"\"BLESDK_Concentration\"",
+					"-framework",
+					"\"BLESDK_ConcentrationMusic\"",
+					"-framework",
+					"\"BLESDK_Nap\"",
+					"-framework",
+					"\"BLESDK_NapMusic\"",
+					"-framework",
+					"\"BLESDK_Microphone\"",
+					"-framework",
+					"\"Files\"",
+					"-framework",
+					"\"Lottie\"",
+					"-framework",
+					"\"NaptimeBLE\"",
+					"-framework",
+					"\"NaptimeFileProtocol\"",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"RxBluetoothKit\"",
+					"-framework",
+					"\"RxSwift\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"Zip\"",
+					"-framework",
+					"\"iOSDFULibrary\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.entertech.InnerpeaceSDK.Example;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CB77ED420C4EE4A001D17E3 /* Build configuration list for PBXProject "InnerpeaceSDK-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CB77EE920C4EE4B001D17E3 /* Debug */,
+				6CB77EEA20C4EE4B001D17E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6CB77EEB20C4EE4B001D17E3 /* Build configuration list for PBXNativeTarget "InnerpeaceSDK-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CB77EEC20C4EE4B001D17E3 /* Debug */,
+				6CB77EED20C4EE4B001D17E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6CB77ED120C4EE4A001D17E3 /* Project object */;
+}

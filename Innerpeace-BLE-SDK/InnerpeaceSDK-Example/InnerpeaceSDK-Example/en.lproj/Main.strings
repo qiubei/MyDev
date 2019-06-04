@@ -1,0 +1,114 @@
+
+/* Class = "UIButton"; normalTitle = "算法"; ObjectID = "1Aq-eJ-MoI"; */
+"1Aq-eJ-MoI.normalTitle" = "Algorithm";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "3C6-h7-0nu"; */
+"3C6-h7-0nu.normalTitle" = "Next";
+
+/* Class = "UIButton"; normalTitle = "开始固件更新"; ObjectID = "6MS-eL-TJy"; */
+"6MS-eL-TJy.normalTitle" = "Start Update";
+
+/* Class = "UILabel"; text = "无法连接到设备？"; ObjectID = "6Mb-G5-X3n"; */
+"6Mb-G5-X3n.text" = "Cannot connect to the device?";
+
+/* Class = "UIButton"; normalTitle = "佩戴检测"; ObjectID = "7ue-lt-MoL"; */
+"7ue-lt-MoL.normalTitle" = "Wear Detection";
+
+/* Class = "UILabel"; text = "查看系统设置中的蓝牙状态，确保蓝牙是打开的。\""; ObjectID = "8Eo-gf-dNw"; */
+"8Eo-gf-dNw.text" = "Check the Bluetooth state in the system settings and make sure that Bluetooth is turned on.\"";
+
+/* Class = "UILabel"; text = "确保设备在手机附近。如果周围还有其他蓝牙智能设备，请把他们拿开。"; ObjectID = "94N-os-pnj"; */
+"94N-os-pnj.text" = "Make sure the device is near the phone. If there are other Bluetooth smart devices around, please take them away.";
+
+/* Class = "UIButton"; normalTitle = "开始连接"; ObjectID = "9vO-xa-EDv"; */
+"9vO-xa-EDv.normalTitle" = "Connect";
+
+/* Class = "UINavigationItem"; title = "固件更新（DFU）"; ObjectID = "ABn-nd-eAd"; */
+"ABn-nd-eAd.title" = "Firmware Update";
+
+/* Class = "UILabel"; text = "长按设备按键，直至指示灯持续快速闪烁。"; ObjectID = "Ekg-Ml-XIc"; */
+"Ekg-Ml-XIc.text" = "Press the button until the light flashes constantly and rapidly.";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Faa-ux-Q0Y"; */
+"Faa-ux-Q0Y.text" = "Title";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Fqx-OX-PFw"; */
+"Fqx-OX-PFw.text" = "Title";
+
+/* Class = "UILabel"; text = "更新状态"; ObjectID = "IEn-ca-i3p"; */
+"IEn-ca-i3p.text" = "Updating state";
+
+/* Class = "UIButton"; normalTitle = "    无法连接设备？  "; ObjectID = "JUK-AK-DBI"; */
+"JUK-AK-DBI.normalTitle" = "Cannot connect to the device?";
+
+/* Class = "UIButton"; normalTitle = "脑波音乐算法"; ObjectID = "JWo-V3-REh"; */
+"JWo-V3-REh.normalTitle" = "NapMusic Algorithm";
+
+/* Class = "UILabel"; text = "如果依旧无法连接，请重启手机后尝试。"; ObjectID = "KB8-tL-zyI"; */
+"KB8-tL-zyI.text" = "If the device still can't be connected, please try to restart the phone.";
+
+/* Class = "UIBarButtonItem"; title = "  "; ObjectID = "Mxa-K4-c1O"; */
+"Mxa-K4-c1O.title" = "  ";
+
+/* Class = "UIButton"; normalTitle = "断开设备"; ObjectID = "NlT-39-h0z"; */
+"NlT-39-h0z.normalTitle" = "Disconnect";
+
+/* Class = "UILabel"; text = "若长按按键时间大于 2 秒钟仍旧没有灯亮，请给设备充电。充电 10 分钟后再尝试。"; ObjectID = "Nop-GT-YFo"; */
+"Nop-GT-YFo.text" =  "When turning it on, if there is no light after pressing for more than 2 seconds, please charge the device first. Try again after charging for 10 minutes.";
+
+/* Class = "UILabel"; text = "已找到设备，正在连接..."; ObjectID = "RZz-k8-uxp"; */
+"RZz-k8-uxp.text" = "Device found, connecting...";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Smi-n1-K1U"; */
+"Smi-n1-K1U.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "T95-Zm-vSD"; */
+"T95-Zm-vSD.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "Wrf-ub-f5i"; */
+"Wrf-ub-f5i.normalTitle" = "Next";
+
+/* Class = "UILabel"; text = "如果长按指示灯未亮，请先给设备充电。"; ObjectID = "WzE-4g-hXm"; */
+"WzE-4g-hXm.text" = "If the light is not on after a long press, please charge the device first.";
+
+/* Class = "UILabel"; text = "智能，温暖你的生活"; ObjectID = "Yrw-8l-PhT"; */
+"Yrw-8l-PhT.text" = "Intelligent, warm your life";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "b8O-cI-NH8"; */
+"b8O-cI-NH8.title" = " ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ckh-0n-Oyq"; */
+"ckh-0n-Oyq.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "注意力算法"; ObjectID = "e2d-Ce-OHy"; */
+"e2d-Ce-OHy.normalTitle" = "Concentration Algorithm";
+
+/* Class = "UINavigationItem"; title = "设备信息"; ObjectID = "gIr-uk-O7Q"; */
+"gIr-uk-O7Q.title" = "Device Info";
+
+/* Class = "UILabel"; text = "如果蓝牙已经打开，请关闭后再打开。"; ObjectID = "hcF-YO-WoW"; */
+"hcF-YO-WoW.text" = "If Bluetooth is already on, please turn it off and on again.";
+
+/* Class = "UIButton"; normalTitle = "注意力音乐算法"; ObjectID = "kwr-Ix-2RM"; */
+"kwr-Ix-2RM.normalTitle" = "Concentration Music Algorithm";
+
+/* Class = "UILabel"; text = "以上操作完成后，返回点击「重新连接设备」。"; ObjectID = "l11-bI-PzB"; */
+"l11-bI-PzB.text" = "After completing the above operation, return to press ¡°Try to connect again¡±.";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "oYA-Uo-hNp"; */
+"oYA-Uo-hNp.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "小睡算法"; ObjectID = "pyk-Oa-Jhf"; */
+"pyk-Oa-Jhf.normalTitle" = "Nap Algorithm";
+
+/* Class = "UILabel"; text = "如果长按指示灯未亮，请先给设备充电。"; ObjectID = "u54-Iu-vIw"; */
+"u54-Iu-vIw.text" = "If the light is not on after a long press, please charge the device first.";
+
+/* Class = "UIButton"; normalTitle = "设备信息"; ObjectID = "wZQ-Zh-cy3"; */
+"wZQ-Zh-cy3.normalTitle" = "Device Info";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "xCv-wc-U02"; */
+"xCv-wc-U02.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "固件更新"; ObjectID = "yaT-Zh-6Ha"; */
+"yaT-Zh-6Ha.normalTitle" = "Firmware Update";
