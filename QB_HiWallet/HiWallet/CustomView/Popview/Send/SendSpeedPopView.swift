@@ -8,9 +8,6 @@
 
 import UIKit
 
-typealias ActionBlock<T> = (T)->()
-typealias EmptyAction = ()->()
-
 class SendSpeedPopView: BasePopview {
     var feeType = SendSpeedFeeType.normal
     var datalist: [NormalPopModel] = [] {

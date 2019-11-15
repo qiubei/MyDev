@@ -16,14 +16,9 @@ extension Token: AssetInterface {
     public var minimumTransactionAmmount: Double {
         return 1.0 / pow(10.0, Double(decimals))
     }
-
-    public var shadowColor: UIColor {
-        return .lightGray
-    }
-
  
     public var assetID: String {
-        return id
+        return chainType + "-" + symbol
     }
 
     public var type: CryptoType {

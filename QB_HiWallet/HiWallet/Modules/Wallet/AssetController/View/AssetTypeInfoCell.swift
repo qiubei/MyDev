@@ -22,7 +22,6 @@ extension AssetTypeInfoCell {
     func setupWith(wallets: [ViewWalletInterface], hiddenNum: Bool) {
         // 取到第一个
         let wallet = wallets.first!
-        if wallet.isInvalidated { return } // 规避加载过程中，数据库删除
         iconImageview.setIconWithWallet(model: wallet)
         chainImageview.isHidden = wallet.isMainCoin
         chainImageview.setChainIconWithWallet(model: wallet)
@@ -51,11 +50,11 @@ extension AssetTypeInfoCell {
         }
         let currency = TOPStore.shared.currentUser.profile?.currency ?? .cny
 
-        guard let price = TOPStore.shared.ranks.getRank(for: wallets.first!.asset, on: currency) else {
+        guard let rank = TOPStore.shared.ranks.getRank(for: wallets.first!.asset, on: currency) else {
             return currency.symbol + "0.00"
         }
         let formatter = BalanceFormatter(currency: currency)
 
-        return formatter.formattedAmmountWithSymbol(amount: balance * price)
+        return formatter.formattedAmmountWithSymbol(amount: balance * rank)
     }
 }

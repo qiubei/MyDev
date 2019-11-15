@@ -32,7 +32,10 @@ class AssetManagementController: BaseViewController {
     var defautDataArray: [Any] { // 热门+本地数据
         var hotdataArray: [Any] = localArray
         for model in serviceArray {
-            if !localArray.contains(where: { Int($0.asset.assetID) == model.id }) {
+            let assetID = (model.chainType.count == 0 ? model.symbol.uppercased() : model.chainType.uppercased()) + "-" + model.symbol.uppercased()
+            if !localArray.contains(where: {
+                $0.asset.assetID == assetID
+            }) {
                 hotdataArray.append(model)
             }
         }
@@ -172,10 +175,13 @@ extension AssetManagementController: UISearchBarDelegate {
             for (index, model) in array.enumerated() {
                 var tempModel: Any?
                 if self.localArray.contains(where: { wallet -> Bool in
-                    if Int(wallet.asset.assetID) == model.id {
+
+                    let assetID = (model.chainType.count == 0 ? model.symbol.uppercased() : model.chainType.uppercased()) + "-" + model.symbol.uppercased()
+
+                    if wallet.asset.assetID == assetID {
                         tempModel = wallet
                     }
-                    return Int(wallet.asset.assetID) == model.id
+                    return wallet.asset.assetID == assetID
                 }) {
                     self.showDataArray[index] = tempModel!
                 }
@@ -230,7 +236,6 @@ extension AssetManagementController {
         // 主币直接添加
         if model.isMainChain {
             let coin = MainCoin.getTypeWithSymbol(symbol: model.symbol)
-            //TODO: MainCoin convert to AssetInterface???
             (inject() as WalletInteractorInterface).addCoinsToWallet([coin],
                                                                      nickName: model.englishName,
                                                                      wallet: { _ in })

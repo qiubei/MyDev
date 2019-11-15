@@ -20,6 +20,7 @@ public class GeneratingWalletInfo: Object {
     @objc public dynamic var createTime: Double = 0
     @objc public dynamic var hidden: Bool = false
     @objc private dynamic var privateCoin: String = ""
+    public dynamic var localTx: List<LocalTxModel> = List()
 
     // 币种
     public var mainCoinType: MainCoin {

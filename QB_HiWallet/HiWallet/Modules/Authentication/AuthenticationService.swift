@@ -17,14 +17,6 @@ class AuthenticationService {
         case touchID
         case faceID
     }
-    
-    static let shared = AuthenticationService()
-
-    private var willResignActiveDate: Date? // 退出后台时间
-    private var window: UIWindow?
-    private var notificationToken: NotificationToken?
-    private lazy var viewUserService: ViewUserStorageServiceInterface = inject()
-    private lazy var keychainService: KeychainServiceInterface = inject()
 
     let biometryType: BiometryType
     let laContext = LAContext()
@@ -45,11 +37,18 @@ class AuthenticationService {
     }
 
     var timeout: TimeInterval = 30.0 // 后台时间
+    static let shared = AuthenticationService()
+
+    private var willResignActiveDate: Date? // 退出后台时间
+    private var window: UIWindow?
+    private var notificationToken: NotificationToken?
+    private lazy var viewUserService: ViewUserStorageServiceInterface = inject()
+    private lazy var keychainService: KeychainServiceInterface = inject()
 
     private init() {
         // 初始化支持的内容
         var error: NSError?
-        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+        if laContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
             if laContext.biometryType == LABiometryType.faceID {
                 biometryType = BiometryType.faceID
             } else {
@@ -83,11 +82,13 @@ class AuthenticationService {
         let controller: AuthenticationViewController = UIStoryboard(name: .authentication).instantiateViewController()
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = UINavigationController(rootViewController: controller)
+        window.backgroundColor = UIColor.orange
         window.makeKeyAndVisible()
         self.window = window
     }
 
     // MARK: - 弹框认证
+
     func verifyWithResult(pwd: Bool = false, resultBack: @escaping (_ success: Bool, _ passwd: String?) -> Void) {
         AuthIdentityView.showWithResult(passVerify: pwd) { result, passwd in
             resultBack(result, passwd)
@@ -95,6 +96,7 @@ class AuthenticationService {
     }
 
     // MARK: - 关闭认证
+
     func closeAuthentication() {
         guard let window = window else { return }
         UIView.animate(withDuration: CATransaction.animationDuration(), animations: {
@@ -105,6 +107,7 @@ class AuthenticationService {
     }
 
     // MARK: - 调用生物认证
+
     func deviceAuthentication(complection: @escaping (Bool, LAError?) -> Void) {
         var error: NSError?
         let avaible = laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
@@ -114,6 +117,7 @@ class AuthenticationService {
                 DispatchQueue.main.async {
                     if result {
                         complection(true, nil)
+
                     } else {
                         guard let error = error as NSError? else {
                             complection(false, nil)

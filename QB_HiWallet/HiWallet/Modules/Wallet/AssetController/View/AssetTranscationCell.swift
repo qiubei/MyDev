@@ -6,48 +6,22 @@
 //  Copyright © 2019 TOP. All rights reserved.
 //
 
-import UIKit
 import TOPCore
+import UIKit
 
 class AssetTranscationCell: UITableViewCell {
-    @IBOutlet weak var iconview: UIImageView!
-    @IBOutlet weak var operationLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet var iconview: UIImageView!
+    @IBOutlet var operationLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var amountLabel: UILabel!
 }
 
 extension AssetTranscationCell {
-    func setUpWith(tx: ViewTransaction) {
-        switch tx.status {
-        case .success:
-            switch tx.type {
-            case TransactionType.send:
-                self.operationLabel.text = "出账".localized()
-                self.iconview.image =  #imageLiteral(resourceName: "icon_tx_send")
-            case TransactionType.recive:
-                self.operationLabel.text = "入账".localized()
-                self.iconview.image =  #imageLiteral(resourceName: "icon_tx_receive")
-            default:
-                break
-            }
-        case .pending:
-            switch tx.type {
-            case TransactionType.send:
-                self.operationLabel.text = "正在发送中".localized()
-                self.iconview.image =  #imageLiteral(resourceName: "icon_tx_send")
-            case TransactionType.recive:
-                self.operationLabel.text = "正在接收中".localized()
-                self.iconview.image =  #imageLiteral(resourceName: "icon_tx_receive")
-            default:
-                break
-            }
-        default:
-            self.operationLabel.text = "发送失败".localized()
-            self.iconview.image =  #imageLiteral(resourceName: "icon_tx_failed")
-        }
-        
-        dateLabel.text = tx.stringDate
-        
-        amountLabel.attributedText = tx.ammount
+    func setUpWith(tx: HistoryTxModel) {
+        let viewModel = HistoryListViewModel(historyModel: tx)
+        operationLabel.text = viewModel.statusDesc.localized()
+        iconview.image = UIImage.init(named: viewModel.statusImageName)
+        dateLabel.text = viewModel.time
+        amountLabel.attributedText = viewModel.ammount
     }
 }

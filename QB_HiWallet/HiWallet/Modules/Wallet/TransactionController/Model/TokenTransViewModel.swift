@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import TOPCore
 import HDWalletKit
+import TOPCore
 
 class TokenTransViewModel: TranstonInterface {
     // 转账需要的参数
@@ -17,7 +17,7 @@ class TokenTransViewModel: TranstonInterface {
     var note: String = "" //token不需要
     var wallet: ViewWalletInterface!
 
-    var gasLimit: Int = 100000
+    var gasLimit: Int = 100000 //智能合约调用是外部传进来的
     private var gasPrice: Int = 100000
 
     private var selectFeeIndex: Int = 0
@@ -27,8 +27,6 @@ class TokenTransViewModel: TranstonInterface {
     private var feePrice: [String]! // 以太坊gas
     private var dataList: [SendPopViewModel]!
     private var ethbalanceModel: BalanceModel?
-
-    private lazy var chainWrapper: WalletBlockchainWrapperInteractorInterface = inject()
 
     init(walletInfo: ViewWalletInterface) {
         wallet = walletInfo
@@ -64,7 +62,6 @@ class TokenTransViewModel: TranstonInterface {
             }
 
         } else {
-            
             TOPNetworkManager<ETHServices, BalanceModel>.requestModel(.getBalance(address: wallet.address), success: { [unowned self] balance in
                 self.ethbalanceModel = balance
                 self.confirmVerify(callback: callback)
@@ -100,9 +97,10 @@ class TokenTransViewModel: TranstonInterface {
                                  gasLimit: gasLimit)
 
         do {
-            try chainWrapper.sendEthTransaction(wallet: wallet!, transacionDetial: txInfo, result: {
+            try (inject() as WalletBlockchainWrapperInteractorInterface).sendEthTransaction(wallet: wallet!, transacionDetial: txInfo, result: {
                 switch $0 {
-                case .success:
+                case let .success(txID):
+                    self.recordLocalTx(txhash: txID)
                     callback((true, ""))
 
                 case let .failure(error):
@@ -162,6 +160,18 @@ class TokenTransViewModel: TranstonInterface {
 
         return dataList
     }
+
+    func recordLocalTx(txhash: String) {
+        let localModel = LocalTxModel(txHash: txhash,
+                                      from: wallet.address,
+                                      to: address,
+                                      value: amount,
+                                      fee: getfee(),
+                                      note: note,
+                                      assetID: wallet.assetID)
+
+        LocalTxPool.pool.insertLocalTx(localTx: localModel, asset: wallet.asset)
+    }
 }
 
 extension TokenTransViewModel {
@@ -182,5 +192,12 @@ extension TokenTransViewModel {
         let gasValue = CryptoFormatter.WeiToEther(valueStr: "\(bigInt)")
         let num2 = NSDecimalNumber(string: String(format: "%.15f", gasValue))
         return num2
+    }
+
+    private func getfee() -> String {
+        let gas = BInt(gasPrice) * BInt("21000")!
+        let gasValue = CryptoFormatter.WeiToEther(valueStr: "\(gas)")
+        let fee = NSDecimalNumber(string: String(format: "%.15f", gasValue))
+        return "\(fee)"
     }
 }

@@ -45,7 +45,8 @@ public class CurrencyConverterService: CurrencyConverterServiceInterface {
         }
         
         let endpoint = CurrencyConverterEndpoint.getPrice(forCoin: coinName, inCurrency: currency )
-        networkManager.request(endpoint) { (result: NetworkResult<[CoinGeckoCurrencyModel]>) in
+        networkManager.request(endpoint) {[weak self] (result: NetworkResult<[CoinGeckoCurrencyModel]>) in
+            guard let self = self else { return }
             switch result {
             case .success(let objects):
                 guard let object = objects.first else { return }

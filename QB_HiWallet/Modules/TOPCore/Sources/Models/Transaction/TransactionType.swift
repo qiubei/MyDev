@@ -11,5 +11,6 @@ import Foundation
 public enum TransactionType: String {
     case send
     case recive
-    case exchange
+    case contract //合约
+    case exchange //换币
 }

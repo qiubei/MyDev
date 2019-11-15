@@ -36,8 +36,6 @@ extension UserWallet {
         }
     }
 
-    //TODO: 用 remove 是不是不太好，open 对应 close 或者直接用 hidden？？？
-    /// 隐藏钱包
     public func remove(wallet: ViewWalletInterface) {
         switch wallet {
         case let generated as GeneratingWalletInfo:

@@ -40,10 +40,8 @@ extension Preference {
         }
 
         set {
-            if Defaults[.stakingSwitchKey] != newValue {
-                Defaults[.stakingSwitchKey] = newValue
-                NotificationCenter.default.post(name: Notification.Name.init(NotificationConst.stakingSwitchEvent), object: nil)
-            }
+            Defaults[.stakingSwitchKey] = newValue
+            NotificationCenter.default.post(name: Notification.Name.init(NotificationConst.stakingSwitchEvent), object: nil)
         }
     }
 }

@@ -8,9 +8,8 @@
 
 import UIKit
 
-public enum TransactionStatus {
+public enum TransactionStatus: Int {
     case success
     case failure
     case pending
 }
-

@@ -6,11 +6,10 @@
 //  Copyright © 2019 Jax. All rights reserved.
 //
 
-import EssentiaNetworkCore
 import EssentiaBridgesApi
+import EssentiaNetworkCore
 import HDWalletKit
 public class CryptoFormatter {
-    
     public static func formattedAmmount(amount: Double?, type: TransactionType, asset: AssetInterface) -> NSAttributedString {
         let ammountFormatter = BalanceFormatter(asset: asset)
         let formattedAmmount = ammountFormatter.formattedAmmountWithSymbol(amount: amount)
@@ -24,34 +23,41 @@ public class CryptoFormatter {
         switch type {
         case .recive:
             attributed.insert(NSAttributedString(string: "+"), at: 0)
-            attributed.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.init(named: "Color_Main")!], range: NSRange(location: 0, length: attributed.length))
+            attributed.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "Color_Main")!], range: NSRange(location: 0, length: attributed.length))
         case .send:
             attributed.insert(NSAttributedString(string: "-"), at: 0)
         default: break
         }
         return attributed
     }
-    
+
     public static func attributedHex(amount: String, type: TransactionType, asset: AssetInterface) -> NSAttributedString {
         guard let wei = BInt(amount, radix: 10),
             let etherAmmount = try? WeiEthterConverter.toEther(wei: wei) else {
-                return NSAttributedString()
+            return NSAttributedString()
         }
         return formattedAmmount(amount: (etherAmmount as NSDecimalNumber).doubleValue, type: type, asset: asset)
     }
-    
+
     public static func attributedHex(amount: String, type: TransactionType, decimals: Int, asset: AssetInterface) -> NSAttributedString {
         guard let convertedAmmount = try? WeiEthterConverter.toToken(balance: amount, decimals: decimals, radix: 10) else {
             return NSAttributedString()
         }
         return formattedAmmount(amount: (convertedAmmount as NSDecimalNumber).doubleValue, type: type, asset: asset)
     }
-    
+
     public static func WeiToEther(valueStr: String) -> Double {
         guard let wei = BInt(valueStr, radix: 10),
             let etherAmmount = try? WeiEthterConverter.toEther(wei: wei) else {
-                return 0
+            return 0
         }
         return (etherAmmount as NSDecimalNumber).doubleValue
+    }
+
+    public static func WeiToTokenBalance(valueStr: String, decimals: Int, radix: Int) -> Double {
+        guard let convertedAmmount = try? WeiEthterConverter.toToken(balance: valueStr, decimals: decimals, radix: 10) else {
+            return 0
+        }
+        return (convertedAmmount as NSDecimalNumber).doubleValue
     }
 }

@@ -10,6 +10,7 @@ import RealmSwift
 import UIKit
 
 public protocol ViewWalletInterface: WalletProtocol, ThreadConfined {
+    var assetID: String { get }
     var logoUrl: String { get }
     var symbol: String { get }
     var isMainCoin: Bool { get }

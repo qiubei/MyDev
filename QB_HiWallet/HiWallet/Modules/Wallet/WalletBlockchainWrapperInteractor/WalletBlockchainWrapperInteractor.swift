@@ -93,15 +93,13 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
         }
     }
 
-    public func getTransactionsByWallet(_ wallet: WalletProtocol, transactions: @escaping ([ViewTransaction]) -> Void, failure: @escaping (TOPHttpError) -> Void) {
+    public func getTxHistoryByWallet(_ wallet: WalletProtocol, pageNum: NSInteger, transactions: @escaping ([HistoryTxModel]) -> Void, failure: @escaping (TOPHttpError) -> Void) {
         switch wallet.asset {
-            
         case let token as Token:
-            let _action = "tokentx"
 
-            TOPNetworkManager<ETHServices, TOPEthereumTransactionDetail>.requestModelList(.getEthTokenTxHistory(address: wallet.address, action: _action, contractAddress: token.contractAddress), success: { tx, _ in
+            TOPNetworkManager<ETHServices, TOPEthereumTransactionDetail>.requestModelList(.getEthTokenTxHistory(address: wallet.address, action: "tokentx", contractAddress: token.contractAddress, pageIndex: pageNum, pageSize: 20), success: { tx, _ in
                 if let list = tx {
-                    transactions(self.mapTransactions(list, address: wallet.address, forToken: token))
+                    transactions(self.mapTransactions(list, address: wallet.address, asset: token))
                 }
             }, failure: { error in
                 failure(error)
@@ -114,7 +112,11 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
                 utxoWallet.getTransactionsHistory(for: wallet.address) { [unowned self] result in
                     switch result {
                     case let .success(tx):
-                        transactions(self.mapTransactions(tx.items, address: wallet.address, asset: wallet.asset))
+                        if pageNum == 1 {
+                            transactions(self.mapTransactions(tx.items, address: wallet.address, asset: coin))
+                        } else {
+                            transactions([])
+                        }
                     case let .failure(error):
                         let error = TOPHttpError.other(message: error.description, code: -1)
                         failure(error)
@@ -122,11 +124,13 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
                 }
             case .ethereum:
 
-                TOPNetworkManager<ETHServices, EthereumTransactionDetail>.requestModelList(.getETHTransactionhistory(address: wallet.address, pageNum: 1, pageSize: 1000), success: { result, _ in
-                    transactions(self.mapTransactions(result!, address: wallet.address, asset: wallet.asset))
-                }) { error in
+                TOPNetworkManager<ETHServices, TOPEthereumTransactionDetail>.requestModelList(.getETHTransactionhistory(address: wallet.address, pageNum: pageNum, pageSize: 20), success: { tx, _ in
+                    if let list = tx {
+                        transactions(self.mapTransactions(list, address: wallet.address, asset: coin))
+                    }
+                }, failure: { error in
                     failure(error)
-                }
+                })
 
             case .topnetwork:
                 // 获取top交易历史
@@ -179,102 +183,48 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
         }
     }
 
-    private func mapTransactions(_ transactions: [UtxoTransactionValue], address: String, asset: AssetInterface) -> [ViewTransaction] {
-        return [ViewTransaction](transactions.map({
-            let ammount = $0.transactionAmmount(for: address)
-            let type = $0.type(for: address)
-            var otherAddress = ""
-            if type == .send {
-                otherAddress = ($0.vout.first!.scriptPubKey.addresses?.first!)!
-            } else {
-                otherAddress = ($0.vin.first!.addr)!
-            }
-            return ViewTransaction(hash: $0.txid,
-                                   address: otherAddress,
-                                   ammount: CryptoFormatter.formattedAmmount(amount: ammount, type: type, asset: asset),
-                                   status: $0.status,
-                                   type: type,
-                                   date: TimeInterval($0.time),
-                                   originalData: $0
-            )
-        }))
-    }
-
-    private func mapTransactions(
-        _ transactions: [EthereumTransactionDetail],
-        address: String,
-        asset: AssetInterface) -> [ViewTransaction] {
-        //        let nonTokenTx = transactions.filter({ return $0.value != "0" })  //不筛选交易为0的项目
-        return [ViewTransaction](transactions.map({
-            let txType = $0.type(for: address)
-            let txAddress = txType == .recive ? $0.from : $0.to
-            return ViewTransaction(
-                hash: $0.hash,
-                address: txAddress,
-                ammount: CryptoFormatter.attributedHex(amount: $0.value, type: txType, asset: asset),
-                status: $0.status,
-                type: $0.type(for: address),
-                date: TimeInterval($0.timeStamp) ?? 0,
-                originalData: $0
-            )
-        }))
-    }
-
-    private func mapTransactions(_ transactions: [EthereumTokenTransactionDetail], address: String, forToken: Token) -> [ViewTransaction] {
-        return [ViewTransaction](transactions.map({
-            let txType = $0.type(for: address)
-            let txAddress = txType == .recive ? $0.from : $0.to
-            return ViewTransaction(
-                hash: $0.hash,
-                address: txAddress,
-                ammount: CryptoFormatter.attributedHex(amount: $0.value, type: txType, decimals: forToken.decimals, asset: forToken),
-                status: $0.status,
-                type: $0.type(for: address),
-                date: TimeInterval($0.timeStamp) ?? 0,
-                originalData: $0
-            )
-        }))
-    }
-
     private func showError(_ error: EssentiaNetworkError) {
         Toast.showToast(text: error.localizedDescription)
     }
 }
 
 extension WalletBlockchainWrapperInteractor {
-    private func mapTransactions(_ topTranscations: [TOPEthereumTransactionDetail], address: String, forToken: Token) -> [ViewTransaction] {
-        return [ViewTransaction](topTranscations.map({
-            let txType = $0.type(for: address)
-            let txAddress = txType == .recive ? $0.from : $0.to
-            return ViewTransaction(
-                hash: $0.hash,
-                address: txAddress,
-                ammount: CryptoFormatter.attributedHex(amount: $0.value, type: txType, decimals: forToken.decimals, asset: forToken),
+    //
+
+    private func mapTransactions(_ transactions: [UtxoTransactionValue], address: String, asset: AssetInterface) -> [HistoryTxModel] {
+        return [HistoryTxModel](transactions.map({
+            HistoryTxModel(
+                chainType: asset.chainType,
+                asset: asset,
+                txhash: $0.txid,
+                toAddress: $0.vout.first!.scriptPubKey.addresses?.first ?? "",
+                fromAddress: $0.vin.first?.addr ?? "",
+                myAddress: address,
+                ammount: $0.transactionAmmount(for: address) ?? 0,
                 status: $0.status,
                 type: $0.type(for: address),
-                date: TimeInterval($0.timeStamp) ?? 0,
-                originalData: $0
+                date: TimeInterval($0.time),
+                fee: "\(NSDecimalNumber(string: String(format: "%.15f", $0.fees!)))"
             )
         }))
     }
-}
 
-public extension TOPEthereumTransactionDetail {
-    var status: TransactionStatus {
-        if (Int(confirmations) ?? 0) < 5 {
-            return .pending
-        }
-        return .success
-    }
-
-    func type(for: String) -> TransactionType {
-        switch `for`.uppercased() {
-        case to.uppercased():
-            return .recive
-        case from.uppercased():
-            return .send
-        default:
-            return .send
-        }
+    private func mapTransactions(_ transactions: [TOPEthereumTransactionDetail], address: String, asset: AssetInterface) -> [HistoryTxModel] {
+        return [HistoryTxModel](transactions.map({
+            HistoryTxModel(
+                chainType: asset.chainType,
+                asset: asset,
+                txhash: $0.hash,
+                toAddress: $0.to,
+                fromAddress: $0.from,
+                myAddress: address,
+                ammount: asset.type == .coin ? CryptoFormatter.WeiToEther(valueStr: $0.value) : CryptoFormatter.WeiToTokenBalance(valueStr: $0.value, decimals: (asset as! Token).decimals, radix: 10),
+                status: $0.status,
+                type: $0.type(for: address),
+                date: TimeInterval($0.timeStamp) ?? 0,
+                fee: $0.fee,
+                note: asset.type == .token ? nil : $0.input
+            )
+        }))
     }
 }

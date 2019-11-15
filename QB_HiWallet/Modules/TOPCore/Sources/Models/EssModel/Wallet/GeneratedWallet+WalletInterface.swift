@@ -11,6 +11,12 @@ import Foundation
 import HDWalletKit
 
 extension GeneratingWalletInfo: WalletProtocol, ViewWalletInterface {
+
+    
+    public var assetID: String {
+        return mainCoinType.symbol + "-" + mainCoinType.symbol
+    }
+    
     public var fullName: String {
         return mainCoinType.fullName
     }

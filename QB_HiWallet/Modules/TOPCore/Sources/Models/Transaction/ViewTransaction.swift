@@ -35,6 +35,7 @@ public struct ViewTransaction {
     }
     
 
+
     public var statusDesc:String {
             
             switch (status) {

@@ -235,7 +235,7 @@ extension WalletInteractor {
         guard let currentlyAddedWallets = TOPStore.shared.currentUser.wallet?.tokenWallets else {
             return 0
         }
-        let currentCoinAssets = currentlyAddedWallets.filter({ $0.token?.contractAddress == contractAddress })
+        let currentCoinAssets = currentlyAddedWallets.filter({ $0.token!.contractAddress == contractAddress })
         var index: Int32 = 0
         while index < Int32.max {
             if currentCoinAssets.contains(where: { $0.accountIndex == index }) {
@@ -264,7 +264,7 @@ extension WalletInteractor {
 
     public func getTotalBalanceInCurrentCurrency() -> Double {
         var currentBalance: Double = 0
-         allViewWallets.forEach { wallet in
+        allViewWallets.forEach { wallet in
             currentBalance += wallet.balanceInCurrentCurrency
         }
         return currentBalance

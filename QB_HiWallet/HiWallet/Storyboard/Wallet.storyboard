@@ -539,6 +539,11 @@
                                         <outlet property="assetLabel" destination="aJA-dZ-lyO" id="cAA-DL-f81"/>
                                         <outlet property="assetTypesLabel" destination="rW5-o8-ru2" id="S2S-w3-PWX"/>
                                         <outlet property="balanceLabel" destination="GLz-XA-O7N" id="iPq-30-3mg"/>
+                                        <outlet property="eyeButton" destination="DjY-OO-RXo" id="fq3-FM-oiz"/>
+                                        <outlet property="stakingHeight" destination="F6G-Cf-5er" id="gRP-2G-UIF"/>
+                                        <outlet property="stakingRouteView" destination="vyg-O0-pOU" id="Mpn-TD-OVG"/>
+                                        <outlet property="stakingTopIncomeLabel" destination="zzJ-ec-8TU" id="b72-eb-85M"/>
+                                        <outlet property="stakingTopInfoLabel" destination="6sQ-2h-opj" id="YAZ-dK-F1u"/>
                                         <outlet property="walletNameLabel" destination="cy5-wB-QFg" id="QgC-tS-CTz"/>
                                     </connections>
                                 </view>
@@ -656,6 +661,24 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIY-vu-oUY" customClass="GradientView" customModule="HiWallet" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HiWallet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSy-6p-s1d">
+                                        <rect key="frame" x="171" y="55" width="72.5" height="21"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="tSy-6p-s1d" firstAttribute="centerX" secondItem="UIY-vu-oUY" secondAttribute="centerX" id="1G1-60-5nG"/>
+                                    <constraint firstAttribute="height" constant="88" id="7aB-1m-W1p"/>
+                                    <constraint firstAttribute="bottom" secondItem="tSy-6p-s1d" secondAttribute="bottom" constant="12" id="IPE-qF-tlU"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bt9-0Z-QUV" customClass="GradientView" customModule="HiWallet" customModuleProvider="target">
                                 <rect key="frame" x="20" y="782.5" width="374" height="63.5"/>
                                 <subviews>
@@ -704,6 +727,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5BO-7b-3aH" firstAttribute="bottom" secondItem="SbU-Zb-VMT" secondAttribute="bottom" id="6GI-B0-du1"/>
+                            <constraint firstItem="UIY-vu-oUY" firstAttribute="top" secondItem="9lA-sk-7vG" secondAttribute="top" id="AtC-D3-0Lw"/>
+                            <constraint firstItem="SbU-Zb-VMT" firstAttribute="trailing" secondItem="UIY-vu-oUY" secondAttribute="trailing" id="DiN-ff-ObR"/>
+                            <constraint firstItem="UIY-vu-oUY" firstAttribute="leading" secondItem="SbU-Zb-VMT" secondAttribute="leading" id="Dvh-gm-aoT"/>
                             <constraint firstItem="5BO-7b-3aH" firstAttribute="top" secondItem="9lA-sk-7vG" secondAttribute="top" id="Fdn-qe-RYz"/>
                             <constraint firstItem="SbU-Zb-VMT" firstAttribute="bottom" secondItem="bt9-0Z-QUV" secondAttribute="bottom" constant="16" id="IFg-y8-ESC"/>
                             <constraint firstItem="5BO-7b-3aH" firstAttribute="leading" secondItem="SbU-Zb-VMT" secondAttribute="leading" id="bfO-Zn-him"/>
@@ -717,13 +743,11 @@
                         <outlet property="backupLabel" destination="Uy4-Ur-WbA" id="TKu-3s-BWo"/>
                         <outlet property="backupTipLabel" destination="XSm-wx-RtM" id="Vtx-3R-CS4"/>
                         <outlet property="backupTipView" destination="bt9-0Z-QUV" id="ntP-qD-YU8"/>
-                        <outlet property="eyeButton" destination="DjY-OO-RXo" id="vGl-Vg-vkR"/>
+                        <outlet property="fakeNavigationBar" destination="UIY-vu-oUY" id="4UK-MH-FvP"/>
+                        <outlet property="fakeNavigationBarHeight" destination="7aB-1m-W1p" id="cFC-n2-K7D"/>
                         <outlet property="headerView" destination="hN5-Ak-3lO" id="jJt-Vh-2lQ"/>
-                        <outlet property="stakingHeight" destination="F6G-Cf-5er" id="7tJ-HZ-FyG"/>
-                        <outlet property="stakingRoutwView" destination="vyg-O0-pOU" id="LBN-iU-pnC"/>
-                        <outlet property="stakingTopIncomeLabel" destination="zzJ-ec-8TU" id="nEo-Aa-xDe"/>
-                        <outlet property="stakingTopInfoLabel" destination="6sQ-2h-opj" id="IQb-Uk-1WM"/>
                         <outlet property="tableview" destination="5BO-7b-3aH" id="Trp-ST-xVf"/>
+                        <outlet property="titleLabel" destination="tSy-6p-s1d" id="gLl-ob-UmI"/>
                         <segue destination="hPV-k3-PeV" kind="custom" id="yrA-75-H2I"/>
                         <segue destination="qki-wn-3Kc" kind="custom" id="ipc-tX-tUI"/>
                     </connections>

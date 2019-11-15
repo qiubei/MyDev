@@ -16,8 +16,8 @@ public enum ETHServices {
     case getBalance(address: String)
     case sendTransaction(hexValue: String)
     case getERC20Balance(address: String, contract: String)
-    case getETHTransactionhistory(address: String, pageNum: Int = 1, pageSize: Int = 100)
-    case getEthTokenTxHistory(address: String, action: String, contractAddress: String, pageIndex: Int = 1, pageSize: Int = 100)
+    case getETHTransactionhistory(address: String, pageNum: Int, pageSize: Int)
+    case getEthTokenTxHistory(address: String, action: String, contractAddress: String, pageIndex: Int = 1, pageSize: Int = 1000)
 }
 
 extension ETHServices: TargetType {
@@ -62,7 +62,7 @@ extension ETHServices: TargetType {
             params["hexValue"] = hexValue
         case let .getETHTransactionhistory(address, pageNum, pageSize):
             params["address"] = address
-            params["pageNum"] = pageNum
+            params["pageIndex"] = pageNum
             params["pageSize"] = pageSize
         case let .getEthTokenTxHistory(address, action, contractAddress, pageIndex, pageSize):
             params["action"] = action

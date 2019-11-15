@@ -30,11 +30,10 @@ public enum CurrencyType {
 
 public protocol AssetInterface {
     var name: String { get }
-//    var localizedName: String { get }
     var symbol: String { get }
+    var chainType: String { get }
     var iconUrl: String { get }
     var type: CryptoType { get }
-    var shadowColor: UIColor { get }
     var minimumTransactionAmmount: Double { get }
     var assetID: String { get }
     func isValidAddress(_ address: String) -> Bool

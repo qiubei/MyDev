@@ -19,7 +19,7 @@ public enum CommonServices {
     case searchCoin(
         coinName: String,
         pageIndex: Int = 1,
-        pageSize: Int = 30)
+        pageSize: Int = 10)
 }
 
 extension CommonServices: TargetType {

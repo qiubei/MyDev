@@ -35,8 +35,6 @@ public class CurrencyRankDaemon: CurrencyRankDaemonInterface {
         group.notify(queue: .main, execute: {
             callBack?()
         })
-        
-        //TODO: enter 两次不够优雅。需要优化。（问题是 info 回调底层给了两次）
         assets.forEach { asset in
             group.enter()
             group.enter()

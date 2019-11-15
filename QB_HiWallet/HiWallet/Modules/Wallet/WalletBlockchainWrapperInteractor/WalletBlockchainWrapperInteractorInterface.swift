@@ -22,5 +22,6 @@ public protocol WalletBlockchainWrapperInteractorInterface {
 
     func txRawParametrs(for asset: AssetInterface, toAddress: String, ammountInCrypto: String, data: Data) throws -> (value: Wei, address: String, data: Data)
     func sendEthTransaction(wallet: ViewWalletInterface, transacionDetial: EtherTxInfo, result: @escaping (TOPNetworkResult<String>) -> Void) throws
-    func getTransactionsByWallet(_ wallet: WalletProtocol, transactions: @escaping ([ViewTransaction]) -> Void, failure: @escaping (TOPHttpError) -> Void)
+    func getTxHistoryByWallet(_ wallet: WalletProtocol, pageNum: NSInteger, transactions: @escaping ([HistoryTxModel]) -> Void, failure: @escaping (TOPHttpError) -> Void)
+
 }

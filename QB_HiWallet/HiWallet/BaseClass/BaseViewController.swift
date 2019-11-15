@@ -9,6 +9,9 @@
 import TOPCore
 import UIKit
 
+typealias ActionBlock<T> = (T)->()
+typealias EmptyAction = ()->()
+
 class BaseViewController: UIViewController, NibLoadable {
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -14,8 +14,8 @@ import UIKit
 class AuthIdentityView: UIView {
     private var backView: UIView
     private var verifyView: AuthenticationView
-    private lazy var userService: ViewUserStorageServiceInterface = inject()
     var resultBack: ((_ success: Bool, _ password: String?) -> Void)?
+    private lazy var userService: ViewUserStorageServiceInterface = inject()
 
     override init(frame: CGRect) {
         backView = UIView(frame: frame)
@@ -40,10 +40,6 @@ class AuthIdentityView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// show the password verify view
-    /// - Parameters:
-    ///   - passVerify: it's a flag of not to verify the biodata
-    ///   - resultBack: result
     class func showWithResult(passVerify: Bool = false, resultBack: @escaping (_ success: Bool, _ passwd: String?) -> Void) {
         let auth = AuthIdentityView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
         auth.resultBack = { result, pwd in
@@ -82,10 +78,12 @@ class AuthIdentityView: UIView {
 
                 } else {
                     // 如果没有启人脸
-                    DLog("生物验证不可用")
+                    DLog("不可用")
                     (inject() as ViewUserStorageServiceInterface).update({ user in
                         user.biometricLogin = false
-                        user.biometricPay = false
+                    })
+                    (inject() as ViewUserStorageServiceInterface).update({ user in
+                        user.biometricLogin = false
                     })
                 }
             }
@@ -96,11 +94,12 @@ class AuthIdentityView: UIView {
 // MARK: - 关闭免密，清空指纹信息
 
 extension AuthIdentityView {
-    // 系统设置关闭生物授权（指纹或面容）时，同步本地偏好设置项。
     private class func closeBioAction() {
         (inject() as ViewUserStorageServiceInterface).update({ user in
             user.biometricLogin = false
-            user.biometricPay = false
+        })
+        (inject() as ViewUserStorageServiceInterface).update({ user in
+            user.biometricLogin = false
         })
         UserDefaults.standard.set(nil, forKey: UserDefautConst.LAContentID)
 
@@ -112,7 +111,6 @@ extension AuthIdentityView {
     }
 }
 
-//MARK:- authention view ui action delegate
 extension AuthIdentityView: AuthenticationViewProtocol {
     func passwordVerify(password: String) {
         if password.sha512().sha512() == userService.users.first?.passwordHash {

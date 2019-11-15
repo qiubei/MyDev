@@ -9,27 +9,17 @@
 import UIKit
 
 extension MainCoin: AssetInterface {
+    
+    public var chainType: String {
+       return symbol
+    }
+    
     public var name: String {
         return fullName
     }
 
     public var assetID: String {
-        switch self {
-        case .bitcoin:
-            return "310"
-        case .ethereum:
-            return "1"
-        case .litecoin:
-            return "0"
-        case .bitcoinCash:
-            return "0"
-        case .dash:
-            return "0"
-        case .topnetwork:
-            return "0"
-        case .unknowCoin:
-            return "0"
-        }
+        return symbol + "-" + symbol
     }
 
     public var fullName: String {
@@ -70,15 +60,6 @@ extension MainCoin: AssetInterface {
         }
     }
 
-    public var shadowColor: UIColor {
-        switch self {
-        case .bitcoin:
-            return .lightGray
-        case .ethereum:
-            return .lightGray
-        default: return .lightGray
-        }
-    }
 
     public static var allCases: [MainCoin] {
         return [.bitcoin, .ethereum, .litecoin, .bitcoinCash]

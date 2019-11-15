@@ -26,10 +26,14 @@ class AssetCardViewController: BaseViewController {
     }
 
     // Data
-    var assetWalletList: [ViewWalletInterface] = [] //TODO: 为什么不直接用这个从上层赋值，而要借助 assetID？
     var assetID: String!
+    let identifier = "asset_tx_id"
+    private var isLoadingData = false //是否正在加载数据
+    private var pageNum = 1 //分页
+
+    private var assetWalletList: [ViewWalletInterface] = []
     private var currentWallet: ViewWalletInterface?
-    private var transitionHistoryList: [TransactionListViewModel] = []
+    private lazy var historyPresenter = TransactionHistoryPresenter()
 
     // MARK: - 生命周期
 
@@ -38,13 +42,27 @@ class AssetCardViewController: BaseViewController {
 
         registNotice()
         reloadData()
+
+        let wallet = assetWalletList.first!
+        titleImageview.setIconWithWallet(model: wallet)
+        titleLabel.text = wallet.symbol
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateRightBarItems()
     }
 
     // MARK: - 刷新数据
 
     @objc func reloadData() {
+        pageNum = 1
+
+        TOPNetworkManager<ETHServices, Any>.cancelAllRequest()
+        TOPNetworkManager<BTCServices, Any>.cancelAllRequest()
         reloadCardInfo()
-        loadData()
+        loadBalanaceData()
+        loadHistory()
     }
 
     private func registNotice() {
@@ -60,9 +78,9 @@ class AssetCardViewController: BaseViewController {
         tableview.dataSource = self
         tableview.delegate = self
         assetCardsView.uiService = self
-
+        let nib = UINib(nibName: "AssetTranscationCellXIB", bundle: nil)
+        tableview.register(nib, forCellReuseIdentifier: identifier)
         tableview.refreshControl = UIRefreshControl()
-    
         tableview.refreshControl?.addTarget(self, action: #selector(reloadData), for: .valueChanged)
 
         navigationItem.titleView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 20)).then { [weak self] in
@@ -102,11 +120,6 @@ class AssetCardViewController: BaseViewController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateRightBarItems()
-    }
-
     @objc
     private func voteBarAction(_ sender: UIBarButtonItem) {
         Preference.hasTopVoted = true
@@ -122,7 +135,7 @@ class AssetCardViewController: BaseViewController {
     }
 
     @objc private func walletDeleteAction(_ notification: Notification) {
-        reloadData()
+        reloadCardInfo()
         assetCardsView.selectCard(index: 0, animated: true)
     }
 }
@@ -140,23 +153,49 @@ extension AssetCardViewController {
         currentWallet = (currentWallet != nil && !currentWallet!.isInvalidated) ? currentWallet : assetWalletList.first
         assetCardsView.walletList = assetWalletList
         updateRightBarItems()
+        historyPresenter.currentWallet = currentWallet
+        historyPresenter.delegate = self
     }
 
-    private func loadData() {
-        guard currentWallet != nil else {
+    private func loadHistory() {
+        isLoadingData = true
+
+        if historyPresenter.isFinish && pageNum != 1 {
+            lodingView.stopAnimating()
+            tableview.refreshControl?.endRefreshing()
+            isLoadingData = false
             return
         }
-        TOPNetworkManager<ETHServices, Any>.cancelAllRequest()
-        TOPNetworkManager<BTCServices, Any>.cancelAllRequest()
 
-        if !tableview.refreshControl!.isRefreshing {
+        if !tableview.refreshControl!.isRefreshing && pageNum == 1 {
             lodingView.startAnimating()
         }
 
+        //获取历史纪录
+        historyPresenter.getHistory(page: pageNum, success: { [weak self] in
+            self?.lodingView.stopAnimating()
+            self?.tableview.refreshControl?.endRefreshing()
+            self?.tableview.ly_emptyView = LYEmptyView.empty(with: UIImage(named: "noData_icon"), titleStr: "无历史记录".localized(), detailStr: "")
+            self?.tableview.reloadData()
+            self?.isLoadingData = false
+
+        }, failure: { [weak self] error in
+            // Cancel request handler
+            if error.code != 6 {
+                Toast.showToast(text: error.message)
+            }
+            self?.lodingView.stopAnimating()
+            self?.tableview.refreshControl?.endRefreshing()
+        })
+    }
+
+    private func loadBalanaceData() {
+        //获取余额
         if currentWallet!.isMainCoin {
             (inject() as WalletBlockchainWrapperInteractorInterface).getCoinBalance(for: MainCoin.getTypeWithSymbol(symbol: currentWallet!.symbol), address: currentWallet!.address, balance: { balance in
 
                 (inject() as UserStorageServiceInterface).update({ _ in
+
                     self.currentWallet!.lastBalance = balance
                     self.reloadCardInfo()
 
@@ -175,54 +214,6 @@ extension AssetCardViewController {
             }, failure: {
             })
         }
-        (inject() as WalletBlockchainWrapperInteractorInterface).getTransactionsByWallet(currentWallet!, transactions: { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            self.transitionHistoryList.removeAll()
-
-            // 所有数据
-            let transcationList = result
-
-            // pending数据
-            let processingTxList = transcationList.filter {
-                $0.status == .pending
-            }
-            if !processingTxList.isEmpty {
-                let viewModel = TransactionListViewModel(titile: "正在处理".localized(), transactionList: processingTxList)
-                self.transitionHistoryList.append(viewModel)
-            }
-            // 完成的交易
-            let finishTxList = transcationList.filter {
-                $0.status != .pending
-            }
-            if !finishTxList.isEmpty {
-                let viewModel = TransactionListViewModel(titile: "交易记录".localized(), transactionList: finishTxList)
-                self.transitionHistoryList.append(viewModel)
-            }
-            // 都没有
-            if processingTxList.isEmpty && finishTxList.isEmpty {
-                let viewModel = TransactionListViewModel(titile: "交易记录".localized(), transactionList: [])
-                self.transitionHistoryList.append(viewModel)
-            }
-            self.tableview.ly_emptyView = LYEmptyView.empty(with: UIImage(named: "noData_icon"), titleStr: "无历史记录".localized(), detailStr: "")
-            self.tableview.reloadData()
-            self.lodingView.stopAnimating()
-            self.tableview.refreshControl?.endRefreshing()
-        }, failure: { error in
-            self.transitionHistoryList.removeAll()
-            // Cancel request handler
-            if error.code != 6 {
-                Toast.showToast(text: error.message)
-            }
-            self.tableview.reloadData()
-            self.lodingView.stopAnimating()
-            self.tableview.refreshControl?.endRefreshing()
-        })
-
-        let wallet = assetWalletList.first!
-        titleImageview.setIconWithWallet(model: wallet)
-        titleLabel.text = wallet.symbol
     }
 }
 
@@ -230,34 +221,23 @@ extension AssetCardViewController {
 
 extension AssetCardViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return transitionHistoryList.count != 0 ? transitionHistoryList.count : 1
+        return historyPresenter.txHistoryViewModelList.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transitionHistoryList.count != 0 ? transitionHistoryList[section].transactionList.count : 0
+        return historyPresenter.txHistoryViewModelList[section].transactionList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "asset_tx_id"
-
-        let cell: AssetTranscationCell
-        if let re_cell = tableview.dequeueReusableCell(withIdentifier: identifier) as? AssetTranscationCell {
-            cell = re_cell
-        } else {
-            cell = Nib.load(name: "AssetTranscationCellXIB").view as! AssetTranscationCell
-        }
-
-        cell.setUpWith(tx: transitionHistoryList[indexPath.section].transactionList[indexPath.row])
+        let cell = tableview.dequeueReusableCell(withIdentifier: identifier) as! AssetTranscationCell
+        let txModel = historyPresenter.txHistoryViewModelList[indexPath.section].transactionList[indexPath.row]
+        cell.setUpWith(tx: txModel)
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
-
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return transitionHistoryList.count != 0 ? transitionHistoryList[section].titile : "交易记录".localized()
-//    }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
@@ -270,11 +250,9 @@ extension AssetCardViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let transaction = transitionHistoryList[indexPath.section].transactionList[indexPath.row]
+        let txModel = historyPresenter.txHistoryViewModelList[indexPath.section].transactionList[indexPath.row]
         let txDetailController = TransactionDetailController.loadFromWalletStoryboard()
-        txDetailController.transationModel = transaction.originalData
-        txDetailController.viewTransaction = transaction
-        txDetailController.wallet = currentWallet
+        txDetailController.txModel = txModel
         navigationController?.pushViewController(txDetailController, animated: true)
     }
 
@@ -285,13 +263,28 @@ extension AssetCardViewController: UITableViewDataSource, UITableViewDelegate {
         view.addSubview(label)
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = UIColor(named: "#111622")!
-        label.text = transitionHistoryList.count != 0 ? transitionHistoryList[section].titile : "交易记录".localized()
+        label.text = historyPresenter.txHistoryViewModelList.count != 0 ? historyPresenter.txHistoryViewModelList[section].titile : "交易记录".localized()
         label.snp.makeConstraints {
             $0.left.equalTo(20)
             $0.centerY.equalToSuperview()
         }
 
         return view
+    }
+
+    //加载更多
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        var row = 0
+        if historyPresenter.txHistoryViewModelList.count == 1 {
+            row = historyPresenter.txHistoryViewModelList.first?.transactionList.count ?? 0
+        } else {
+            row = historyPresenter.txHistoryViewModelList.last?.transactionList.count ?? 0
+        }
+
+        if indexPath.row == row - 2 && !isLoadingData {
+            pageNum += 1
+            loadHistory()
+        }
     }
 }
 
@@ -330,7 +323,8 @@ extension AssetCardViewController: AssertCardCollectionActionService {
 extension AssetCardViewController {
     func collectionViewDidSelected(indexPath: IndexPath) {
         currentWallet = assetWalletList[indexPath.row]
-        loadData()
+        historyPresenter.currentWallet = currentWallet
+        reloadData()
     }
 }
 
@@ -363,7 +357,7 @@ extension AssetCardViewController {
         if assetWalletList.count < 3 {
             let item = UIBarButtonItem(image: UIImage(named: "Address_add"), style: .plain, target: self, action: #selector(rightBarAction(_:)))
             rightBarItems.append(item)
-            if let flag = Preference.stakingSwitch, flag, !assetWalletList.first!.isMainCoin && (assetWalletList.first!.symbol == MainCoin.topnetwork.symbol) {
+            if let flag = Preference.stakingSwitch, flag, assetWalletList.first!.assetID == "ETH-TOP" {
                 let voteItem = UIBarButtonItem(image: UIImage(named: "icon_web_vote_none"), style: .plain, target: self, action: #selector(voteBarAction(_:)))
                 if Preference.hasTopVoted {
                     voteItem.image = UIImage(named: "icon_web_vote")
@@ -371,7 +365,7 @@ extension AssetCardViewController {
                 rightBarItems.append(voteItem)
             }
         } else {
-            if let flag = Preference.stakingSwitch, flag, !assetWalletList.first!.isMainCoin && (assetWalletList.first!.symbol == MainCoin.topnetwork.symbol) {
+            if let flag = Preference.stakingSwitch, flag, assetWalletList.first!.assetID == "ETH-TOP" {
                 let voteItem = UIBarButtonItem(image: UIImage(named: "icon_web_vote_none"), style: .plain, target: self, action: #selector(voteBarAction(_:)))
                 if Preference.hasTopVoted {
                     voteItem.image = UIImage(named: "icon_web_vote")
@@ -380,5 +374,11 @@ extension AssetCardViewController {
             }
         }
         navigationItem.rightBarButtonItems = rightBarItems
+    }
+}
+
+extension AssetCardViewController: TransactionHistoryPresenterDelegate {
+    func reloadTransactionHistor() {
+        tableview.reloadData()
     }
 }

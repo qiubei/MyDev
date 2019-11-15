@@ -6,8 +6,9 @@
 //  Copyright © 2019 TOP. All rights reserved.
 //
 
-import Foundation
 import EssentiaBridgesApi
+import Foundation
+import HDWalletKit
 
 public struct TOPEthereumTransactionDetail: Codable {
     public var blockHash: String
@@ -28,4 +29,31 @@ public struct TOPEthereumTransactionDetail: Codable {
     public var txreceipt_status: String?
     public var gasUsed: String
     public var value: String
+}
+
+public extension TOPEthereumTransactionDetail {
+    var fee: String {
+        let gas = BInt(gasPrice)! * BInt(gasUsed)!
+        let gasValue = CryptoFormatter.WeiToEther(valueStr: "\(gas)")
+        let fee = NSDecimalNumber(string: String(format: "%.15f", gasValue))
+        return "\(fee)"
+    }
+
+    var status: TransactionStatus {
+        if (Int(confirmations) ?? 0) < 5 {
+            return .pending
+        }
+        return .success
+    }
+
+    func type(for: String) -> TransactionType {
+        switch `for`.uppercased() {
+        case to.uppercased():
+            return .recive
+        case from.uppercased():
+            return .send
+        default:
+            return .send
+        }
+    }
 }

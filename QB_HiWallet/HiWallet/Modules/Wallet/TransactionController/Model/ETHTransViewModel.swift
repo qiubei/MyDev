@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import TOPCore
 import HDWalletKit
+import TOPCore
 
 class ETHTransViewModel: TranstonInterface {
     // 转账需要的参数
@@ -25,8 +25,6 @@ class ETHTransViewModel: TranstonInterface {
     var feeList: [NormalPopModel]! // 以太坊gas
     var feePrice: [String]! // 以太坊gas
     var dataList: [SendPopViewModel]!
-
-    private lazy var chainWrapper: WalletBlockchainWrapperInteractorInterface = inject()
 
     func loadFeeData(callback: @escaping (Bool) -> Void) {
         TOPNetworkManager<ETHServices, GasSpeed>.requestModel(.getFeeList, success: { gasSpeedModel in
@@ -50,10 +48,11 @@ class ETHTransViewModel: TranstonInterface {
                                  gasLimit: gasLimit)
 
         do {
-            try chainWrapper.sendEthTransaction(wallet: wallet!, transacionDetial: txInfo, result: {
+            try (inject() as WalletBlockchainWrapperInteractorInterface).sendEthTransaction(wallet: wallet!, transacionDetial: txInfo, result: {
                 Toast.hideHUD()
                 switch $0 {
                 case let .success(txHash):
+                    self.recordLocalTx(txhash: txHash)
                     callback((true, txHash))
 
                 case let .failure(error):
@@ -114,14 +113,14 @@ class ETHTransViewModel: TranstonInterface {
         let toModel = SendPopViewModel(title: "发送到".localized(), topDesc: contact?.note ?? "", bottomDesc: address)
         // 速度
         let fastSpeed = NormalPopModel(speedDesc: String(format: "预计 %@ 分钟内".localized(), ethFee!.fastWait),
-                                   Fee: getAmountWithSymble(value: getFreeWithGas(gasPrice: ethFee!.fastest)) + BalanceFormatter.getCurreyPrice(value: getFreeWithGas(gasPrice: ethFee!.fastest)),
-                                   image: #imageLiteral(resourceName: "icon_tx_speed_fast"))
+                                       Fee: getAmountWithSymble(value: getFreeWithGas(gasPrice: ethFee!.fastest)) + BalanceFormatter.getCurreyPrice(value: getFreeWithGas(gasPrice: ethFee!.fastest)),
+                                       image: #imageLiteral(resourceName: "icon_tx_speed_fast"))
         let fastSpeed2 = NormalPopModel(speedDesc: String(format: "预计 %@ 分钟内".localized(), ethFee!.avgWait),
-                                    Fee: getAmountWithSymble(value: getFreeWithGas(gasPrice: ethFee!.average)) + BalanceFormatter.getCurreyPrice(value: getFreeWithGas(gasPrice: ethFee!.average)),
-                                    image: #imageLiteral(resourceName: "icon_tx_speed_normal"))
+                                        Fee: getAmountWithSymble(value: getFreeWithGas(gasPrice: ethFee!.average)) + BalanceFormatter.getCurreyPrice(value: getFreeWithGas(gasPrice: ethFee!.average)),
+                                        image: #imageLiteral(resourceName: "icon_tx_speed_normal"))
         let fastSpeed3 = NormalPopModel(speedDesc: String(format: "预计 %@ 分钟内".localized(), ethFee!.safeLowWait),
-                                    Fee: getAmountWithSymble(value: getFreeWithGas(gasPrice: ethFee!.safeLow)) + BalanceFormatter.getCurreyPrice(value: getFreeWithGas(gasPrice: ethFee!.safeLow)),
-                                    image: #imageLiteral(resourceName: "icon_tx_speed_slow"))
+                                        Fee: getAmountWithSymble(value: getFreeWithGas(gasPrice: ethFee!.safeLow)) + BalanceFormatter.getCurreyPrice(value: getFreeWithGas(gasPrice: ethFee!.safeLow)),
+                                        image: #imageLiteral(resourceName: "icon_tx_speed_slow"))
 
         feeList = [fastSpeed, fastSpeed2, fastSpeed3]
         feePrice = [ethFee!.fastest, ethFee!.average, ethFee!.safeLow]
@@ -194,5 +193,17 @@ extension ETHTransViewModel {
         return num
 
 //        return "\(total)" + " ETH"// + "≈ \(BalanceFormatter.getCurreyPrice(value: total))"
+    }
+
+    private func recordLocalTx(txhash: String) {
+        let localModel = LocalTxModel(txHash: txhash, from: wallet.address, to: address, value: amount, fee: getfee(), note: note.toHexString(), assetID: wallet.assetID)
+        LocalTxPool.pool.insertLocalTx(localTx: localModel, asset: wallet.asset)
+    }
+
+    private func getfee() -> String {
+        let gas = BInt(gasPrice) * BInt("21000")!
+        let gasValue = CryptoFormatter.WeiToEther(valueStr: "\(gas)")
+        let fee = NSDecimalNumber(string: String(format: "%.15f", gasValue))
+        return "\(fee)"
     }
 }

@@ -12,14 +12,10 @@ import RealmSwift
 import TOPCore
 import UIKit
 
-// MAKR: - AuthenticationDelegate
-//protocol AuthenticationDelegate: class {
-//    func authenticationSuccessful()
-//    func switchAuthenticationMode()
-//}
-//func authenticationSuccessful() {
-//    AuthenticationService.shared.closeAuthentication()
-//}
+protocol AuthenticationDelegate: class {
+    func authenticationSuccessful()
+    func switchAuthenticationMode()
+}
 
 public enum HandleType {
     case setPassword
@@ -35,14 +31,13 @@ class AuthenticationViewController: BaseViewController {
 
     private lazy var userService: ViewUserStorageServiceInterface = inject()
     private lazy var keychainService: KeychainServiceInterface = inject()
-    private var mnemonic: String = MnemonicService().newMnemonic(with: .english)
-    private var passwordVerify: String = "" // 输入验证的密码
-    private var password: String = "" // 输入的密码
 
+    var passwordVerify: String = "" // 输入的密码
+    var password: String = "" // 输入的密码
     var handleType: HandleType = .login
+    var mnemonic: String = MnemonicService().newMnemonic(with: .english)
     var importMnemonic: String?
-    
-    //MARK: - Override
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,7 +59,9 @@ class AuthenticationViewController: BaseViewController {
                         if bio != AuthenticationService.shared.laContext.evaluatedPolicyDomainState {
                             userService.update({ user in
                                 user.biometricLogin = false
-                                user.biometricPay = false
+                            })
+                            userService.update({ user in
+                                user.biometricLogin = false
                             })
                             UserDefaults.standard.set(nil, forKey: UserDefautConst.LAContentID)
 
@@ -132,7 +129,9 @@ extension AuthenticationViewController {
     }
 
     @IBAction func deleteButton(_ sender: Any) {
-        if password.count == 0 { return }
+        if password.count == 0 {
+            return
+        }
 
         let imageView = view.viewWithTag(1000 + password.count - 1) as! UIImageView
         imageView.isHighlighted = false
@@ -149,15 +148,20 @@ extension AuthenticationViewController {
             case .login:
                 if verify(password: password) {
                     loadAccount()
+
                 } else {
                     password = ""
                     pinView.shake()
                     let soundID = SystemSoundID(kSystemSoundID_Vibrate)
                     AudioServicesPlaySystemSound(soundID)
                 }
+                break
+
             case .setPassword:
+
                 setPassword(password: password)
                 password = ""
+
             default:
                 password = ""
                 break
@@ -174,8 +178,10 @@ extension AuthenticationViewController {
     }
 }
 
+// MAKR: - AuthenticationDelegate
+
 extension AuthenticationViewController {
-    private func setPassword(password: String) {
+    func setPassword(password: String) {
         if passwordVerify.count == 0 {
             passwordVerify = password
             tipLabel.text = "请再次输入密码".localized()
@@ -183,6 +189,7 @@ extension AuthenticationViewController {
         } else {
             if passwordVerify == password {
                 createAccont(password: password)
+
             } else {
                 passwordVerify = ""
                 Toast.showToast(text: "两次密码不一致，请重新输入".localized())
@@ -193,7 +200,7 @@ extension AuthenticationViewController {
     }
 
     // 验证密码
-    private func verify(password: String) -> Bool {
+    func verify(password: String) -> Bool {
         let viewUser = userService.users.first
         if password.sha512().sha512() == viewUser?.passwordHash {
             return true
@@ -201,7 +208,7 @@ extension AuthenticationViewController {
         return false
     }
 
-    private func clearDBAndloadAccount() {
+    func clearDBAndloadAccount() {
         view.isUserInteractionEnabled = false
         Toast.showHUD()
 
@@ -249,7 +256,7 @@ extension AuthenticationViewController {
     }
 
     // 登录账户
-    private func loadAccount() {
+    func loadAccount() {
         guard let userStore: UserStorageServiceInterface = try? RealmUserStorage(seedHash: userService.users.first!.id, password: password) else {
             return
         }
@@ -265,7 +272,6 @@ extension AuthenticationViewController {
             present(alert, animated: true, completion: nil)
             return
         }
-        
         // 这句话必须加
         prepareInjection(userStore, memoryPolicy: .viewController)
 
@@ -279,7 +285,7 @@ extension AuthenticationViewController {
     }
 
     // 创建账户
-    private func createAccont(password: String) {
+    func createAccont(password: String) {
         view.isUserInteractionEnabled = false
         Toast.showHUD()
 
@@ -348,4 +354,8 @@ extension AuthenticationViewController {
             }
         }
     }
+}
+
+func authenticationSuccessful() {
+    AuthenticationService.shared.closeAuthentication()
 }

@@ -1,0 +1,261 @@
+PODS:
+  - Alamofire (4.9.0)
+  - BlocksKit (2.2.5):
+    - BlocksKit/All (= 2.2.5)
+  - BlocksKit/All (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.5)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/MessageUI (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BulletinBoard (4.1.0)
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
+  - CryptoSwift (1.1.2)
+  - EFFoundation (1.1.1):
+    - EFFoundation/Core (= 1.1.1)
+  - EFFoundation/Core (1.1.1)
+  - EFQRCode (5.1.3):
+    - EFFoundation (>= 1.1.1)
+    - EFQRCode/Core (= 5.1.3)
+  - EFQRCode/Core (5.1.3):
+    - EFFoundation (>= 1.1.1)
+  - ESPullToRefresh (2.9)
+  - essentia-bridges-api-ios (0.4.7):
+    - essentia-network-core-ios
+  - essentia-network-core-ios (0.2.5):
+    - RxSwift
+  - Fabric (1.10.2)
+  - Firebase/Analytics (6.10.0):
+    - Firebase/Core
+  - Firebase/Core (6.10.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.1.3)
+  - Firebase/CoreOnly (6.10.0):
+    - FirebaseCore (= 6.3.1)
+  - FirebaseAnalytics (6.1.3):
+    - FirebaseCore (~> 6.3)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.1.3)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3.901)
+  - FirebaseCore (6.3.1):
+    - FirebaseCoreDiagnostics (~> 1.0)
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+  - FirebaseCoreDiagnostics (1.1.1):
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleDataTransportCCTSupport (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+    - nanopb (~> 0.3.901)
+  - FirebaseCoreDiagnosticsInterop (1.0.0)
+  - FirebaseInstanceID (4.2.5):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - GoogleAppMeasurement (6.1.3):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3.901)
+  - GoogleDataTransport (3.0.1)
+  - GoogleDataTransportCCTSupport (1.2.1):
+    - GoogleDataTransport (~> 3.0)
+    - nanopb (~> 0.3.901)
+  - GoogleUtilities/AppDelegateSwizzler (6.3.1):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.3.1)
+  - GoogleUtilities/Logger (6.3.1):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.3.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.3.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.3.1)"
+  - GoogleUtilities/Reachability (6.3.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.3.1):
+    - GoogleUtilities/Logger
+  - HandyJSON (5.0.0)
+  - HDWalletKit (0.3.7):
+    - CryptoSwift
+    - secp256k1.swift
+  - IQKeyboardManagerSwift (6.5.1)
+  - KeychainAccess (3.2.1)
+  - LYEmptyView (1.3.1)
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.1)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - netfox (1.16.0)
+  - ObjectMapper (3.5.1)
+  - Realm (3.20.0):
+    - Realm/Headers (= 3.20.0)
+  - Realm/Headers (3.20.0)
+  - RealmSwift (3.20.0):
+    - Realm (= 3.20.0)
+  - Result (4.1.0)
+  - RxSwift (5.0.0)
+  - SDWebImage (5.2.3):
+    - SDWebImage/Core (= 5.2.3)
+  - SDWebImage/Core (5.2.3)
+  - secp256k1.swift (0.1.4)
+  - SnapKit (5.0.1)
+  - SVProgressHUD (2.2.5)
+  - SwiftyJSON (5.0.0)
+  - SwiftyUserDefaults (4.0.0)
+  - Then (2.6.0)
+  - Toast-Swift (5.0.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - BlocksKit
+  - BulletinBoard
+  - Crashlytics
+  - CryptoSwift
+  - EFQRCode
+  - ESPullToRefresh
+  - essentia-bridges-api-ios
+  - essentia-network-core-ios
+  - Firebase/Analytics
+  - HandyJSON
+  - HDWalletKit (from `https://github.com/yuying2012/HDWallet.git`)
+  - IQKeyboardManagerSwift
+  - KeychainAccess
+  - LYEmptyView
+  - Moya
+  - netfox
+  - ObjectMapper
+  - RealmSwift
+  - SDWebImage
+  - secp256k1.swift
+  - SnapKit
+  - SVProgressHUD
+  - SwiftyJSON
+  - SwiftyUserDefaults
+  - Then
+  - Toast-Swift
+
+SPEC REPOS:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - Alamofire
+    - BlocksKit
+    - BulletinBoard
+    - Crashlytics
+    - CryptoSwift
+    - EFFoundation
+    - EFQRCode
+    - ESPullToRefresh
+    - essentia-bridges-api-ios
+    - essentia-network-core-ios
+    - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
+    - FirebaseInstanceID
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
+    - GoogleUtilities
+    - HandyJSON
+    - IQKeyboardManagerSwift
+    - KeychainAccess
+    - LYEmptyView
+    - Moya
+    - nanopb
+    - netfox
+    - ObjectMapper
+    - Realm
+    - RealmSwift
+    - Result
+    - RxSwift
+    - SDWebImage
+    - secp256k1.swift
+    - SnapKit
+    - SVProgressHUD
+    - SwiftyJSON
+    - SwiftyUserDefaults
+    - Then
+    - Toast-Swift
+
+EXTERNAL SOURCES:
+  HDWalletKit:
+    :git: https://github.com/yuying2012/HDWallet.git
+
+CHECKOUT OPTIONS:
+  HDWalletKit:
+    :commit: 2f3bf6592f545eeda865659eb19c7fb89e589546
+    :git: https://github.com/yuying2012/HDWallet.git
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  BulletinBoard: c774340545b5cfd05a96a89f63b105ecc95c86f9
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
+  CryptoSwift: 31dacd1f13427439ddae5b5cbaae4c8dbc43047e
+  EFFoundation: 26a2731ace3e22cf5f7bb45d28c6afbc945959dd
+  EFQRCode: 0979a5c181864085ca7f317b5b5c7b5bf496ad0e
+  ESPullToRefresh: ce058a36454a5032519cc9d8b45da217728cf104
+  essentia-bridges-api-ios: 2301626ee11f1e9d497653fc3f14abb36dbd084a
+  essentia-network-core-ios: 6371084c7240eeb8286f702542b18947d57b3c51
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  Firebase: 5e6b7b12bf9adb90986688edc06b156c37e109cd
+  FirebaseAnalytics: 0e3ecff2c5d86070f7d4325e21f1edabfbd558dc
+  FirebaseCore: 064c2dd92a8ca5974bbdcb080df9921e46bd34cd
+  FirebaseCoreDiagnostics: af29e43048607588c050889d19204f4d7b758c9f
+  FirebaseCoreDiagnosticsInterop: 6829da2b8d1fc795ff1bd99df751d3788035d2cb
+  FirebaseInstanceID: 550df9be1f99f751d8fcde3ac342a1e21a0e6c42
+  GoogleAppMeasurement: 434cc7be25e71dc04b8d0e3079125127b330e84a
+  GoogleDataTransport: 166f9b9f82cbf60a204e8fe2daa9db3e3ec1fb15
+  GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
+  GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
+  HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
+  HDWalletKit: 7c619791001aaf81b8da2ef89d780964a737a617
+  IQKeyboardManagerSwift: 9ac7524fad9f9fe9a3b98c927e7772471ca546d2
+  KeychainAccess: d5470352939ced6d6f7fb51cb2e67aae51fc294f
+  LYEmptyView: b6d418cfa38b78df0cf243f9a9c25ccbdc399922
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  netfox: 4590811e5b02e392c72a924c73e000a60ee1f0c7
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  Realm: 8b2ca5bc6479a91f379b6b42b5922e396cd5ba5a
+  RealmSwift: 1949ef26a279e1845bd51d591b9103adfcd121df
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  SDWebImage: 46a7f73228f84ce80990c786e4372cf4db5875ce
+  secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SwiftyUserDefaults: 6a1951df1daa19337862b677dd9a4b9bd4c288cd
+  Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
+  Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
+
+PODFILE CHECKSUM: 1f5a942f97c03589abd7b8f88fcc1dda8ac1827c
+
+COCOAPODS: 1.8.4

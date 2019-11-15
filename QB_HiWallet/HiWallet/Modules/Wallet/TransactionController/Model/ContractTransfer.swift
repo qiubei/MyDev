@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import TOPCore
 import HDWalletKit
+import TOPCore
 
 class ContractTransfer: TranstonInterface {
     // 转账需要的参数
@@ -26,6 +26,7 @@ class ContractTransfer: TranstonInterface {
     var feePrice: [String]! // 以太坊gas
     var dataList: [SendPopViewModel]!
     var ethbalanceModel: BalanceModel?
+
     private lazy var chainWrapper: WalletBlockchainWrapperInteractorInterface = inject()
 
     func loadFeeData(callback: @escaping (Bool) -> Void) {
@@ -60,6 +61,7 @@ class ContractTransfer: TranstonInterface {
                 Toast.hideHUD()
                 switch $0 {
                 case let .success(txHash):
+                    self.recordLocalTx(txhash: txHash)
                     callback((true, txHash))
 
                 case let .failure(error):
@@ -169,7 +171,7 @@ extension ContractTransfer {
     // gas转
     func getETHGas(gas: Double) -> NSNumber {
         let num = Int(gas * pow(10, 9))
-        let bigInt = BInt(num) * BInt(gasLimit) 
+        let bigInt = BInt(num) * BInt(gasLimit)
         let gasValue = CryptoFormatter.WeiToEther(valueStr: "\(bigInt)")
         let num2 = NSDecimalNumber(string: String(format: "%.15f", gasValue))
         return num2
@@ -190,5 +192,17 @@ extension ContractTransfer {
         return num
 
 //        return "\(total)" + " ETH"// + "≈ \(BalanceFormatter.getCurreyPrice(value: total))"
+    }
+
+    private func recordLocalTx(txhash: String) {
+        let localModel = LocalTxModel(txHash: txhash, from: wallet.address, to: address, value: amount, fee: getfee(), note: note.toHexString(), assetID: wallet.assetID)
+        LocalTxPool.pool.insertLocalTx(localTx: localModel, asset: wallet.asset)
+    }
+
+    private func getfee() -> String {
+        let gas = BInt(gasPrice) * BInt(gasLimit)
+        let gasValue = CryptoFormatter.WeiToEther(valueStr: "\(gas)")
+        let fee = NSDecimalNumber(string: String(format: "%.15f", gasValue))
+        return "\(fee)"
     }
 }

@@ -12,6 +12,6 @@ import UIKit
 struct TransactionListViewModel {
 
     var titile: String = ""
-    var transactionList: [ViewTransaction] = []
+    var transactionList: [HistoryTxModel] = []
     
 }

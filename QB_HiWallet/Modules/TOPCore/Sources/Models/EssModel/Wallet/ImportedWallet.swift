@@ -18,6 +18,7 @@ public class ImportedWallet: Object {
     @objc public dynamic var createTime: Double = 0
     @objc public dynamic var hidden: Bool = false
     @objc public dynamic var privateCoin: String = ""
+    public dynamic var localTx: List<LocalTxModel> = List()
 
     public var coin: MainCoin {
         set { privateCoin = newValue.rawValue }

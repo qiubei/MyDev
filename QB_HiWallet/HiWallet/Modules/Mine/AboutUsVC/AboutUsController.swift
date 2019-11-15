@@ -80,29 +80,6 @@ extension AboutUsController {
     }
 
     private func checkUpdate() {
-        TOPNetworkManager<CommonServices, UpdateModel>.requestModel(.checkAppUpdate, success: { model in
-            if model.hasUpdate == "0" {
-                let alert = UIAlertController(title: "暂无新版本!".localized(), message: "", preferredStyle: .alert)
-
-                let cancal = UIAlertAction(title: "确认".localized(), style: .cancel, handler: { _ in
-
-                })
-                alert.addAction(cancal)
-                self.present(alert, animated: true, completion: nil)
-            }
-            let alert = UIAlertController(title: "有新版本!".localized(), message: model.description, preferredStyle: .alert)
-            let action = UIAlertAction(title: "去更新".localized(), style: .default, handler: { _ in
-
-                WebMannager.showInSafariWithUrl(url: model.downloadUrl!, controller: self)
-
-            })
-            let cancal = UIAlertAction(title: "取消".localized(), style: .cancel, handler: { _ in
-
-            })
-            alert.addAction(action)
-            alert.addAction(cancal)
-            self.present(alert, animated: true, completion: nil)
-
-        }, failure: nil)
+        AppHandler.shared.checkAppUpdateAlways(self)
     }
 }

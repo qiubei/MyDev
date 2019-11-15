@@ -12,7 +12,6 @@ import HDWalletKit
 import TOPCore
 
 class UTXOTransViewModel: TranstonInterface {
-    
     var gasLimit: Int = 0
     var address: String = "" // 地址
     var amount: String = "" // 数量
@@ -42,7 +41,7 @@ class UTXOTransViewModel: TranstonInterface {
             case let .success(transactions):
                 self.utxo = transactions.map { $0.unspendTx }
             case .failure:
-               self.utxo = []
+                self.utxo = []
             }
         }
     }
@@ -105,14 +104,14 @@ class UTXOTransViewModel: TranstonInterface {
         let toModel = SendPopViewModel(title: "发送到".localized(), topDesc: contact?.note ?? "", bottomDesc: address)
         // 速度
         let fastSpeed = NormalPopModel(speedDesc: "20分钟内".localized(),
-                                   Fee: getBtcFeeDesc(sat: btcfee!.fastestFee),
-                                   image: #imageLiteral(resourceName: "icon_tx_speed_fast"))
+                                       Fee: getBtcFeeDesc(sat: btcfee!.fastestFee),
+                                       image: #imageLiteral(resourceName: "icon_tx_speed_fast"))
         let fastSpeed2 = NormalPopModel(speedDesc: "30分钟内".localized(),
-                                    Fee: getBtcFeeDesc(sat: btcfee!.halfHourFee),
-                                    image: #imageLiteral(resourceName: "icon_tx_speed_normal"))
+                                        Fee: getBtcFeeDesc(sat: btcfee!.halfHourFee),
+                                        image: #imageLiteral(resourceName: "icon_tx_speed_normal"))
         let fastSpeed3 = NormalPopModel(speedDesc: "1小时内".localized(),
-                                    Fee: getBtcFeeDesc(sat: btcfee!.hourFee),
-                                    image: #imageLiteral(resourceName: "icon_tx_speed_slow"))
+                                        Fee: getBtcFeeDesc(sat: btcfee!.hourFee),
+                                        image: #imageLiteral(resourceName: "icon_tx_speed_slow"))
 
         feeList = [fastSpeed, fastSpeed2, fastSpeed3]
         feePrice = [btcfee!.fastestFee, btcfee!.halfHourFee, btcfee!.hourFee]
@@ -146,9 +145,10 @@ class UTXOTransViewModel: TranstonInterface {
     func sendTranstion(callback: @escaping ((Bool, String)) -> Void) {
         do {
             let rawTx = try createRawTx()
-            utxoService!.sendTransaction(with: rawTx) {
+            utxoService!.sendTransaction(with: rawTx) { [weak self] in
                 switch $0 {
-                case .success:
+                case let .success(object):
+                    self?.recordLocalTx(txhash: object.txid)
                     callback((true, ""))
 
                 case let .failure(error):
@@ -162,6 +162,33 @@ class UTXOTransViewModel: TranstonInterface {
 
     func selectFee(index: Int) {
         selectFeeIndex = index
+    }
+
+    func recordLocalTx(txhash: String) {
+        let localModel = LocalTxModel(txHash: txhash,
+                                      from: wallet.address,
+                                      to: address,
+                                      value: amount,
+                                      fee: getfee(),
+                                      note: note,
+                                      assetID: wallet.assetID)
+
+        LocalTxPool.pool.insertLocalTx(localTx: localModel, asset: wallet.asset)
+    }
+
+    private func getfee() -> String {
+        var fee = ""
+        switch selectFeeIndex {
+        case 0:
+            fee = "\(getBtcFee(sat: btcfee!.fastestFee))"
+        case 1:
+            fee = "\(getBtcFee(sat: btcfee!.halfHourFee))"
+        case 2:
+            fee = "\(getBtcFee(sat: btcfee!.hourFee))"
+        default:
+            break
+        }
+        return fee
     }
 }
 

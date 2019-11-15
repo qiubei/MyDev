@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
             FirebaseApp.configure()
         #endif
-        AppConfig.shared.setUp()
+        AppHandler.shared.setUp()
         return true
     }
 

@@ -10,6 +10,10 @@ import CryptoSwift
 import HDWalletKit
 
 extension ImportedWallet: WalletProtocol, ViewWalletInterface {
+    public var assetID: String {
+        return coin.symbol + "-" + coin.symbol
+    }
+
     //导入的帐号索引都是0
     public var accountIndex: Int32 {
         return 0
