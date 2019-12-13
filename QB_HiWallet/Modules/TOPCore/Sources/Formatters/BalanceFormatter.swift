@@ -70,7 +70,7 @@ public final class BalanceFormatter {
         return formattedAmmount(amount: Double(amount))
     }
 
-    public class func getCurreyPrice(fullName:String = MainCoin.ethereum.name ,value: Double) -> String {
+    public class func getCurreyPrice(fullName:String ,value: Double) -> String {
         let symble = TOPStore.shared.currentUser.profile?.currency ?? .cny
         let formatter = BalanceFormatter(currency: TOPStore.shared.currentUser.profile?.currency ?? .cny)
 

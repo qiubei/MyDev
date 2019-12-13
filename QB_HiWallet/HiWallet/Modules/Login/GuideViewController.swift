@@ -27,8 +27,11 @@ class GuideViewController: BaseViewController, UIScrollViewDelegate {
 
     override func setup() {
         scrollview.delegate = self
+    }
+    
+    override func localizedString() {
         startButton.setTitle("开启钱包".localized(), for: .normal)
-        importButton.setTitle("导入钱包".localized(), for: .normal)
+        importButton.setTitle("导入钱包_guide".localized(), for: .normal)
         guide1TextLabel.text = "多链钱包 专业便捷".localized()
         guide1detailLabel.text = "一套助记词管理多链钱包，用户自主管理私钥。".localized()
         guide2TextLabel.text = "简单流畅 极致用户体验".localized()

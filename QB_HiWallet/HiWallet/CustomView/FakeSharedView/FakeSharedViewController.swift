@@ -10,7 +10,6 @@ import UIKit
 import Then
 import SnapKit
 
-
 struct FakeSharedModel {
     let text: String
     let image: UIImage
@@ -38,11 +37,20 @@ class FakeSharedViewController: BaseViewController {
         
         datalist.append([model01])
         datalist.append([model10, model11, model12])
-
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.popAnimation()
+        tableview.addRounderCorner(corners: [.topLeft, .topRight], radius: CGSize(width: 8, height: 8))
     }
     
     private let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
-    
     private let tableview = UITableView(frame: .zero, style: .grouped)
     private let imageView = UIImageView()
     private let button = UIButton()
@@ -58,8 +66,7 @@ class FakeSharedViewController: BaseViewController {
         headerView.addSubview(headerLineView)
         imageView.cornerRadius = 10
         imageView.image = UIImage.init(named: "icon_app")
-        let image = UIImage.init(named: "icon_share_close")
-        button.setImage(image, for: .normal)
+        button.setImage(UIImage.init(named: "icon_share_close"), for: .normal)
         button.bk_(whenTapped: { [weak self] in
             self?.dismissAnimation(completion: {
                 if self?.uiAction == nil { return }
@@ -101,19 +108,9 @@ class FakeSharedViewController: BaseViewController {
             $0.bottom.equalTo(imageView.snp.bottom).offset(15)
         }
     }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadData()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.popAnimation()
-        tableview.addRounderCorner(corners: [.topLeft, .topRight], radius: CGSize(width: 8, height: 8))
-    }
 }
+
+// MARK: - tableview Methods
 
 extension FakeSharedViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -125,8 +122,6 @@ extension FakeSharedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: WebSharedViewCell.identifier) as! WebSharedViewCell
         let model = datalist[indexPath.section][indexPath.row]
         cell.titleLabel.text = model.text
@@ -200,14 +195,14 @@ extension FakeSharedViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension FakeSharedViewController {
-    func popAnimation() {
+    private func popAnimation() {
         tableview.frame.origin.y = view.bounds.height
         UIView.animate(withDuration: 0.25) {
             self.tableview.frame.origin.y = self.view.bounds.height - self.sharedViewHeight
         }
     }
     
-    func dismissAnimation(completion: EmptyAction?) {
+    private func dismissAnimation(completion: EmptyAction?) {
         UIView.animate(withDuration: 0.25, animations: {
             self.tableview.frame.origin.y = self.view.bounds.height
         }) { (flag) in

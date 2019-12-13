@@ -184,11 +184,11 @@ extension AddressDetailTableViewController {
     func isValidAddress(address: String) -> Bool {
         switch typeTextField.text {
         case "ETH":
-            return MainCoin.ethereum.isValidAddress(address)
+            return ChainType.ethereum.isValidAddress(address)
         case "BTC":
-            return MainCoin.bitcoin.isValidAddress(address)
+            return ChainType.bitcoin.isValidAddress(address)
         case "TOP":
-            return MainCoin.topnetwork.isValidAddress(address)
+            return ChainType.topnetwork.isValidAddress(address)
         default:
             return false
         }

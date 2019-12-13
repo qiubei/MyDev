@@ -13,8 +13,8 @@ extension UserWallet {
         var allAssets: [AssetInterface] = []
         var unique: [AssetInterface] = []
 
-        allAssets.append(contentsOf: importedWallets.filter({ !$0.hidden }).map({ $0.coin }))
-        allAssets.append(contentsOf: generatedWalletsInfo.filter({ !$0.hidden }).map({ $0.mainCoinType }))
+        allAssets.append(contentsOf: importedWallets.filter({ !$0.hidden }).map({ $0.mainChainType }))
+        allAssets.append(contentsOf: generatedWalletsInfo.filter({ !$0.hidden }).map({ $0.mainChainType }))
         allAssets.append(contentsOf: tokenWallets.filter({ !$0.hidden }).compactMap({ $0.token }))
         for asset in allAssets {
             guard !unique.contains(where: { $0.name == asset.name }) else { continue }

@@ -14,7 +14,6 @@ public class UserWallet: Object {
     public dynamic var importedWallets: List<ImportedWallet> = List()
     public dynamic var generatedWalletsInfo: List<GeneratingWalletInfo> = List()
     public dynamic var tokenWallets: List<TokenWallet> = List()
-
     public dynamic var sourceType: BackupSourceType = .app
 
     public var isEmpty: Bool {

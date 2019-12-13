@@ -21,41 +21,23 @@ class AboutUsController: BaseTabViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        localized()
         #if DEBUG
             logoImageVIew.isUserInteractionEnabled = true
             logoImageVIew.bk_(whenTapped: { [unowned self] in
                 self.changeTestEnvironment()
             })
-
         #else
 
         #endif
     }
 
-    private func changeTestEnvironment() {
-        let alert = UIAlertController(title: "选择以太坊环境", message: nil, preferredStyle: .actionSheet)
-        let main = UIAlertAction(title: "ETH正式网", style: .default) { _ in
-            UserDefaults.standard.set(true, forKey: UserDefautConst.ETHChain_Main)
-        }
-        let text = UIAlertAction(title: "ETH测试网", style: .default) { _ in
-            UserDefaults.standard.set(false, forKey: UserDefautConst.ETHChain_Main)
-        }
-
-        let cancel = UIAlertAction(title: "取消", style: .cancel) { _ in
-        }
-        alert.addAction(main)
-        alert.addAction(text)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
-    }
-
     private func setup() {
-        title = "关于我们".localized()
         versionLabel.text = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }
 
-    private func localized() {
+    override func localizedString() {
+        super.localizedString()
+        title = "关于我们".localized()
         versionTitleLabel.text = "版本".localized()
         helpLabel.text = "帮助中心".localized()
         termLabel.text = "用户协议".localized()
@@ -70,16 +52,34 @@ extension AboutUsController {
             checkUpdate()
         case (1, 0):
             WebMannager.showInSafariWithUrl(url: LocalizationLanguage.systemLanguage == .chinese ? "https://www.hiwallet.org/help" : "https://www.hiwallet.org/help-en", controller: self)
-            break
         case (1, 1):
             WebMannager.showInSafariWithUrl(url: LocalizationLanguage.systemLanguage == .chinese ? "https://www.hiwallet.org/protocol" : "https://www.hiwallet.org/protocol-en", controller: self)
-            break
-        default:
-            break
+        default: break
         }
     }
 
     private func checkUpdate() {
         AppHandler.shared.checkAppUpdateAlways(self)
+    }
+}
+
+//MARK: - For Debuging
+
+extension AboutUsController {
+    private func changeTestEnvironment() {
+        let alert = UIAlertController(title: "选择以太坊环境", message: nil, preferredStyle: .actionSheet)
+        let main = UIAlertAction(title: "ETH正式网", style: .default) { _ in
+            UserDefaults.standard.set(true, forKey: UserDefautConst.ETHChain_Main)
+        }
+        let text = UIAlertAction(title: "ETH测试网", style: .default) { _ in
+            UserDefaults.standard.set(false, forKey: UserDefautConst.ETHChain_Main)
+        }
+
+        let cancel = UIAlertAction(title: "取消".localized(), style: .cancel) { _ in
+        }
+        alert.addAction(main)
+        alert.addAction(text)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
     }
 }

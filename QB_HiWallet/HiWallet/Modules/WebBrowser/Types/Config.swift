@@ -40,9 +40,9 @@ struct Config {
         set { defaults.set(newValue.rawValue, forKey: Keys.currencyID) }
     }
 
-    var servers: [MainCoin] {
+    var servers: [ChainType] {
         return [
-            MainCoin.ethereum,
+            ChainType.ethereum,
         ]
     }
 }

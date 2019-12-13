@@ -22,7 +22,7 @@ class AssetCardCollectionCell: UICollectionViewCell {
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var receiveButton: UIButton!
 
-    var colors: [CGColor] = [ #colorLiteral(red: 0.6352941176, green: 0.5215686275, blue: 0.1921568627, alpha: 1).cgColor, #colorLiteral(red: 0.7764705882, green: 0.6901960784, blue: 0.2392156863, alpha: 1).cgColor] {
+    var colors: [CGColor] = App.Color.ethColors {
         didSet {
             addGridientColors() 
         }
@@ -41,9 +41,9 @@ class AssetCardCollectionCell: UICollectionViewCell {
         gradientLayer.endPoint = CGPoint(x: 1, y: 0)
         gradientLayer.colors = colors
         gradientLayer.locations = [0, 1]
-        contentView.layer.insertSublayer(gradientLayer, at: 0)
-        backgroundColor = .clear
         
+        backgroundColor = .clear
+        contentView.layer.insertSublayer(gradientLayer, at: 0)
         contentView.cornerRadius = 10
         
         layer.shadowColor = UIColor.black.cgColor
@@ -72,13 +72,13 @@ extension AssetCardCollectionCell {
         self.cardNumimageView.image = { () -> UIImage in
             switch index {
             case 0:
-                return #imageLiteral(resourceName: "img_asset_num_1")
+                return UIImage.init(named: "img_asset_num_1")!
             case 1:
-                return #imageLiteral(resourceName: "img_asset_num_2")
+                return UIImage.init(named: "img_asset_num_2")!
             case 2:
-                return #imageLiteral(resourceName: "img_asset_num_3")
+                return UIImage.init(named: "img_asset_num_3")!
             default:
-                return #imageLiteral(resourceName: "img_asset_num_1")
+                return UIImage.init(named: "img_asset_num_1")!
             }
         }()
         self.coinNumLabel.text = wallet.formattedBalance

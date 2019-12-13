@@ -20,17 +20,16 @@ public class GeneratingWalletInfo: Object {
     @objc public dynamic var createTime: Double = 0
     @objc public dynamic var hidden: Bool = false
     @objc private dynamic var privateCoin: String = ""
-    public dynamic var localTx: List<LocalTxModel> = List()
 
     // 币种
-    public var mainCoinType: MainCoin {
+    public var mainChainType: ChainType {
         set { privateCoin = newValue.rawValue }
         get {
-            return MainCoin(rawValue: privateCoin)!
+            return ChainType(rawValue: privateCoin)!
         }
     }
 
-    public convenience init(name: String, coin: MainCoin, privateKey: String, address: String, accountIndex: Int32, lastBalance: Double) {
+    public convenience init(name: String, coin: ChainType, privateKey: String, address: String, accountIndex: Int32, lastBalance: Double) {
         self.init()
         self.name = name
         self.accountIndex = accountIndex
@@ -42,6 +41,6 @@ public class GeneratingWalletInfo: Object {
     }
 
     public static func == (lhs: GeneratingWalletInfo, rhs: GeneratingWalletInfo) -> Bool {
-        return lhs.mainCoinType == rhs.mainCoinType && lhs.accountIndex == rhs.accountIndex
+        return lhs.mainChainType == rhs.mainChainType && lhs.accountIndex == rhs.accountIndex
     }
 }

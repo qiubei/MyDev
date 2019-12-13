@@ -12,7 +12,7 @@ import RealmSwift
 
 public class ViewUserStorageService: ViewUserStorageServiceInterface {
     let realm: Realm
-    let Version: UInt64 = 19
+    let Version: UInt64 = 21
 
     public init() {
         let config = Realm.Configuration(schemaVersion: Version, migrationBlock: { _, _ in

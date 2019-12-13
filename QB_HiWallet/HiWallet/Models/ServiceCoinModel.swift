@@ -7,33 +7,51 @@
 //
 
 import HandyJSON
+import RealmSwift
 import UIKit
 
-public class ServiceCoinModel: BaseModel {
+public class ServiceCoinModel: Object, HandyJSON {
     // 是否是主链
-    private var mainChain: Bool = true
+    @objc private dynamic var mainChain: Bool = true
     // fullName
-    public var englishName: String = ""
+    @objc public dynamic var englishName: String = ""
     // 中文名
-    public var chineseName: String?
+    @objc public dynamic var chineseName: String?
     // 合约地址
-    public var contractAddress: String?
+    @objc public dynamic var contractAddress: String?
     // 介绍
-    public var introduce: String = ""
+    @objc public dynamic var introduce: String = ""
     // 后台数据库索引id
-    public var id: Int = 0
+    @objc public dynamic var id: Int32 = 0
     // icon
-    public var iconUrl: String = ""
+    @objc public dynamic var iconUrl: String = ""
     // 精度
-    public var decimals: Int?
+    @objc public dynamic var decimals: Int = 0
     // 代币的详情地址
-    public var infoURL: String?
+    @objc public dynamic var infoURL: String?
     // symbol
-    public var symbol: String = ""
+    @objc public dynamic var symbol: String = ""
     // 主链类型
-    public var chainType: String = ""
+    @objc public dynamic var chainType: String = ""
 
     public var isMainChain: Bool {
         return mainChain
+    }
+
+
+    public  func copy() -> ServiceCoinModel {
+        let model = ServiceCoinModel()
+        model.mainChain = mainChain
+        model.englishName = englishName
+        model.chineseName = chineseName
+        model.contractAddress = contractAddress
+        model.introduce = introduce
+        model.id = id
+        model.iconUrl = iconUrl
+        model.decimals = decimals
+        model.infoURL = infoURL
+        model.symbol = symbol
+        model.chainType = chainType
+        return model
     }
 }

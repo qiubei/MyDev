@@ -15,7 +15,7 @@ enum BulletinDataSource {
     static func makeCompletionPage() -> BLTNPageItem {
         
         let page = BLTNPageItem(title: "")
-        page.image = #imageLiteral(resourceName: "complate_icon")
+        page.image = UIImage.init(named: "complate_icon")
         page.appearance = PageItemAppearance.default
 
         page.descriptionText = "发送成功".localized()

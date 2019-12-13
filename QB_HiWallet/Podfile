@@ -15,41 +15,43 @@ def pod_database
 
 end
 
-def pod_UI
-  pod 'SDWebImage'
-  pod 'IQKeyboardManagerSwift'
-  pod 'EFQRCode'
+def pod_Func
+  pod 'JPush'
+  
+end
+
+def pod_Tool
+  pod 'Then'
+  pod 'BlocksKit'
+  pod 'SwiftyUserDefaults'
   pod 'SnapKit'
+  pod 'SDWebImage'
+  pod 'EFQRCode'
+  pod 'IQKeyboardManagerSwift'
+end
+
+def pod_UI
   pod 'BulletinBoard'
   pod 'Toast-Swift'
   pod 'SVProgressHUD'
   pod 'ESPullToRefresh'
   pod 'LYEmptyView'
-  pod 'Then'
-  pod 'BlocksKit'
 end
 
 def pod_core
-  pod 'HDWalletKit' , :git => 'https://github.com/yuying2012/HDWallet.git'
   pod 'essentia-bridges-api-ios'
   pod 'essentia-network-core-ios'
-  pod 'Alamofire'
   pod 'Moya'
   pod 'SwiftyJSON'
-  pod 'ObjectMapper'
   pod 'CryptoSwift'
   pod 'secp256k1.swift'
   pod 'HandyJSON'
 
 end
 
-def pod_test
-  pod 'netfox'
-end
 
 def pod_Analytics
   pod 'Firebase/Analytics'
-  pod 'SwiftyUserDefaults'
   pod 'Crashlytics'
 end
 
@@ -69,8 +71,8 @@ target 'HiWallet' do
   pod_core
   pod_UI
   pod_Analytics
-  pod_test
-
+  pod_Func
+  pod_Tool
   # Pods for HiWallet
 
 end

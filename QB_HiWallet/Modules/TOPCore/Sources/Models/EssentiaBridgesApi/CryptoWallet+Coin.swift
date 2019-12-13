@@ -11,7 +11,7 @@ import EssentiaBridgesApi
 
 
 public extension CryptoWallet {
-    func utxoWallet(coin: MainCoin) -> UtxoWalletUnterface {
+    func utxoWallet(coin: ChainType) -> UtxoWalletUnterface {
         switch coin {
         case .bitcoin:
             return bitcoin

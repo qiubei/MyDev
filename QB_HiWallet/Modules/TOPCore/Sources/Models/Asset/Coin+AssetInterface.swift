@@ -8,18 +8,16 @@
 
 import UIKit
 
-extension MainCoin: AssetInterface {
-    
-    public var chainType: String {
-       return symbol
+extension ChainType: AssetInterface {
+    public var chainSymbol: String {
+        return symbol
     }
-    
     public var name: String {
         return fullName
     }
 
     public var assetID: String {
-        return symbol + "-" + symbol
+        return chainSymbol.uppercased() + symbol.uppercased()
     }
 
     public var fullName: String {
@@ -60,8 +58,7 @@ extension MainCoin: AssetInterface {
         }
     }
 
-
-    public static var allCases: [MainCoin] {
+    public static var allCases: [ChainType] {
         return [.bitcoin, .ethereum, .litecoin, .bitcoinCash]
     }
 
@@ -85,7 +82,7 @@ extension MainCoin: AssetInterface {
     }
 
     public var iconUrl: String {
-        if fullName == MainCoin.topnetwork.fullName {
+        if fullName == ChainType.topnetwork.fullName {
             return CoinIconsUrlFormatter(name: "top", size: .x128).url.absoluteString
         }
         return CoinIconsUrlFormatter(name: fullName, size: .x128).url.absoluteString

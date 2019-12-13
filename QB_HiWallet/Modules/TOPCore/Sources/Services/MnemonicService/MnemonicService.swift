@@ -6,8 +6,9 @@
 //  Copyright © 2018 TOP. All rights reserved.
 //
 
-import HDWalletKit
 
+
+import Foundation
 
 public class MnemonicService: MnemonicServiceInterface {
     public init() {}
@@ -43,7 +44,7 @@ public class MnemonicService: MnemonicServiceInterface {
         let keystoreV3 = try KeystoreV3(keyStore: keystoreFile)
         guard let keystore = keystoreV3,
               let decripted = try keystore.getDecriptedKeyStore(passwordData: passwordData) else {
-            throw EssentiaError.unexpectedBehavior
+            throw TOPError.unexpectedBehavior
         }
         return decripted
     }

@@ -20,7 +20,7 @@ class AssetCardCollectionView: UIView {
 
             // update UI colors with coin
             if let first = walletList.first {
-                let coin = MainCoin.getTypeWithSymbol(symbol: first.chainSymbol)
+                let coin = ChainType.getTypeWithSymbol(symbol: first.chainSymbol)
                 pageControl.currentPageIndicatorTintColor = UIColor.init(cgColor: coin.getColors().first!)
                 cellColors = coin.getColors()
             }
@@ -68,7 +68,7 @@ class AssetCardCollectionView: UIView {
         
         pageControl.numberOfPages = self.walletList.count
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = #colorLiteral(red: 0.8274509804, green: 0.8274509804, blue: 0.8274509804, alpha: 1)
+        pageControl.pageIndicatorTintColor = App.Color.assetCardPageColor
         
         self.addSubview(collectionview)
         self.addSubview(pageControl)

@@ -45,7 +45,9 @@ class SendPopView: BasePopview {
         super.layout()
         balanceLabel.snp.makeConstraints {
             $0.top.equalTo(-8)
-            $0.left.greaterThanOrEqualTo(50)
+//            $0.left.greaterThanOrEqualTo(50)
+//            $0.right.greaterThanOrEqualTo(-50)
+            $0.width.lessThanOrEqualToSuperview().multipliedBy(0.8)
             $0.centerX.equalToSuperview()
         }
 

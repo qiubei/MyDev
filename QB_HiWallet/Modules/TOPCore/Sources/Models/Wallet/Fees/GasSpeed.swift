@@ -15,5 +15,4 @@ public struct GasSpeed: Codable  {
     public var avgWait: String = ""
     public var fastWait: String = ""
     public var safeLowWait: String = ""
-    
 }

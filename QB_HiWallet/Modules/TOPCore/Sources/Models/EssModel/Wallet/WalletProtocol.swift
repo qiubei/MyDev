@@ -9,13 +9,14 @@
 import Foundation
 
 public protocol WalletProtocol {
-    
     var accountIndex: Int32 { get }
     var address: String { get }
     var privateKey: String { get }
     var asset: AssetInterface { get }
-    var name: String { get set }
     var createTime: Double { get }
-    var fullName: String { get }
+    var isMainCoin: Bool { get }
+    var chainSymbol: String { get }
+    var isUTXOWallet: Bool { get }
+    var chainType: ChainType { get }
 
 }

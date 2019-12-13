@@ -12,4 +12,5 @@ public enum TransactionStatus: Int {
     case success
     case failure
     case pending
+    case unconfirmed
 }

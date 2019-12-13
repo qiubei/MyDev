@@ -26,7 +26,6 @@
 
 #if canImport(CoreImage)
 import CoreImage
-import EFFoundation
 
 @objcMembers
 public class EFQRCodeRecognizer: NSObject {
@@ -58,9 +57,9 @@ public class EFQRCodeRecognizer: NSObject {
         guard let finalImage = image else {
             return nil
         }
-        let result = finalImage.ef.ciImage.recognizeQRCode(options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
+        let result = finalImage.ciImage().recognizeQRCode(options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         if result.isEmpty {
-            return finalImage.ef.grayscale?.ef.ciImage.recognizeQRCode(
+            return finalImage.grayscale?.ciImage().recognizeQRCode(
                 options: [CIDetectorAccuracy: CIDetectorAccuracyLow]
             )
         }

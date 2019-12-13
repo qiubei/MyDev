@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import HDWalletKit
+import TOPCore
 
 class ImportWalletController: BaseViewController,TabbedButtonsViewDelegate {
     var textView: RSKPlaceholderTextView! = RSKPlaceholderTextView()
@@ -16,6 +16,7 @@ class ImportWalletController: BaseViewController,TabbedButtonsViewDelegate {
     @IBOutlet weak var tabbedButtonView: TabbedButtonsView!
     @IBOutlet weak var pasteButton: UIButton!
     @IBOutlet weak var importTipLabel: UILabel!
+    @IBOutlet weak var nextButton: UIButton!
     var selectIndex = 0
     
     var currentIndex = 0 {
@@ -25,13 +26,18 @@ class ImportWalletController: BaseViewController,TabbedButtonsViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "导入钱包".localized()
-        importTipLabel.text = "导入助记词".localized()
-        tabbedButtonView.delegate = self    
-        textView.placeholder = "输入助记词，用空格分隔".localized() as NSString
+        tabbedButtonView.delegate = self
         textView.textColor = App.Color.cellTitle
         textView.font = UIFont.systemFont(ofSize: 14)
+    }
+    
+    override func localizedString() {
+        super.localizedString()
+        title = "导入钱包_title".localized()
+        importTipLabel.text = "导入助记词".localized()
+        textView.placeholder = "输入助记词，用空格分隔".localized() as NSString
         pasteButton.setTitle("粘贴".localized(), for: .normal)
+        nextButton.setTitle("下一步".localized(), for: .normal)
     }
     
     override func layout() {
@@ -82,7 +88,7 @@ extension ImportWalletController {
         selectIndex = index
         textView.text = ""
         if index == 0 {
-            textView.placeholder = "请输入助记词".localized() as NSString
+            textView.placeholder = "请输入助记词！".localized() as NSString
             pasteButton.isHidden = true
         } else {
             textView.placeholder = "请输入私钥".localized() as NSString

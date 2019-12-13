@@ -33,19 +33,5 @@ public struct ViewTransaction {
         self.date = date
         self.originalData = originalData
     }
-    
-
-
-    public var statusDesc:String {
-            
-            switch (status) {
-            case .failure:
-                return "交易失败"
-            case .pending:
-                return "打包中"
-            case .success:
-                return "交易成功"
-            }
-    }
 
 }

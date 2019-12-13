@@ -12,7 +12,7 @@ import UIKit
 @objcMembers
 
 public class Token: Object, Codable {
-    public dynamic var id: String = ""
+    public dynamic var id: String = ""      //服务器存储的id，不建议使用
     public dynamic var address: String = "" // 合约地址
     public dynamic var symbol: String = ""
     public dynamic var fullName: String = ""

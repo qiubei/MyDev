@@ -53,7 +53,7 @@ public class CurrencyConverterService: CurrencyConverterServiceInterface {
                 self.storeCoinInfo(object, from: asset, to: currency)
                 info(object)
             case .failure: break
-                
+
             }
         }
         guard let stored = getCoinInfoFromStorage(from: asset, to: currency) else { return }

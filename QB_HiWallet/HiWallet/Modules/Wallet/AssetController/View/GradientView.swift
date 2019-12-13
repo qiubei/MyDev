@@ -29,6 +29,18 @@ class GradientView: UIView {
         }
     }
     
+    var showVertical = false {
+        didSet {
+            if showVertical {
+                self.layer.startPoint = CGPoint(x: 0, y: 0)
+                self.layer.endPoint = CGPoint(x: 0, y: 1)
+            } else {
+                self.layer.startPoint = CGPoint(x: 0, y: 0)
+                self.layer.endPoint = CGPoint(x: 1, y: 0)
+            }
+        }
+    }
+    
     override final class var layerClass: AnyClass {
         return CAGradientLayer.self
     }

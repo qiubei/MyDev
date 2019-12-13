@@ -13,7 +13,6 @@ struct NotificationConst {
     static let balanceChanged = "balanceChanged"
     static let addAccount = "addAccount"
     static let deleteAccount = "deleteAccount"
-    static let touchWebViewEvent = "touchWebViewEvent"
     static let stakingSwitchEvent = "stakingSwitchEvent"
 }
 

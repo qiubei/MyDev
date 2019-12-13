@@ -14,7 +14,6 @@ struct Nib<V> where V: UIView {
     var owner: Any?
 }
 
-
 extension Nib {
     var view: V? {
         return self.nib.instantiate(withOwner: self.owner, options: nil).first as? V

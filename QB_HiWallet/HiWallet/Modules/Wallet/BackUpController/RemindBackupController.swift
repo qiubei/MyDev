@@ -62,7 +62,7 @@ extension RemindBackupController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BackupMnenomicCellID", for: indexPath) as! BackupMnemonicCell
         let index = indexPath.row + (indexPath.section * 4)
-        cell.backgroundColor = #colorLiteral(red: 0.968627451, green: 0.9725490196, blue: 0.9803921569, alpha: 1)
+        cell.backgroundColor = App.Color.mnemonicVerifyCellBg
         cell.cornerRadius = 6
         cell.cellState = .normal
         cell.numberLabel.text = "\(index + 1)"

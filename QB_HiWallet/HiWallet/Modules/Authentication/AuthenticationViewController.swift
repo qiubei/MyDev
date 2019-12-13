@@ -12,11 +12,6 @@ import RealmSwift
 import TOPCore
 import UIKit
 
-protocol AuthenticationDelegate: class {
-    func authenticationSuccessful()
-    func switchAuthenticationMode()
-}
-
 public enum HandleType {
     case setPassword
     case login
@@ -192,7 +187,7 @@ extension AuthenticationViewController {
 
             } else {
                 passwordVerify = ""
-                Toast.showToast(text: "两次密码不一致，请重新输入".localized())
+                Toast.showToast(text: "两次密码不一致，请重新输入".localized(), style: .white)
                 tipLabel.text = "设置密码".localized()
                 pinView.shake()
             }
@@ -222,17 +217,16 @@ extension AuthenticationViewController {
             userStore.update { user in
 
                 user.wallet?.clearWallet()
-                MainCoin.fullySupportedCoins.forEach({ coin in
+                ChainType.supportChains.forEach({ coin in
 
                     let walletInfo = GeneratingWalletInfo(name: coin.name, coin: coin, accountIndex: 0, seed: user.seed, sourseType: .app)
-
-                    if coin.symbol == MainCoin.ethereum.symbol {
+                    if coin.symbol == ChainType.ethereum.symbol {
                         let token = Token(id: "127",
-                                          contractAddress: "0xdcd85914b8ae28c1e62f1c488e1d968d5aaffe2b",
+                                          contractAddress: TOPConstants.erc20TOPContractAddress,
                                           symbol: "TOP",
                                           fullName: "TOP Network",
                                           decimals: 18,
-                                          iconUrl: "https://www.hiwallet.org/topapplication/image/top_network__TOP.png",
+                                          iconUrl: "https://topapplication.s3.amazonaws.com/eb9bc37cc267c8182b08ed0e0a8ed6f1",
                                           webURL: "https://cn.etherscan.com/token/0xdcd85914b8ae28c1e62f1c488e1d968d5aaffe2b",
                                           chainType: "ETH"
                         )
@@ -240,6 +234,7 @@ extension AuthenticationViewController {
                         let tokenWallet = TokenWallet(name: "TOP Network", token: token, privateKey: walletInfo.privateKey, address: walletInfo.address, accountIndex: 0, lastBalance: 0)
                         user.wallet?.tokenWallets.append(tokenWallet)
                     }
+
                     user.wallet?.generatedWalletsInfo.append(walletInfo)
 
                     DispatchQueue.main.async {
@@ -313,17 +308,29 @@ extension AuthenticationViewController {
                     let wallets: List<GeneratingWalletInfo> = List()
                     let tokenWallets: List<TokenWallet> = List()
                     // 创建默认钱包
-                    MainCoin.fullySupportedCoins.forEach({ coin in
+                    ChainType.supportChains.forEach({ coin in
 
                         let walletInfo = GeneratingWalletInfo(name: coin.name, coin: coin, accountIndex: 0, seed: user.seed, sourseType: .app)
+//                        #warning("测试代码")
+//                        if coin == .bitcoinCash {
+//                            walletInfo.address = "1H9wyrtu3gcfA5cZ1yDoV5aDaWAbbToY9v" //BCH ()
+//                        }
+//                        if coin == .dash {
+//                            walletInfo.address = "XmzfivrzYQ7B7oBMZKwPRdhjB1iNvX71XZ"//XhwFc5qM7gAkPk5Y5K33byUc5EyeFcnjsN" //DASH
+//                        }
+//                        if coin == .litecoin {
+//                            walletInfo.address = "M9sqXXW42k4QsqY9NAMei7EWC1ZX8ivg1f" //LTC
+//                        }
+
                         wallets.append(walletInfo)
-                        if coin.symbol == MainCoin.ethereum.symbol {
+
+                        if coin.symbol == ChainType.ethereum.symbol {
                             let token = Token(id: "127",
-                                              contractAddress: "0xdcd85914b8ae28c1e62f1c488e1d968d5aaffe2b",
+                                              contractAddress: TOPConstants.erc20TOPContractAddress,
                                               symbol: "TOP",
                                               fullName: "TOP Network",
                                               decimals: 18,
-                                              iconUrl: "https://www.hiwallet.org/topapplication/image/top_network__TOP.png",
+                                              iconUrl: "https://topapplication.s3.amazonaws.com/eb9bc37cc267c8182b08ed0e0a8ed6f1",
                                               webURL: "https://cn.etherscan.com/token/0xdcd85914b8ae28c1e62f1c488e1d968d5aaffe2b",
                                               chainType: "ETH"
                             )
@@ -348,8 +355,8 @@ extension AuthenticationViewController {
 
                 } catch {
                     Toast.hideHUD()
-                    DLog(error.description)
-                    Toast.showToast(text: "创建账户失败！")
+                    DLog(error.localizedDescription)
+                    Toast.showToast(text: "创建账户失败！".localized(),style: .white)
                 }
             }
         }

@@ -52,6 +52,11 @@ class AssetCardViewController: BaseViewController {
         super.viewWillAppear(animated)
         updateRightBarItems()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isTranslucent = false
+    }
 
     // MARK: - 刷新数据
 
@@ -192,7 +197,7 @@ extension AssetCardViewController {
     private func loadBalanaceData() {
         //获取余额
         if currentWallet!.isMainCoin {
-            (inject() as WalletBlockchainWrapperInteractorInterface).getCoinBalance(for: MainCoin.getTypeWithSymbol(symbol: currentWallet!.symbol), address: currentWallet!.address, balance: { balance in
+            (inject() as WalletBlockchainWrapperInteractorInterface).getCoinBalance(for: ChainType.getTypeWithSymbol(symbol: currentWallet!.symbol), address: currentWallet!.address, balance: { balance in
 
                 (inject() as UserStorageServiceInterface).update({ _ in
 
@@ -357,7 +362,7 @@ extension AssetCardViewController {
         if assetWalletList.count < 3 {
             let item = UIBarButtonItem(image: UIImage(named: "Address_add"), style: .plain, target: self, action: #selector(rightBarAction(_:)))
             rightBarItems.append(item)
-            if let flag = Preference.stakingSwitch, flag, assetWalletList.first!.assetID == "ETH-TOP" {
+            if let flag = Preference.stakingSwitch, flag, assetWalletList.first!.asset.assetID == TOPConstants.erc20TOP_AssetID {
                 let voteItem = UIBarButtonItem(image: UIImage(named: "icon_web_vote_none"), style: .plain, target: self, action: #selector(voteBarAction(_:)))
                 if Preference.hasTopVoted {
                     voteItem.image = UIImage(named: "icon_web_vote")
@@ -365,7 +370,7 @@ extension AssetCardViewController {
                 rightBarItems.append(voteItem)
             }
         } else {
-            if let flag = Preference.stakingSwitch, flag, assetWalletList.first!.assetID == "ETH-TOP" {
+            if let flag = Preference.stakingSwitch, flag, assetWalletList.first!.asset.assetID == TOPConstants.erc20TOP_AssetID {
                 let voteItem = UIBarButtonItem(image: UIImage(named: "icon_web_vote_none"), style: .plain, target: self, action: #selector(voteBarAction(_:)))
                 if Preference.hasTopVoted {
                     voteItem.image = UIImage(named: "icon_web_vote")

@@ -68,7 +68,7 @@ class WalletMainViewController: BaseViewController, UINavigationControllerDelega
             self.hidhenOrShowAction(UIButton())
         })
 
-        backupTipView.colors = [#colorLiteral(red: 0.4862745098, green: 0.6941176471, blue: 0.9725490196, alpha: 1).cgColor, #colorLiteral(red: 0.4823529412, green: 0.3921568627, blue: 0.9333333333, alpha: 1).cgColor]
+        backupTipView.colors = App.Color.backupBgColors
         backupTipView.bk_(whenTapped: { [weak self] in
             let controller = BackupTipController.loadFromSettingStoryboard()
             self?.navigationController?.pushViewController(controller, animated: true)
@@ -169,7 +169,7 @@ extension WalletMainViewController {
                 WebMannager.showDappWithUrl(url: TOPConstants.topStakingURL, wallet: viewModel.getETHWalletWith(topTokenWallet: wallet), controller: self)
             case .multiple:
                 let pickWallet = AccountPickerViewController()
-                pickWallet.assetID = "ETH-TOP"
+                pickWallet.assetID = TOPConstants.erc20TOP_AssetID
                 pickWallet.modalPresentationStyle = .custom
                 present(pickWallet, animated: false, completion: nil)
                 pickWallet.selectWallet = { [unowned self] wallet in
@@ -196,7 +196,7 @@ extension WalletMainViewController {
 
         if let isShowStakingView = self.isShowStakingView {
             if isShowStakingView {
-                headerView.stakingHeight.constant = App.UIConstant.homePageStakingViewHeight
+                headerView.stakingHeight.constant = App.UIConstant.walletMainStakingViewHeight
                 _offsetHeight = 0
             } else {
                 headerView.stakingHeight.constant = 0
@@ -204,7 +204,7 @@ extension WalletMainViewController {
         } else {
             headerView.stakingHeight.constant = 0
         }
-        let rect = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: App.UIConstant.homePageTableViewHeaderHeight - _offsetHeight)
+        let rect = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: App.UIConstant.walletMainHeaderHeight - _offsetHeight)
         headerView.frame = rect
     }
 }
@@ -260,8 +260,12 @@ extension WalletMainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = AssetCardViewController.loadFromWalletStoryboard()
-        controller.assetID = datalist![indexPath.row][0].asset.assetID
+//        let controller = AssetCardViewController.loadFromWalletStoryboard()
+//        controller.assetID = datalist![indexPath.row][0].asset.assetID
+//        navigationController?.pushViewController(controller, animated: true)
+        
+        let controller = TestViewController()
+        controller.viewModel = AssetCardViewModel(assetID: datalist![indexPath.row][0].asset.assetID)
         navigationController?.pushViewController(controller, animated: true)
     }
 }

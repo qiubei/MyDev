@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import HDWalletKit
+
 
 public class ETHAddressValidator: Validator {
     public typealias Result = String
@@ -33,14 +33,16 @@ public class ETHAddressValidator: Validator {
 
 public class BTCAddressValidator: Validator {
     private let address: String
+    private let chainType: ChainType
 
-    public init(address: String) {
+    public init(address: String , chainType:ChainType) {
         self.address = address
+        self.chainType = chainType
     }
 
     var isValid: Bool {
         do {
-            _ = try LegacyAddress(self.address, coin: wrapCoin(coin: .bitcoin))
+            _ = try LegacyAddress(self.address, coin: wrapCoin(coin: chainType))
             return true
         } catch {
             return false

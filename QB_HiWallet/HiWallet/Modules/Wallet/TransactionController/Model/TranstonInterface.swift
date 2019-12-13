@@ -25,4 +25,5 @@ protocol TranstonInterface {
     func getPopData() -> [SendPopViewModel] // 弹框数据
     func reloadPopDataWithIndex(index: Int) -> [SendPopViewModel] // 更新弹框数据
     func sendTranstion(callback: @escaping (_ result: (Bool, String)) -> Void) // 发送
+
 }

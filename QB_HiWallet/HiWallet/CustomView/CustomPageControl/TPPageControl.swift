@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+/// 自定义 page control： 条状样式
 class TOPPageControl: UIPageControl {
     var currentWidth = 16
     var indicatorWidth = 8
@@ -23,6 +23,7 @@ class TOPPageControl: UIPageControl {
         }
     }
     
+    /// 通过改变 page control 子视图的 frame （约束）来重新定义 page control 的样式。
     private func updateLayout() {
         guard let _view = self.subviews.first else { return }
         var lastView = _view

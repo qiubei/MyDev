@@ -11,7 +11,7 @@ import RealmSwift
 
 public class WalletInteractor: WalletInteractorInterface {
     public func openERC20TOPTokenWallet() {
-        let wallets = TOPStore.shared.currentUser.wallet?.tokenWallets.filter { $0.symbol == MainCoin.topnetwork.symbol && ($0.asset as! Token).chainType == MainCoin.ethereum.symbol } ?? []
+        let wallets = TOPStore.shared.currentUser.wallet?.tokenWallets.filter { $0.symbol == ChainType.topnetwork.symbol && ($0.asset as! Token).chainType == ChainType.ethereum.symbol } ?? []
         wallets.forEach { token in
             (inject() as UserStorageServiceInterface).update({ _ in
                 token.hidden = false
@@ -22,7 +22,7 @@ public class WalletInteractor: WalletInteractorInterface {
 
     public func getERC20TOPTokenWallet() -> [ViewWalletInterface] {
         return TOPStore.shared.currentUser.wallet?.tokenWallets.filter {
-            $0.symbol == MainCoin.topnetwork.symbol && ($0.asset as! Token).chainType == MainCoin.ethereum.symbol && $0.hidden == false
+            $0.symbol == ChainType.topnetwork.symbol && ($0.asset as! Token).chainType == ChainType.ethereum.symbol && $0.hidden == false
         } ?? []
     }
 
@@ -38,9 +38,9 @@ public class WalletInteractor: WalletInteractorInterface {
         return viewWalletsGroup
     }
 
-    public func nameIsExist(for name: String, coin: MainCoin) -> Bool {
+    public func nameIsExist(for name: String, coin: ChainType) -> Bool {
         let currentlyAddedWallets = TOPStore.shared.currentUser.wallet?.generatedWalletsInfo
-        let currentCoinAssets = currentlyAddedWallets!.filter({ $0.mainCoinType == coin })
+        let currentCoinAssets = currentlyAddedWallets!.filter({ $0.mainChainType == coin })
         let result = currentCoinAssets.filter {
             $0.name == name
         }
@@ -58,13 +58,13 @@ public class WalletInteractor: WalletInteractorInterface {
             return true
         }
         let alreadyContainWallet = importdAssets.contains {
-            $0.privateKey == wallet.privateKey && $0.coin == wallet.coin
+            $0.privateKey == wallet.privateKey && $0.mainChainType == wallet.mainChainType
         }
         return !alreadyContainWallet
     }
 
-    public func getCoinsList() -> [MainCoin] {
-        return MainCoin.fullySupportedCoins
+    public func getCoinsList() -> [ChainType] {
+        return ChainType.supportChains
     }
 
     public func createTempEthWallet(privateKey: String, address: String) -> ViewWalletInterface {
@@ -73,7 +73,7 @@ public class WalletInteractor: WalletInteractorInterface {
     }
 
     public func addTokenWallet(_ token: Token, nickName: String?, wallet: @escaping (TokenWallet) -> Void) {
-        let mainCoin = MainCoin.getTypeWithSymbol(symbol: token.chainType)
+        let mainCoin = ChainType.getTypeWithSymbol(symbol: token.chainType)
         let index = freeTokenIndex(for: token.contractAddress)
         let seed = TOPStore.shared.currentUser.seed
         let sourseType = BackupSourceType.app
@@ -92,7 +92,7 @@ public class WalletInteractor: WalletInteractorInterface {
     }
 
     public func addCoinsToWallet(_ assets: [AssetInterface], nickName: String?, wallet: @escaping (GeneratingWalletInfo) -> Void) {
-        guard let coins = assets as? [MainCoin], let currentlyAddedWallets = TOPStore.shared.currentUser.wallet?.generatedWalletsInfo else {
+        guard let coins = assets as? [ChainType], let currentlyAddedWallets = TOPStore.shared.currentUser.wallet?.generatedWalletsInfo else {
             return
         }
 
@@ -155,21 +155,6 @@ public class WalletInteractor: WalletInteractorInterface {
     public func getTokenWallets() -> [TokenWallet] {
         return TOPStore.shared.currentUser.wallet?.tokenWallets.filter { $0.hidden == false } ?? []
     }
-
-    public func getTokensByWalleets() -> [ViewWalletObject: [TokenWallet]] {
-        var tokensByWallets: [ViewWalletObject: [TokenWallet]] = [:]
-        let tokens: [TokenWallet] = TOPStore.shared.currentUser.wallet?.tokenWallets.filter { $0.hidden == false } ?? []
-        var allWallets: [ViewWalletInterface] = getImportedWallets()
-        allWallets.append(contentsOf: getGeneratedWallets())
-        let wallets: Set<ViewWalletObject> = Set(allWallets.map { $0.viewWalletObject })
-        for wallet in wallets {
-            let tokensByCurrentWallet = tokens.filter({ $0.address == wallet.address })
-            guard !tokensByCurrentWallet.isEmpty else { continue }
-            tokensByWallets[wallet] = tokensByCurrentWallet
-        }
-        return tokensByWallets
-    }
-
     public var allHiddenViewWallets: [ViewWalletInterface] {
         var wallets: [ViewWalletInterface] = TOPStore.shared.currentUser.wallet?.generatedWalletsInfo.filter { $0.hidden == true } ?? []
         wallets.append(contentsOf: TOPStore.shared.currentUser.wallet?.importedWallets.filter { $0.hidden == true } ?? [])
@@ -181,45 +166,29 @@ public class WalletInteractor: WalletInteractorInterface {
         var wallets: [ViewWalletInterface] = getGeneratedWallets()
         wallets.append(contentsOf: getImportedWallets())
         wallets.append(contentsOf: getTokenWallets())
-
-        // 之前是只会筛选主币存在的token
-//        getTokensByWalleets().values.forEach { tokenWallets in
-//            wallets.append(contentsOf: tokenWallets)
-//        }
         return wallets.sorted { $0.createTime < $1.createTime }
     }
 
     public var viewWalletsGroup: [[ViewWalletInterface]] {
         let set = NSMutableSet()
         for wallet in allViewWallets {
-            set.add(wallet.chainSymbol + wallet.symbol)
+            set.add(wallet.asset.assetID)
         }
         var group = Array<[ViewWalletInterface]>()
-        set.enumerateObjects { obj, _ in
-            let array = allViewWallets.filter { $0.chainSymbol + $0.symbol == obj as! String }
+        set.enumerateObjects { assetID, _ in
+            let array = allViewWallets.filter { $0.asset.assetID == assetID as! String  }
             group.append(array)
         }
         return group
-    }
-
-    // MARK: - Duplicate
-
-    var allWallets: [WalletProtocol] {
-        var wallets: [WalletProtocol] = getGeneratedWallets()
-        wallets.append(contentsOf: getImportedWallets())
-        getTokensByWalleets().values.forEach { tokenWallets in
-            wallets.append(contentsOf: tokenWallets)
-        }
-        return wallets.sorted { $0.name > $1.name }
     }
 }
 
 // MARK: - Index
 
 extension WalletInteractor {
-    public func freeIndex(for coin: MainCoin) -> Int32 {
+    public func freeIndex(for coin: ChainType) -> Int32 {
         guard let currentlyAddedWallets = TOPStore.shared.currentUser.wallet?.generatedWalletsInfo else { return 0 }
-        let currentCoinAssets = currentlyAddedWallets.filter({ $0.mainCoinType == coin })
+        let currentCoinAssets = currentlyAddedWallets.filter({ $0.mainChainType == coin })
         var index: Int32 = 0
         while index < Int32.max {
             if currentCoinAssets.contains(where: { $0.accountIndex == index }) {

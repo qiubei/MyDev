@@ -18,21 +18,19 @@ public protocol WalletInteractorInterface {
     // 添加代币到某个主币下
     func addTokensToWallet(_ assets: [AssetInterface], for wallet: ViewWalletInterface)
     //
-    func getCoinsList() -> [MainCoin] // 获取支持的主币列表
+    func getCoinsList() -> [ChainType] // 获取支持的主币列表
     func getAllWallet() -> [ViewWalletInterface] // 获取所有钱包，包括导入的
     func getAllWalletGroup() -> [[ViewWalletInterface]] // 根据钱包类型获得分组
     func getGeneratedWallets() -> [GeneratingWalletInfo]
     func getImportedWallets() -> [ImportedWallet]
     func getTokenWallets() -> [TokenWallet]
-    func getTokensByWalleets() -> [ViewWalletObject: [TokenWallet]]
-    //
     func getTotalBalanceInCurrentCurrency() -> Double
     func getYesterdayTotalBalanceInCurrentCurrency() -> Double
     func getBalanceChangePer24Hours(result: @escaping (Double) -> Void)
     func getBalanceChanging(olderBalance: Double, newestBalance: Double) -> Double
     
     //
-    func nameIsExist(for name: String, coin: MainCoin) -> Bool
+    func nameIsExist(for name: String, coin: ChainType) -> Bool
 
     //筛选
     func getWalletWithAssetID(assetID: String) -> [ViewWalletInterface]

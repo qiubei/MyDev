@@ -7,12 +7,7 @@
 //
 
 import Foundation
-import HDWalletKit
-
-enum ChainType {
-    case top
-    case eth
-}
+import TOPCore
 
 struct DAppCommonModel: Decodable {
     let name: Method
@@ -40,10 +35,10 @@ struct DAppCommonModel: Decodable {
         name = try! values.decode(Method.self, forKey: .name)
         id = try! values.decode(Int.self, forKey: .id)
         if try! values.decode(String.self, forKey: .chainType) == "top" {
-            chainType = .top
+            chainType = .topnetwork
             object = try! values.decode(TOPObject.self, forKey: .object)
         } else {
-            chainType = .eth
+            chainType = .ethereum
             object = try! values.decode(ETHObject.self, forKey: .object)
         }
     }

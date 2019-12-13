@@ -12,15 +12,15 @@ import SnapKit
 class BasePopview: UIView {
     
     let rightButton = UIButton().then {
-        $0.setImage(#imageLiteral(resourceName: "close_button"), for: .normal)
+        $0.setImage(UIImage.init(named: "close_button"), for: .normal)
     }
     
     let leftButton = UIButton().then {
-        $0.setImage(#imageLiteral(resourceName: "navigation_left_back"), for: .normal)
+        $0.setImage(UIImage.init(named: "navigation_left_back"), for: .normal)
     }
     
     let titleLabel = UILabel().then {
-        $0.textColor = #colorLiteral(red: 0.06666666667, green: 0.0862745098, blue: 0.1294117647, alpha: 1)
+        $0.textColor = App.Color.cellTitle
         $0.textAlignment = .center
         $0.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
     }
@@ -28,7 +28,7 @@ class BasePopview: UIView {
     var contentView: UIView = UIView()
     
     var submitButton = UIButton().then {
-        $0.backgroundColor = #colorLiteral(red: 0.1529411765, green: 0.5803921569, blue: 1, alpha: 1)
+        $0.backgroundColor = App.Color.mainColor
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         $0.titleLabel?.textColor = .white
         $0.cornerRadius = 25

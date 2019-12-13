@@ -22,6 +22,7 @@ extension AssetTypeInfoCell {
     func setupWith(wallets: [ViewWalletInterface], hiddenNum: Bool) {
         // 取到第一个
         let wallet = wallets.first!
+        if wallet.isInvalidated { return }
         iconImageview.setIconWithWallet(model: wallet)
         chainImageview.isHidden = wallet.isMainCoin
         chainImageview.setChainIconWithWallet(model: wallet)

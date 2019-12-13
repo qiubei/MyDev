@@ -10,8 +10,6 @@ import UIKit
 
 class AssetCardFlowLayout: UICollectionViewFlowLayout {
     
-//    var pageSize = CGSize(width: 100, height: 100)
-    
     override init() {
         super.init()
     }

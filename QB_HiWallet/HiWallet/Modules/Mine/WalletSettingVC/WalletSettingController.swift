@@ -14,29 +14,27 @@ import UIKit
 class WalletSettingController: BaseTabViewController {
     @IBOutlet var bioVerifyLabel: UILabel!
     @IBOutlet var bioLoginLabel: UILabel!
-
     @IBOutlet var currencyUnitLabel: UILabel!
     @IBOutlet var currencyLabel: UILabel!
     @IBOutlet var backupLabel: UILabel!
     @IBOutlet var deleteButton: UIButton!
-
     @IBOutlet var bioVerifySwitch: UISwitch!
     @IBOutlet var bioLoinSwith: UISwitch!
 
+    private var board: BLTNItemManager?
     private lazy var userStorage: UserStorageServiceInterface = inject()
     private lazy var viewUserService: ViewUserStorageServiceInterface = inject()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "设置".localized()
         bioVerifySwitch.isOn = viewUserService.current?.biometricPay ?? false
         bioLoinSwith.isOn = viewUserService.current?.biometricLogin ?? false
-
-        localized()
         setup()
     }
-
-    private func localized() {
+    
+    override func localizedString() {
+        super.localizedString()
         switch AuthenticationService.shared.biometryType {
         case .faceID:
             bioVerifyLabel.text = "面容支付".localized()
@@ -50,21 +48,20 @@ class WalletSettingController: BaseTabViewController {
             bioVerifySwitch.isUserInteractionEnabled = false
             bioLoinSwith.isUserInteractionEnabled = false
         }
-
+        
         currencyUnitLabel.text = "默认币种".localized()
         backupLabel.text = "备份助记词".localized()
         deleteButton.setTitle("删除钱包".localized(), for: .normal)
     }
 
     private func setup() {
-        // ugly fix
         let flag = TOPStore.shared.currentUser.profile!.currency.name.contains("USD")
         currencyLabel.text = flag ? "USD $" : "CNY ¥"
     }
-
-    // picker view
-    private var board: BLTNItemManager?
 }
+
+
+//MARK: - Actions
 
 extension WalletSettingController {
     @IBAction func bioAuthorizeAction(_ sender: UISwitch) {
@@ -110,9 +107,7 @@ extension WalletSettingController {
         switch (indexPath.section, indexPath.row) {
         case (0, 2):
             addPickerView()
-
         case (1, 0):
-
             let controller = BackupTipController.loadFromSettingStoryboard()
             navigationController?.pushViewController(controller, animated: true)
         default:
@@ -134,7 +129,6 @@ extension WalletSettingController {
             (inject() as UserStorageServiceInterface).update({ user in
                 user.profile?.currency = FiatCurrency.cases[page.selectIndex]
             })
-            // ugly fix
             let flag = TOPStore.shared.currentUser.profile!.currency.name.contains("USD")
             self?.currencyLabel.text = flag ? "USD $" : "CNY ¥"
 
@@ -142,5 +136,3 @@ extension WalletSettingController {
         }
     }
 }
-
-// MARK: - face id

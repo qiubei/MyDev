@@ -20,7 +20,7 @@ public extension EthereumTransactionDetail {
         return .success
     }
     
-    func type(for: Address) -> TransactionType {
+    func type(for: String) -> TransactionType {
         switch `for`.uppercased() {
         case to.uppercased():
             return .recive
@@ -40,7 +40,7 @@ public extension EthereumTokenTransactionDetail {
         return .success
     }
     
-    func type(for: Address) -> TransactionType {
+    func type(for: String) -> TransactionType {
         switch `for`.uppercased() {
         case to.uppercased():
             return .recive

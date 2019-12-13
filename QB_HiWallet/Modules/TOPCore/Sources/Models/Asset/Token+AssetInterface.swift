@@ -9,6 +9,11 @@
 import UIKit
 
 extension Token: AssetInterface {
+    
+    public var chainSymbol: String {
+        return chainType
+    }
+
     public var name: String {
         return fullName
     }
@@ -16,9 +21,9 @@ extension Token: AssetInterface {
     public var minimumTransactionAmmount: Double {
         return 1.0 / pow(10.0, Double(decimals))
     }
- 
+
     public var assetID: String {
-        return chainType + "-" + symbol
+        return chainSymbol + symbol + contractAddress.uppercased()
     }
 
     public var type: CryptoType {
@@ -29,11 +34,4 @@ extension Token: AssetInterface {
         return address.count == 40 || address.count == 42
     }
 
-//    public var iconUrl: URL {
-//        guard let path =  path?.x128 else {
-//            return CoinIconsUrlFormatter(name: "Ethereum", size: .x128).url
-//        }
-//        return CoinIconsUrlFormatter.urlFromPath(path: path)
-//    }
-//
 }

@@ -54,14 +54,14 @@ extension CommonServices: TargetType {
             params["platform"] = 1
             params["version"] = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         case let .searchCoin(name, pageIndex, pageSize):
-            params["chainType"] = MainCoin.fullySupportedCoinsName
+            params["chainType"] = ChainType.supportChainNames
             params["coinName"] = name
             params["language"] = LocalizationLanguage.systemLanguage == .chinese ? 0 : 1
             params["pageIndex"] = pageIndex
             params["pageSize"] = pageSize
 
         case .hotCoinSpecies:
-            params["chainType"] = MainCoin.fullySupportedCoinsName
+            params["chainType"] = ChainType.supportChainNames
             params["language"] = LocalizationLanguage.systemLanguage == .chinese ? 0 : 1
             params["pageSize"] = 100
 

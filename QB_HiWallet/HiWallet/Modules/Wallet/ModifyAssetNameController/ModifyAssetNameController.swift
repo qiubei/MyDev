@@ -11,7 +11,6 @@ import TOPCore
 import UIKit
 
 class ModifyAssetNameController: BaseViewController, UITextFieldDelegate {
-    // MARK: - override
 
     // 需要修改信息的时候传入
     var walletInfo: ViewWalletInterface?
@@ -40,7 +39,8 @@ class ModifyAssetNameController: BaseViewController, UITextFieldDelegate {
                     self.walletInfo!.name = self.nameTextField.text!
                 })
                 Toast.showToast(text: "修改成功！".localized())
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationConst.userInfoChange), object: nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationConst.userInfoChange), object: nil)
+                NotificationName.changeAccountInfo.emit()
             }
 
             navigationController?.popViewController(animated: true)
@@ -79,8 +79,6 @@ class ModifyAssetNameController: BaseViewController, UITextFieldDelegate {
         IQKeyboardManager.shared.enable = true
     }
 
-    // MARK: - private
-
     private func getStringByteLength(string: String) -> Int {
         var bytes: [UInt8] = []
         for char in string.gbkData {
@@ -95,19 +93,23 @@ extension ModifyAssetNameController {
         if let wallet = newWallet {
             // 添加代币
             if let tokenInfo = wallet.asset as? Token {
-                let coin = MainCoin.getTypeWithSymbol(symbol: tokenInfo.chainType)
+                let coin = ChainType.getTypeWithSymbol(symbol: tokenInfo.chainType)
 
                 switch coin {
                 case .ethereum:
                     addEthToken(tokenInfo: tokenInfo)
                 default:
-                    Toast.showToast(text: "暂不支持该币")
+                    Toast.showToast(text: "暂不支持该币".localized())
                     break
                 }
 
             } else {
                 // 添加主币
-                let coin = MainCoin.getTypeWithSymbol(symbol: wallet.symbol)
+                let coin = ChainType.getTypeWithSymbol(symbol: wallet.symbol)
+
+                if coin == .unknowCoin {
+                    return
+                }
                 // 如果有自动创建的就打开一个
                 (inject() as WalletInteractorInterface).addCoinsToWallet([coin],
                                                                          nickName: nameTextField.text,
@@ -135,6 +137,8 @@ extension ModifyAssetNameController {
 
 extension ModifyAssetNameController {
     func postAddNotication() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationConst.addAccount), object: nil)
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationConst.addAccount), object: nil)
+        
+        NotificationName.createNewAccout.emit()
     }
 }

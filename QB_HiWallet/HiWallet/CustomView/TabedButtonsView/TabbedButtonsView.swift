@@ -93,11 +93,10 @@ private extension TabbedButtonsView {
         buttonTitles.forEach { title in
             let button = UIButton(type: .custom)
             button.setTitle(title, for: .normal)
-            button.setTitleColor(#colorLiteral(red: 0.4293656349, green: 0.4673569202, blue: 0.5415496826, alpha: 1), for: .normal)
+            button.setTitleColor(#colorLiteral(red: 0.4274509804, green: 0.4666666667, blue: 0.5411764706, alpha: 1), for: .normal)
             button.setTitleColor(#colorLiteral(red: 0, green: 0.4666666667, blue: 1, alpha: 1), for: .selected)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
-
             buttonContainer.addArrangedSubview(button)
         }
 

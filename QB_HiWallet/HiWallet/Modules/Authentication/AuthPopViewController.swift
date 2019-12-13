@@ -4,7 +4,7 @@
 //
 //  Created by Anonymous on 2019/10/9.
 //  Copyright © 2019 TOP. All rights reserved.
-//
+//  授权签名的弹框
 
 import TOPCore
 import UIKit
@@ -92,7 +92,6 @@ extension AuthPopViewController: AddressAuthPopViewActions {
     }
 
     func confirmAction() {
-        // TODO: 地址授权后操作
         dismissAnimation(completion: nil)
         if let comfirm = self.confirmActionBlock {
             comfirm()

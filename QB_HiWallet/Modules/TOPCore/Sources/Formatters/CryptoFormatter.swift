@@ -6,10 +6,11 @@
 //  Copyright © 2019 Jax. All rights reserved.
 //
 
-import EssentiaBridgesApi
-import EssentiaNetworkCore
-import HDWalletKit
+import Foundation
+import UIKit
+
 public class CryptoFormatter {
+    
     public static func formattedAmmount(amount: Double?, type: TransactionType, asset: AssetInterface) -> NSAttributedString {
         let ammountFormatter = BalanceFormatter(asset: asset)
         let formattedAmmount = ammountFormatter.formattedAmmountWithSymbol(amount: amount)
@@ -29,6 +30,13 @@ public class CryptoFormatter {
         default: break
         }
         return attributed
+    }
+
+    //不带+-
+    public static func formattedAmmountNoDropSymbol(amount: Double?, type: TransactionType, asset: AssetInterface) -> String {
+        let ammountFormatter = BalanceFormatter(asset: asset)
+        let formattedAmmount = ammountFormatter.formattedAmmountWithSymbol(amount: amount)
+        return formattedAmmount
     }
 
     public static func attributedHex(amount: String, type: TransactionType, asset: AssetInterface) -> NSAttributedString {

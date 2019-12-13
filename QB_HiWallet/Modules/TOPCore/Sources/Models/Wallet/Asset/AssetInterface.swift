@@ -28,10 +28,11 @@ public enum CurrencyType {
     }
 }
 
+//资产属性
 public protocol AssetInterface {
     var name: String { get }
     var symbol: String { get }
-    var chainType: String { get }
+    var chainSymbol: String { get }
     var iconUrl: String { get }
     var type: CryptoType { get }
     var minimumTransactionAmmount: Double { get }

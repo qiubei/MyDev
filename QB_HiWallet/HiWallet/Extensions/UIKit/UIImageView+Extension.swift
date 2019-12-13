@@ -13,8 +13,8 @@ import UIKit
 
 extension UIImageView {
     
-    func setIconWithCoinModel(model: ServiceCoinModel) {
-        if model.isMainChain {
+    func setIconWithViewModel(model: AssetManagerCellViewModel) {
+        if model.isMainCoin {
             image = getChainImageWithSymbol(chainSymbol: model.symbol)
         } else {
             sd_setImage(with: URL(string: model.iconUrl), completed: nil)
@@ -37,7 +37,8 @@ extension UIImageView {
         }
     }
 
-    func setChainIconWithCoinModel(model: ServiceCoinModel) {
+    
+    func setChainIconWithViewModel(model: AssetManagerCellViewModel) {
         image = getChainImageWithSymbol(chainSymbol: model.chainType)
     }
 

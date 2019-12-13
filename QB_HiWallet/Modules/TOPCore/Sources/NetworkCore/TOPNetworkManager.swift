@@ -18,7 +18,7 @@ public typealias SuccessListResponse<M> = (_ response: [M]?, _ pageInfo: PageInf
 public typealias SuccessResponse = (ResponseModel) -> Void
 public typealias FailureResponse = (TOPHttpError) -> Void
 
-private let showLog = false // 显示日志
+private let showLog = true // 显示日志
 
 public class TOPNetworkManager<TopTarget: TargetType, M> {
     fileprivate class func request(_ target: TopTarget, success: SuccessResponse? = nil, failure: FailureResponse? = nil) {
@@ -27,20 +27,19 @@ public class TOPNetworkManager<TopTarget: TargetType, M> {
             case let .success(response):
 
                 let string = String(data: response.data, encoding: .utf8)
-
-                DLog("***** response \(string ?? "")")
                 if let data = string?.data(using: .utf8) {
                     success?(ResponseModel(data))
                 }
             case let .failure(error):
-                DLog("http request error! \(error)")
-                let message = error.description
+
+                let message = error.localizedDescription
                 let _error = TOPHttpError.serverResponse(message: message, code: error.errorCode)
                 failure?(_error)
             }
         }
 
         let provider = getProvider()
+
         provider.request(target, completion: completion)
     }
 
@@ -59,6 +58,17 @@ public class TOPNetworkManager<TopTarget: TargetType, M> {
             dataTasks.forEach { $0.cancel() }
             uploadTasks.forEach { $0.cancel() }
             downloadTasks.forEach { $0.cancel() }
+        }
+    }
+
+    /// 取消所有请求
+    public class func cancelRequestWith(urlStr: String) {
+        getProvider().manager.session.getAllTasks { tasks in
+
+            tasks.forEach({ task in
+                if task.currentRequest?.url?.absoluteString == urlStr {
+                    task.cancel()
+            } })
         }
     }
 }
@@ -109,7 +119,6 @@ public struct TOPHttpProviderParameter<TopTarget: TargetType> {
 }
 
 public extension TOPNetworkManager where M: HandyJSON {
-    
     class func requestModel(_ target: TopTarget, success: ActionBlock<M>? = nil, failure: FailureResponse? = nil) {
         request(target, success: { response in
             if let result = response.mapResultModel(type: M.self) {
@@ -125,15 +134,24 @@ public extension TOPNetworkManager where M: HandyJSON {
 
     class func requestModelList(_ target: TopTarget, success: SuccessListResponse<M>? = nil, failure: FailureResponse? = nil) {
         request(target, success: { response in
-            if let list = response.mapResultListModel(type: M.self) {
-                let pageInfo = response.mapInfoModel(type: PageInfoModel.self)
-                success?(list, pageInfo)
-            } else {
-                // TODO: error handle
-//                DLog("response is \(response)")
-                let message = response.message ?? "message is empty!"
-                let error = TOPHttpError.jsonSerializationFailed(message: message)
-                failure?(error)
+
+            do {
+                _ = try response.filterSuccessfulStatusCodes()
+
+                if response.code == ResponseCode.noContant {
+                    success?([], nil)
+                } else {
+                    if let list = response.mapResultListModel(type: M.self) {
+                        let pageInfo = response.mapInfoModel(type: PageInfoModel.self)
+                        success?(list, pageInfo)
+                    } else {
+                        let message = response.message ?? "message is empty!"
+                        let error = TOPHttpError.jsonSerializationFailed(message: message)
+                        failure?(error)
+                    }
+                }
+            } catch {
+                failure?(error as! TOPHttpError)
             }
         }, failure: failure)
     }
@@ -145,8 +163,7 @@ public extension TOPNetworkManager where M: Codable {
             if let result = response.mapResultModel(type: M.self) {
                 success?(result)
             } else {
-                // TODO: error handle
-//                DLog("response is \(response)")
+
                 let message = response.message ?? "message is empty!"
                 let error = TOPHttpError.jsonSerializationFailed(message: message)
                 failure?(error)
@@ -157,14 +174,24 @@ public extension TOPNetworkManager where M: Codable {
 
     class func requestModelList(_ target: TopTarget, success: SuccessListResponse<M>? = nil, failure: FailureResponse? = nil) {
         request(target, success: { response in
-            if let list = response.mapResultListModel(type: M.self) {
-                success?(list, response.mapInfoModel(type: PageInfoModel.self))
-            } else {
-                // TODO: error handle
-//                DLog("response is \(response)")
-                let message = response.message ?? "message is empty!"
-                let error = TOPHttpError.jsonSerializationFailed(message: message)
-                failure?(error)
+
+            do {
+                _ = try response.filterSuccessfulStatusCodes()
+
+                if response.code == ResponseCode.noContant {
+                    success?([], nil)
+                } else {
+                    if let list = response.mapResultListModel(type: M.self) {
+                        success?(list, response.mapInfoModel(type: PageInfoModel.self))
+                    } else {
+
+                        let message = response.message ?? "message is empty!"
+                        let error = TOPHttpError.jsonSerializationFailed(message: message)
+                        failure?(error)
+                    }
+                }
+            } catch {
+                failure?(error as! TOPHttpError)
             }
         }, failure: failure)
     }
@@ -185,7 +212,7 @@ private final class NetworkHUDPlugin<TopTarget: TargetType>: PluginType {
 private final class NetworkLoggerPlugin<TopTarget: TargetType>: PluginType {
     func willSend(_ request: RequestType, target: TargetType) {
         let requestLogString = """
-        NetworkRequestLogger:
+        ******************************************* NetworkRequestLogger:*******************************************
         Url: \(request.request?.url?.absoluteString ?? "空")
         Method: \(target.method)
         Parameter: \(target.task)
@@ -198,7 +225,7 @@ private final class NetworkLoggerPlugin<TopTarget: TargetType>: PluginType {
 
     func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
         var responseLogString = """
-        NetworkResponseLogger:
+        *******************************************NetworkResponseLogger:*******************************************
         """
         switch result {
         case let .success(response):
@@ -206,7 +233,6 @@ private final class NetworkLoggerPlugin<TopTarget: TargetType>: PluginType {
                 _ = try response.filterSuccessfulStatusCodes()
                 let jsonData = JSON(response.data)
                 let successLogString = """
-                
                 StatusCode: "\(response.statusCode)"
                 RquestSuccesseData: "\(jsonData)"
                 """

@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import HDWalletKit
+
 
 public extension BackupSourceType {
     //     m/44/coin/account/change/address_index
-    func derivationNodesFor(coin: HDWalletKit.Coin) -> [DerivationNode] {
+    func derivationNodesFor(coin: Coin) -> [DerivationNode] {
         switch coin {
         case .bitcoin, .topnetwork:
             return [.hardened(44), .hardened(0), .hardened(0), .notHardened(0), .notHardened(0)]

@@ -12,9 +12,9 @@ import UIKit
 
 struct Toast {
     // 展示我们自定义的Toast
-    public static func showToast(text: String) {
+    public static func showToast(text: String, style: ColorStyle = .main) {
         guard text.lengthOfBytes(using: .utf8) > 0 else { return }
-        ToastView.showMessage(message: text)
+        ToastView.showMessage(message: text, style: style)
     }
 
     public static func hideToast() {

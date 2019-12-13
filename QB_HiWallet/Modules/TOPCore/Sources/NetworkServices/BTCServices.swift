@@ -9,20 +9,28 @@
 import Alamofire
 import Moya
 import UIKit
-
 public enum BTCServices {
     case getFeeList
+    case getBalance(address: String)
 }
 
 extension BTCServices: TargetType {
     public var baseURL: URL {
-        return URL(string: NetworkConfig.default.baseURL)!
+        switch self {
+        case .getFeeList:
+            return URL(string: NetworkConfig.default.baseURL)!
+
+        case .getBalance:
+            return URL(string: TOPConstants.bridgeUrl)!
+        }
     }
 
     public var path: String {
         switch self {
         case .getFeeList:
             return "btc/get_btc_fee"
+        case let .getBalance(address):
+            return "/bitcoin/wallets/\(address)/balance"
         }
     }
 
@@ -30,6 +38,8 @@ extension BTCServices: TargetType {
         switch self {
         case .getFeeList:
             return .post
+        case .getBalance:
+            return .get
         }
     }
 
@@ -39,6 +49,8 @@ extension BTCServices: TargetType {
         case .getFeeList:
 
             return .requestData(params.encodeBodyToBase64String().data(using: .utf8) ?? Data())
+        case .getBalance:
+            return .requestPlain
         }
     }
 }

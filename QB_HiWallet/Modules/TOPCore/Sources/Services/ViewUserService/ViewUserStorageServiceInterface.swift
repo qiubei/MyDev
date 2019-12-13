@@ -22,7 +22,7 @@ extension ViewUserStorageServiceInterface {
         guard !users.isEmpty else { return 0 }
         while index < Int.max {
             if users.contains(where: { $0.index == index }) {
-                index++
+                index+=1
                 continue
             }
             return index

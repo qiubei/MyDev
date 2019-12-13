@@ -9,10 +9,26 @@
 import Foundation
 
 extension TokenWallet: WalletProtocol, ViewWalletInterface {
-    
-    public var assetID: String {
-        return token!.chainType + "-" + token!.symbol
+    public var chainType: ChainType {
+        return ChainType.getTypeWithSymbol(symbol: chainSymbol)
     }
+
+    public var isUTXOWallet: Bool {
+        switch mainChainType {
+        case .bitcoinCash:
+            return true
+        case .litecoin:
+            return true
+        case .dash:
+            return true
+        case .bitcoin:
+            return true
+        default:
+            return false
+        }
+    }
+
+
     public var chainSymbol: String {
         return token!.chainType
     }

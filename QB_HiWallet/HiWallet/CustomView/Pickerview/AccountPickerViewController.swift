@@ -31,8 +31,7 @@ class AccountPickerViewController: BaseViewController {
             let model = AccountPickerModel(name: wallet.name, address: wallet.address, amount: wallet.balanceInCurrentCurrency)
             datalist.append(model)
         }
-//        _height = 71 + 60 + 68 * CGFloat(assetWalletList.count)
-//        let rect = CGRect(x: 11, y: UIScreen.main.bounds.height - _height - 30, width: UIScreen.main.bounds.width - 22, height: _height)
+
         pickerView = AccountPickerview(frame: .zero)
         pickerView.datalist = datalist
         pickerView.titleLabel.text = "选择账户".localized()

@@ -199,13 +199,14 @@ extension UIView {
         }
     }
     
-    func addBGGradient(_ rect: CGRect = .zero, colors: [CGColor]) {
+    func addBGGradient(_ rect: CGRect = .zero, radius: CGFloat = 0, colors: [CGColor]) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = (rect == .zero) ? bounds : rect
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0)
         gradientLayer.colors = colors
         gradientLayer.locations = [0, 1]
+        gradientLayer.cornerRadius = radius
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -221,6 +222,27 @@ extension UIView {
         self.layer.shadowOffset = offset
         self.layer.shadowOpacity = opacity
         self.layer.shadowRadius = radius
+    }
+    
+    
+    /// 设置 view 的阴影和圆角
+    /// - Parameters:
+    ///   - radius: 圆角数值
+    ///   - effect: 阴影向外衍射的程度
+    ///   - offset: 整体阴影的偏移量
+    ///   - color: 阴影颜色
+    ///   - opacity: 阴影的透明度
+    func setRadiusAndShadow(radius: CGFloat,
+                            effect: CGFloat,
+                            offset: CGSize = .zero,
+                            color: UIColor = .black,
+                            opacity: Float = 0.16) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOffset = offset
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = effect
+        layer.cornerRadius = radius
+        layer.backgroundColor = UIColor.white.cgColor
     }
 }
 

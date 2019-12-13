@@ -12,5 +12,5 @@ public enum TransactionType: String {
     case send
     case recive
     case contract //合约
-    case exchange //换币
+    //case exchange //换币
 }

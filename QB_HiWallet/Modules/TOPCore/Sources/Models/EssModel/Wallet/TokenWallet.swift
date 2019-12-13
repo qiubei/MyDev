@@ -19,10 +19,9 @@ public class TokenWallet: Object {
     @objc public dynamic var createTime: Double = 0
     @objc public dynamic var hidden: Bool = false
     @objc public dynamic var accountIndex: Int32 = 0
-    public dynamic var localTx: List<LocalTxModel> = List()
 
-    public var mainChainType: MainCoin {
-        return MainCoin.getTypeWithSymbol(symbol: token!.chainType)
+    public var mainChainType: ChainType {
+        return ChainType.getTypeWithSymbol(symbol: token!.chainType)
     }
 
     public convenience init(name: String, token: Token, privateKey: String, address: String, accountIndex: Int32, lastBalance: Double) {

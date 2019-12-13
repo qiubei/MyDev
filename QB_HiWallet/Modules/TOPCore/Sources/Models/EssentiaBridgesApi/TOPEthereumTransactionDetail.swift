@@ -8,7 +8,7 @@
 
 import EssentiaBridgesApi
 import Foundation
-import HDWalletKit
+
 
 public struct TOPEthereumTransactionDetail: Codable {
     public var blockHash: String
@@ -40,14 +40,20 @@ public extension TOPEthereumTransactionDetail {
     }
 
     var status: TransactionStatus {
+        if isError == "1" {
+            return .failure
+        }
         if (Int(confirmations) ?? 0) < 5 {
             return .pending
         }
         return .success
     }
 
-    func type(for: String) -> TransactionType {
-        switch `for`.uppercased() {
+    func type(walletAddress: String) -> TransactionType {
+        if value == "0" {
+            return .contract
+        }
+        switch walletAddress.uppercased() {
         case to.uppercased():
             return .recive
         case from.uppercased():

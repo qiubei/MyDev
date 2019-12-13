@@ -7,12 +7,27 @@
 //
 
 import CryptoSwift
-import HDWalletKit
 
 extension ImportedWallet: WalletProtocol, ViewWalletInterface {
-    public var assetID: String {
-        return coin.symbol + "-" + coin.symbol
+    public var chainType: ChainType {
+        return ChainType.getTypeWithSymbol(symbol: symbol)
     }
+
+    public var isUTXOWallet: Bool {
+        switch mainChainType {
+        case .bitcoinCash:
+            return true
+        case .litecoin:
+            return true
+        case .dash:
+            return true
+        case .bitcoin:
+            return true
+        default:
+            return false
+        }
+    }
+
 
     //导入的帐号索引都是0
     public var accountIndex: Int32 {
@@ -20,11 +35,11 @@ extension ImportedWallet: WalletProtocol, ViewWalletInterface {
     }
 
     public var chainSymbol: String {
-        return coin.symbol
+        return mainChainType.symbol
     }
 
     public var fullName: String {
-        return coin.fullName
+        return mainChainType.fullName
     }
 
     public var isShow: Bool {
@@ -39,18 +54,18 @@ extension ImportedWallet: WalletProtocol, ViewWalletInterface {
         return iconUrl
     }
 
-    public convenience init?(coin: MainCoin, privateKey: String, name: String, lastBalance: Double) {
-        let hdCoin: HDWalletKit.Coin = wrapCoin(coin: coin)
+    public convenience init?(coin: ChainType, privateKey: String, name: String, lastBalance: Double) {
+        let hdCoin: Coin = wrapCoin(coin: coin)
         let rawPrivateKey = PrivateKey(pk: privateKey, coin: hdCoin)
         guard let address = rawPrivateKey?.publicKey.address else { return nil }
         self.init(address: address, coin: coin, privateKey: privateKey, name: name, lastBalance: lastBalance)
     }
 
     public var symbol: String {
-        return coin.symbol
+        return mainChainType.symbol
     }
 
     public var asset: AssetInterface {
-        return coin
+        return mainChainType
     }
 }

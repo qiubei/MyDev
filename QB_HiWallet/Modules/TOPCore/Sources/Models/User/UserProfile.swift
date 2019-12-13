@@ -15,7 +15,6 @@ public class UserProfile: Object, Codable {
     dynamic public var privateCurrency: String = "none"
     dynamic public var imageData: Data?
     @objc private dynamic var privateLanguage: String = ""
-//    public dynamic var biometricLogin: Bool = false
 
     public var language: LocalizationLanguage {
         get { return LocalizationLanguage(rawValue: privateLanguage) ?? .chinese }

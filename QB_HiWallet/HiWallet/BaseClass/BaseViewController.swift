@@ -15,15 +15,12 @@ typealias EmptyAction = ()->()
 class BaseViewController: UIViewController, NibLoadable {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        view.backgroundColor = .white
         setup()
         layout()
         localizedString()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
 
     func setup() {}
 

@@ -104,7 +104,7 @@ class MnemonicVerifyController: BaseViewController {
             _view.cellState = .choosed
             _view.numberLabel.text = "\(key + 1)"
             _view.cornerRadius = 8
-            _view.backgroundColor = #colorLiteral(red: 0.968627451, green: 0.9725490196, blue: 0.9803921569, alpha: 1)
+            _view.backgroundColor = App.Color.mnemonicVerifyCellBg
             // add Event
             _view.bk_(whenTapped: {
                 if let value = self.checkingData[_view.tag], value != -1 {
@@ -164,7 +164,7 @@ extension MnemonicVerifyController: UICollectionViewDataSource, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BackupMnenomicCellID", for: indexPath) as! BackupMnemonicCell
         let index = indexPath.row + (indexPath.section * 4)
         let dic = datalist[index]
-        cell.backgroundColor = #colorLiteral(red: 0.968627451, green: 0.9725490196, blue: 0.9803921569, alpha: 1)
+        cell.backgroundColor = App.Color.mnemonicVerifyCellBg
         cell.cornerRadius = 6
         cell.cellState = .none
         cell.numberLabel.text = "\(index + 1)"

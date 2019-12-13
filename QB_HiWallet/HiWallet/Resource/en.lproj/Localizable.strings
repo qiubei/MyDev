@@ -15,13 +15,12 @@
 "无" = "None";
 "扫一扫" = "Scan QR Code";
 "将二维码/条码放入框内，即可自动扫描" = "Scan QR code of the address";
-"无历史记录" = "No History Data";
 "删除" = "Delete";
 "返回" = "Back";
 
 // guide
 "开启钱包" = "Create a new wallet";
-"导入钱包" = " I already have a wallet";
+"导入钱包_guide" = " I already have a wallet";
 "多链钱包 专业便捷" = "Multi-Chain Wallet";
 "一套助记词管理多链钱包，用户自主管理私钥。" = "Decentralized, Private key Manage by Yourself.";
 "简单流畅 极致用户体验" = "Simple & Smooth";
@@ -39,25 +38,22 @@
 "节点投票" = "STAKING";
 "总资产" = "Total Assets";
 "资产" = "Assets";
-"备份助记词" = "Back Up Mneonic Phrases";
+"备份助记词" = "Back Up Mnemonic Phrases";
 "为提升账户安全性，请备份助记词。" = "Backing up mnemonic phrases to improve account security.";
 "钱包" = "Wallet";
 "个人中心" = "Profile";
 "管理资产" = "Asset Management";
 "输入资产名称或合约地址" = "Enter the Asset name or contract address";
 "创建新账户" = "Create New Account";
+"创建账户失败！" = "Failed to create account!";
 "名称" = "NAME";
-"请输入账户名称" = "Enter Account Name";
 "有意义的名称有助于更好地管理帐户。" = "Meaningful name helps better manage accounts.";
-"名称不得超过30个字符" = "The name cannot exceed 30 characters";
+"名称不得超过 30 个字符" = "The name cannot exceed 30 characters";
 "请输入账户名称" = "Please enter the account name";
-"名字已存在" = "The name has already existed.";
-"设置成功" = "Set Successfully";
 "编辑账户名称" = "Edit Account Name";
 
 // Transaction
-"小数点不能超过8位！" = "Decimal cannot exceed 8 digits. ";
-"请输入转账数量" = "Please enter the transfer amount";
+"小数点不能超过 8 位！" = "Decimal cannot exceed 8 digits. ";
 "ETH 余额不足以支付手续费，请充值" = "Not enough ETH to pay the gas fee. Please recharge.";
 "网络出走了，请检查网络状态后重试" = "Bad connection, check the network and try again";
 "你还没有备份助记词，建议立即备份！" = "You haven't backed mnemonic phrases up. Please back it up immediately.";
@@ -67,7 +63,15 @@
 "正在发送中" = "Sending";
 "正在接收中" = "Receving";
 "发送失败" = "Send Failed";
+"接收失败" = " Receive failed";
 "重新发送" = "Send Again";
+"未确认" = "unconfirmed";
+
+"合约调用中" = "Contract calling";
+"合约调用成功" = "Call contract successfully";
+"合约调用失败" = "Call contract failed";
+
+"请输入有效地址" = "Please enter a valid address";
 "发送" = "Send";
 "接收" = "Receive";
 "正在处理" = "Pending";
@@ -81,10 +85,10 @@
 "删除账户" = "Delete Account";
 "移除" = "Remove";
 "确认移除？" = "Confirm Delete?";
+"分享收款地址" = "Share";
 "分享" = "Share";
 "复制成功" = "Copy Successfully";
 "可用余额: " = "Balance ";
-"输入金额" = "Enter the Amount";
 "发送到" = "To";
 "对方账户" = "From";
 "备注tx" = "Memo";
@@ -92,29 +96,30 @@
 "30分钟内" = "In 30 mins";
 "1小时内" = "In 1 hour";
 "20分钟内" = "In 20 mins ";
+
+"加速" = "Express";
+"快速" = "Fast";
+"正常" = "Nomal";
+
 "确认发送" = "Confirm";
 "请输入金额" = "Enter the amount";
-"输入金额超出可用余额" = "Not enough balance.";
-"请输入地址" = "Enter the address";
-"请输入备注" = "Enter the memo";
-"从" = "From";
+"经链上计算，账户余额不足以支付手续费" = "Not enough BTC to pay the transaction fee.";
+"发送账户" = "From";
 "到账时间" = "Processing";
 "总计" = "Total";
 "余额不足" = "Insufficient balance";
 "ETH 余额不足" = "ETH Insufficient balance";
-"为了防止交易失败，需要冻结 0.1 TOP作为交易保证金" = "To avoid the failure of transaction, it requires to freeze 0.1 TOP.";
 "选择到账时间" = "Choose Time of Arrival";
-"10 分钟以内" = "In 10 mins";
 "手续费" = "Fee";
 "发送成功" = "Send Successfully";
 "再转一笔" = "Send Again";
-"导入钱包" = "Import Wallet";
+"导入钱包_title" = "Import Wallet";
 "导入助记词" = "Import Mnemonic Phrases";
 "确认助记词" = "Verify Mnemonic";
 "输入助记词，用空格分隔" = "Please enter mnemonic phrases with space.";
 "粘贴" = "Paste";
-"助记词不正确" = "Invalid Mnemonic";
-"去浏览器查看详情" = "Check more details on blockchain explorer.";
+"交易详情" = "Transaction Detail";
+"去浏览器查看详情" = "Check more details on blockchain explorer";
 "低于最小发送金额" = "Less than the minimum amount of the transaction.";
 "广播成功" = "Send Successfully";
 // backup
@@ -124,7 +129,6 @@
 "掌握私钥就相当于拥有钱包的全部权限，请确保私钥得到妥善保管和安全传输。" = "Getting the private key is equivalent to having full access to the wallet. Make sure that the private key is properly kept and transmitted securely.";
 "显示二维码" = "Show QR code";
 "复制私钥" = "Copy Private Key";
-"复制成功" = "Copy Successfully";
 "备份提示" = "Backup tips";
 "没有妥善备份就无法保障资产安全，删除程序或钱包后，您需要备份文件来恢复钱包。" = "Asset security cannot be guaranteed without proper backup. After deleting programs or wallets, you need to backup files to restore wallets.";
 "请在四周无人或无摄像头的安全环境下备份" = "Please backup in a safe environment with no person or camera nearby";
@@ -135,18 +139,18 @@
 "请选择以下编号所对应的单词" = "Please select the word corresponding to the following number";
 "助记词不正确" = "Incorrect Mnemonic phrases";
 "请输入助记词！" = "Please input your mnemonic!";
+"请输入私钥" = "Please input your private key!";
 
 //MARK: -  Profile
 "用户反馈" = "User Feedback";
 "有问题想吐槽？点这里" = "Any questions or feedback? Submit it here to let us know!";
-"地址簿" = "Address Book";
+"地址簿_profile" = "Address Book";
 "设置" = "Settings";
 "关注我们" = "Follow Us";
 "微信" = "WeChat";
 "Telegram" = "Telegram";
 "Twitter" = "Twitter";
 "Facebook" = "Facebook";
-"关注我们" = "Follow Us";
 "其他" = "Others";
 "关于我们" = "About Us";
 "版本" = "Version";
@@ -168,9 +172,7 @@
 "设置密码" = "Set password";
 "请再次输入密码" = "Enter the password again";
 "请输入密码解锁" = "Enter the password to unlock";
-"密码错误，请重新输入" = "Incorrect password, enter again";
 "密码验证" = "Enter the Password";
-"两次密码不一致，请重新输入。" = "Passwords do not match. Please enter again.";
 "有新版本!" = "New Version! ";
 "去更新" = "Version Update";
 "暂无新版本!" = "This is the latest version.";
@@ -183,19 +185,15 @@
 "保存成功" = "Save Successfully";
 "删除地址" = "Delete Address";
 "确认删除地址？" = "Confirm to Delete Address?";
-"请输入地址" = "Enter the Address";
-"请选择主链类型" = "Select the Blockchain Type";
 "请选择主链类型" = "Please Select the Blockchain Type";
 "请输入地址的备注" = "Please Enter the Comment";
 "请输入地址" = "Please Enter the Address";
-
-"请输入地址的备注" = "Enter the Comment";
 "类型" = "Type";
 "地址" = "Address";
 "备注" = "Comment";
 "设为常用地址" = "Common Address";
 
-"地址簿" = "Contacts";
+"地址簿_address" = "Contacts";
 "常用" = " Common     ";
 "请输入正确的地址" = "Please Enter the Valid Address";
 "保存" = "Save";
@@ -205,15 +203,12 @@
 "预计 %@ 分钟内" = "In %@ Mins";
 
 // other
-"出账成功" = "Sent Successfully";
 "金额" = "Amount";
-"交易号" = "Transaction ID";
+"交易号" = "Tx ID";
 "确定" = "OK";
 "输入金额有误" = "Incorrect amount input";
-"前一笔交易正在处理中，请稍后再试。"= "The previous transcation is still processing. Please try again later.";
+"前一笔交易正在处理中，请稍后再试。" = "The previous transcation is still processing. Please try again later.";
 "相册" = "Album";
-
-
 
 //MARK: -  AuthenticationService
 "多次验证失败被锁定" = "Biometrics Locked";
@@ -230,6 +225,7 @@
 "收款二维码" = "Receive QR code";
 "备份成功" = "Backup Successfully";
 "修改成功！" = "Modified successfully!";
+"暂不支持该币" = "The coin is unSupported";
 
 //pop view
 "授权签名" = "Authorize Signature";
@@ -244,3 +240,7 @@
 "升级版本后，需要将数据与旧版本进行同步，大概需要数秒，同步后可以手动添加已隐藏的资产" = "Data synchronization is required after the upgrade.Hidden assets need be added manually after the sync.It maybe take a few seconds.";
 "开始同步" = "Start to Sync";
 
+"微信公众号" = "Official Account";
+"微博" = "Weibo";
+
+"打开 Hiwallet 扫一扫" = "Open Hiwallet and scan";

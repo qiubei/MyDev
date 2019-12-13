@@ -9,7 +9,6 @@
 import EssentiaBridgesApi
 import EssentiaNetworkCore
 import Foundation
-import HDWalletKit
 import Moya
 import TOPCore
 
@@ -21,25 +20,23 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
                                     etherScanApiKey: TOPConstants.ethterScanApiKey)
     }
 
-    public func getCoinBalance(for coin: MainCoin, address: String, balance: @escaping (Double) -> Void, failure: @escaping () -> Void) {
+    public func getCoinBalance(for coin: ChainType, address: String, balance: @escaping (Double) -> Void, failure: @escaping () -> Void) {
         switch coin {
-        case .bitcoin, .bitcoinCash, .litecoin, .dash:
-            let utxoWallet = cryptoWallet.utxoWallet(coin: coin)
-            utxoWallet.getBalance(for: address) { result in
-                switch result {
-                case let .success(obect):
-                    balance(obect)
-                case .failure:
-                    failure()
-                    Toast.hideHUD()
-                }
-            }
+            case .bitcoin, .bitcoinCash, .litecoin, .dash:
+               let utxoWallet = cryptoWallet.utxoWallet(coin: coin)
+               utxoWallet.getBalance(for: address) { result in
+                   switch result {
+                   case let .success(obect):
+                       balance(obect)
+                   case .failure:
+                       failure()
+                   }
+               }
+
         case .ethereum:
 
             TOPNetworkManager<ETHServices, BalanceModel>.requestModel(.getBalance(address: address), success: { model in
-
                 balance(Double(model.balance) ?? 0)
-
             }, failure: { _ in
                 failure()
             })
@@ -52,7 +49,7 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
                 failure()
             }
 
-        case .unknowCoin:
+        default:
             return
         }
     }
@@ -68,14 +65,6 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
         })
     }
 
-    public func getTokenTxHistory(address: EssentiaBridgesApi.Address, smartContract: EssentiaBridgesApi.Address, result: @escaping (NetworkResult<EthereumTokenTransactionByAddress>) -> Void) {
-        cryptoWallet.ethereum.getTokenTxHistory(for: address, smartContract: smartContract, result: result)
-    }
-
-    public func getEthGasEstimate(fromAddress: String, toAddress: String, data: String, result: @escaping (NetworkResult<EthereumNumberValue>) -> Void) {
-        cryptoWallet.ethereum.getGasEstimate(from: fromAddress, to: toAddress, data: data, result: result)
-    }
-
     public func txRawParametrs(for asset: AssetInterface, toAddress: String, ammountInCrypto: String, data: Data) throws -> (value: Wei, address: String, data: Data) {
         switch asset {
         case let token as Token:
@@ -84,12 +73,12 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
             let data = try Data(hex: erc20Token.generateSendBalanceParameter(toAddress: toAddress,
                                                                              amount: ammountInCrypto).toHexString().addHexPrefix())
             return (value: value, token.contractAddress, data: data)
-        case is MainCoin:
+        case is ChainType:
             let value = try WeiEthterConverter.toWei(ether: ammountInCrypto)
             let data = data
             return (value: value, address: toAddress, data: data)
         default:
-            throw EssentiaError.unexpectedBehavior
+            throw TOPError.unexpectedBehavior
         }
     }
 
@@ -97,7 +86,7 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
         switch wallet.asset {
         case let token as Token:
 
-            TOPNetworkManager<ETHServices, TOPEthereumTransactionDetail>.requestModelList(.getEthTokenTxHistory(address: wallet.address, action: "tokentx", contractAddress: token.contractAddress, pageIndex: pageNum, pageSize: 20), success: { tx, _ in
+            TOPNetworkManager<ETHServices, TOPEthereumTransactionDetail>.requestModelList(.getEthTokenTxHistory(address: wallet.address.lowercased(), action: "tokentx", contractAddress: token.contractAddress, pageIndex: pageNum, pageSize: 20), success: { tx, _ in
                 if let list = tx {
                     transactions(self.mapTransactions(list, address: wallet.address, asset: token))
                 }
@@ -105,7 +94,7 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
                 failure(error)
             })
 
-        case let coin as MainCoin:
+        case let coin as ChainType:
             switch coin {
             case .bitcoin, .bitcoinCash, .litecoin, .dash:
                 let utxoWallet = cryptoWallet.utxoWallet(coin: coin)
@@ -118,7 +107,7 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
                             transactions([])
                         }
                     case let .failure(error):
-                        let error = TOPHttpError.other(message: error.description, code: -1)
+                        let error = TOPHttpError.other(message: error.localizedDescription, code: -1)
                         failure(error)
                     }
                 }
@@ -145,7 +134,7 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
         }
     }
 
-    public func sendEthTransaction(wallet: ViewWalletInterface, transacionDetial: EtherTxInfo, result: @escaping (TOPNetworkResult<String>) -> Void) throws {
+    public func sendEthTransaction(wallet: ViewWalletInterface, transacionDetial: EtherTxInfo, result: @escaping (String) -> Void, failure: @escaping (TOPHttpError) -> Void) throws {
         let txRwDetails = try txRawParametrs(for: wallet.asset,
                                              toAddress: transacionDetial.address,
                                              ammountInCrypto: transacionDetial.ammount.inCrypto,
@@ -168,18 +157,18 @@ public class WalletBlockchainWrapperInteractor: WalletBlockchainWrapperInteracto
 
             let signer = EIP155Signer(chainId: ChainId_Num) // 4是测试链 1是正式
             guard let txData = try? signer.sign(transaction, privateKey: dataPk) else {
-                result(.failure("签名失败".localized()))
+                failure(TOPHttpError.other(message: "Error", code: -1))
                 return
             }
 
             TOPNetworkManager<ETHServices, SendResultModel>.requestModel(.sendTransaction(hexValue: txData.toHexString().addHexPrefix()), success: { sendResult in
-                result(.success(sendResult.hash))
+                result(sendResult.hash)
             }, failure: { error in
-                result(.failure(error.message))
+                failure(error)
             })
 
         }) { error in
-            result(.failure(error.message))
+            failure(error)
         }
     }
 
@@ -194,7 +183,7 @@ extension WalletBlockchainWrapperInteractor {
     private func mapTransactions(_ transactions: [UtxoTransactionValue], address: String, asset: AssetInterface) -> [HistoryTxModel] {
         return [HistoryTxModel](transactions.map({
             HistoryTxModel(
-                chainType: asset.chainType,
+                chainType: asset.chainSymbol,
                 asset: asset,
                 txhash: $0.txid,
                 toAddress: $0.vout.first!.scriptPubKey.addresses?.first ?? "",
@@ -204,7 +193,7 @@ extension WalletBlockchainWrapperInteractor {
                 status: $0.status,
                 type: $0.type(for: address),
                 date: TimeInterval($0.time),
-                fee: "\(NSDecimalNumber(string: String(format: "%.15f", $0.fees!)))"
+                fee: "\(NSDecimalNumber(string: String(format: "%.15f", $0.fees ?? 0)))"
             )
         }))
     }
@@ -212,7 +201,7 @@ extension WalletBlockchainWrapperInteractor {
     private func mapTransactions(_ transactions: [TOPEthereumTransactionDetail], address: String, asset: AssetInterface) -> [HistoryTxModel] {
         return [HistoryTxModel](transactions.map({
             HistoryTxModel(
-                chainType: asset.chainType,
+                chainType: asset.chainSymbol,
                 asset: asset,
                 txhash: $0.hash,
                 toAddress: $0.to,
@@ -220,7 +209,7 @@ extension WalletBlockchainWrapperInteractor {
                 myAddress: address,
                 ammount: asset.type == .coin ? CryptoFormatter.WeiToEther(valueStr: $0.value) : CryptoFormatter.WeiToTokenBalance(valueStr: $0.value, decimals: (asset as! Token).decimals, radix: 10),
                 status: $0.status,
-                type: $0.type(for: address),
+                type: $0.type(walletAddress: address),
                 date: TimeInterval($0.timeStamp) ?? 0,
                 fee: $0.fee,
                 note: asset.type == .token ? nil : $0.input

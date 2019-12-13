@@ -39,9 +39,9 @@ class AddressListViewController: BaseViewController, UITableViewDataSource, UITa
     
     func config() {
         tableView.keyboardDismissMode = .onDrag
-        title = "地址簿".localized()
+        title = "地址簿_address".localized()
         let item = UIBarButtonItem(image: UIImage(named: "Address_add"), style: .plain, target: self, action: #selector(rightBarAction))
-        item.tintColor = #colorLiteral(red: 0.4274509804, green: 0.4666666667, blue: 0.5411764706, alpha: 1)
+        item.tintColor = App.Color.addressNavigationBar
 
         navigationItem.rightBarButtonItem = item
         tableView.ly_emptyView = LYEmptyView.empty(with: UIImage(named: "noData_icon"), titleStr: "暂无地址".localized(), detailStr: "")

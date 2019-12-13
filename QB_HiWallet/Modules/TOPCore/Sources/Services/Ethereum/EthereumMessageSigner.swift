@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import HDWalletKit
+
 import secp256k1
 
 /// Ethereum Message Signer

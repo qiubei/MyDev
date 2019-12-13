@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 
+ enum ColorStyle {
+     case white
+     case main
+ }
+
+
 class ToastView {
-    enum ColorStyle {
-        case white
-        case main
-    }
 
     class func showMessage(message: String, style: ColorStyle = .main) {
         

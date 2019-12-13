@@ -13,7 +13,7 @@ import Foundation
 fileprivate struct Constants {
     static var storageFolder = "Users"
     static var keyStoreFolder = "Keystore"
-    static let DB_Version: UInt64 = 18
+    static let DB_Version: UInt64 = 19
 }
 
 public class RealmUserStorage: UserStorageServiceInterface {
@@ -42,7 +42,7 @@ public class RealmUserStorage: UserStorageServiceInterface {
         let key = Data(hex: password.sha512())
         let defaultConfig = Realm.Configuration.defaultConfiguration
         guard let defaultUrl = defaultConfig.fileURL else {
-            throw EssentiaError.dbError(.databaseNotFound)
+            throw TOPError.dbError(.databaseNotFound)
         }
         let url = defaultUrl.deletingLastPathComponent().appendingPathComponent(Constants.storageFolder).appendingPathComponent("\(seedHash).realm")
         config = Realm.Configuration(fileURL: url, encryptionKey: key, readOnly: false, schemaVersion: Constants.DB_Version, migrationBlock: { _, oldSchemaVersion in

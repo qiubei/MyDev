@@ -41,6 +41,7 @@ class AddressAuthPopView: BasePopview {
         tableview.backgroundColor = .white
         tableview.dataSource = self
         tableview.delegate = self
+        tableview.register(UITableViewCell.self, forCellReuseIdentifier: "no_use_id")
         rightButton.isHidden = false
         rightButton.bk_(whenTapped: { [weak self] in
             if self?.uiActions == nil { return }
@@ -64,31 +65,36 @@ extension AddressAuthPopView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "no_use_id")
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "no_use_id")!
         let model = datalist[indexPath.row]
-        cell.selectionStyle = .none
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        cell.textLabel?.textColor = App.Color.title
-        cell.textLabel?.text = model.speedDesc
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        cell.detailTextLabel?.textColor = App.Color.cellInfo
-        cell.detailTextLabel?.numberOfLines = 0
-        cell.detailTextLabel?.text = model.Fee
-        
-        let lineView = UIView()
-        lineView.backgroundColor = App.Color.lineColor
-        cell.addSubview(lineView)
-        lineView.snp.makeConstraints {
-            $0.bottom.right.equalTo(0)
-            $0.left.equalTo(26)
-            $0.height.equalTo(0.5)
-        }
+        cell.setupWith(model: model)
     
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 102
+    }
+}
+
+fileprivate extension UITableViewCell {
+    func setupWith(model: NormalPopModel) {
+        selectionStyle = .none
+        textLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        textLabel?.textColor = App.Color.title
+        textLabel?.text = model.speedDesc
+        detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        detailTextLabel?.textColor = App.Color.cellInfo
+        detailTextLabel?.numberOfLines = 0
+        detailTextLabel?.text = model.Fee
+        
+        let lineView = UIView()
+        lineView.backgroundColor = App.Color.lineColor
+        addSubview(lineView)
+        lineView.snp.makeConstraints {
+            $0.bottom.right.equalTo(0)
+            $0.left.equalTo(26)
+            $0.height.equalTo(0.5)
+        }
     }
 }

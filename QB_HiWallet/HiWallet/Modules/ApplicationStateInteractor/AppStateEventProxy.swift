@@ -77,4 +77,5 @@ public class AppStateEventProxy: AppStateEventProxyInterface {
     public func didFinishLaunching(_ application: UIApplication) {
         notifySubscribers(with: .didFinishLaunching)
     }
+
 }

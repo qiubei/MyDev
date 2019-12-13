@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import HDWalletKit
+
 
 public class UtxoCalculater: UtxoSelectorInterface {
     public let feePerByte: UInt64
@@ -88,10 +88,6 @@ public class UtxoCalculater: UtxoSelectorInterface {
     }
 }
 
-enum UtxoSelectError: Error {
-    case insufficientFunds
-    case error(String)
-}
 
 private extension Array {
     // Slice Array
@@ -104,8 +100,3 @@ private extension Array {
     }
 }
 
-internal extension Sequence where Element == UnspentTransaction {
-    func sum() -> UInt64 {
-        return reduce(UInt64()) { $0 + $1.output.value }
-    }
-}

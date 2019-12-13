@@ -8,9 +8,7 @@
 
 import Firebase
 import IQKeyboardManagerSwift
-import netfox
 import RealmSwift
-import UIKit
 import TOPCore
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Firebase
         IQKeyboardManager.shared.enable = true
+        regisJPushWithaplication(application, didFinishLaunchingWithOptions: launchOptions)
 
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         AuthenticationService.shared.register()
@@ -29,11 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Fallback on earlier versions
         }
         #if DEBUG
-            NFX.sharedInstance().start()
+        //NFX.sharedInstance().start()
         #else
             FirebaseApp.configure()
         #endif
         AppHandler.shared.setUp()
+
         return true
     }
 
@@ -49,9 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         appStateEventProxy.applicationDidBecomeActive(application)
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         appStateEventProxy.applicationWillResignActive(application)
     }
 }
+

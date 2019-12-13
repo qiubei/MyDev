@@ -17,9 +17,6 @@ class BaseTabViewController: UITableViewController ,NibLoadable {
         super.viewDidLoad()
         self.localizedString()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
     
     func localizedString() {
        

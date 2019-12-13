@@ -9,8 +9,7 @@
 import Foundation
 
 public struct HistoryTxModel {
-    
-    public var chainType: String
+    public var chainType: String  //symbol
     public var txhash: String
     public var toAddress: String //对方的地址
     public var fromAddress: String //对方的地址
@@ -20,7 +19,7 @@ public struct HistoryTxModel {
     public var type: TransactionType
     public var date: TimeInterval
     public var fee: String
-    public var note: String?  //token和btc要设置为nil，以太坊设置为空字符串
+    public var note: String? //token和btc要设置为nil，以太坊设置为空字符串
     public var asset: AssetInterface
 
     public init(chainType: String,
@@ -51,11 +50,15 @@ public struct HistoryTxModel {
 
     //是否是发送
     public var isSend: Bool {
-        return fromAddress.uppercased() == myAddress.uppercased()
+        return type == .send
     }
 
     //显示地址
     public var otherAdress: String {
         return isSend ? toAddress : fromAddress
+    }
+
+    public var isContactTx: Bool {
+        return type == .contract
     }
 }

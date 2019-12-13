@@ -19,7 +19,8 @@ class AssetAccountManagementController: BaseViewController, UITableViewDelegate,
 
             (inject() as UserStorageServiceInterface).update({ user in
                 user.wallet?.delete(wallet: self.walletInfo!)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationConst.deleteAccount), object: nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationConst.deleteAccount), object: nil)
+                NotificationName.deleteAccount.emit()
                 self.navigationController?.popViewController(animated: true)
             })
         })

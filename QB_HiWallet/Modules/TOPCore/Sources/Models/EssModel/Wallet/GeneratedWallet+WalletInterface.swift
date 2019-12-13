@@ -8,21 +8,34 @@
 
 import Foundation
 
-import HDWalletKit
-
 extension GeneratingWalletInfo: WalletProtocol, ViewWalletInterface {
-
     
-    public var assetID: String {
-        return mainCoinType.symbol + "-" + mainCoinType.symbol
+    public var chainType: ChainType {
+        return ChainType.getTypeWithSymbol(symbol: symbol)
     }
     
+    public var isUTXOWallet: Bool {
+        switch mainChainType {
+        case .bitcoinCash:
+            return true
+        case .litecoin:
+            return true
+        case .dash:
+            return true
+        case .bitcoin:
+            return true
+        default:
+            return false
+        }
+    }
+ 
+
     public var fullName: String {
-        return mainCoinType.fullName
+        return mainChainType.fullName
     }
 
     public var chainSymbol: String {
-        return mainCoinType.symbol
+        return mainChainType.symbol
     }
 
     public var isShow: Bool {
@@ -34,10 +47,10 @@ extension GeneratingWalletInfo: WalletProtocol, ViewWalletInterface {
     }
 
     public var logoUrl: String {
-        return mainCoinType.iconUrl
+        return mainChainType.iconUrl
     }
 
-    public convenience init(name: String, coin: MainCoin, accountIndex: Int32, seed: String, sourseType: BackupSourceType) {
+    public convenience init(name: String, coin: ChainType, accountIndex: Int32, seed: String, sourseType: BackupSourceType) {
         let hdwalletCoin = wrapCoin(coin: coin)
         let wallet = Wallet(seed: Data(hex: seed), coin: hdwalletCoin)
         var walletDerivationNode = sourseType.derivationNodesFor(coin: wrapCoin(coin: coin))
@@ -45,12 +58,12 @@ extension GeneratingWalletInfo: WalletProtocol, ViewWalletInterface {
         let account = wallet.generateAccount(at: walletDerivationNode)
 
         self.init(name: name, coin: coin, privateKey: account.rawPrivateKey, address: account.address, accountIndex: accountIndex, lastBalance: 0)
-        self.mainCoinType = coin
+        mainChainType = coin
         self.accountIndex = accountIndex
         lastBalance = 0
     }
 
-    public convenience init(coin: MainCoin, sourceType: BackupSourceType, seed: String) {
+    public convenience init(coin: ChainType, sourceType: BackupSourceType, seed: String) {
         let hdwalletCoin = wrapCoin(coin: coin)
         let wallet = Wallet(seed: Data(hex: seed), coin: hdwalletCoin)
         var coinDerivationNode = sourceType.derivationNodesFor(coin: hdwalletCoin)
@@ -58,25 +71,25 @@ extension GeneratingWalletInfo: WalletProtocol, ViewWalletInterface {
         let account = wallet.generateAccount(at: coinDerivationNode)
         let index = coinDerivationNode.last!.index
         self.init(name: "", coin: coin, privateKey: account.rawPrivateKey, address: account.address, accountIndex: Int32(index), lastBalance: 0)
-        self.mainCoinType = coin
+        mainChainType = coin
         lastBalance = 0
     }
 
     public var symbol: String {
-        return mainCoinType.symbol
+        return mainChainType.symbol
     }
 
     public func isValidAddress(address: String) -> Bool {
-        return mainCoinType.isValidAddress(address)
+        return mainChainType.isValidAddress(address)
     }
 
     public var asset: AssetInterface {
-        return mainCoinType
+        return mainChainType
     }
 }
 
 // - Make single Coin model
-public func wrapCoin(coin: MainCoin) -> Coin {
+public func wrapCoin(coin: ChainType) -> Coin {
     switch coin {
     case .bitcoin:
         return Coin.bitcoin

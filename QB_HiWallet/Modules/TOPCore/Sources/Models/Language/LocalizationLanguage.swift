@@ -65,3 +65,12 @@ public enum LocalizationLanguage: String, Codable, Equatable {
         return [.english, .chinese, .korean]
     }
 }
+
+public extension LocalizationLanguage {
+    var isChinese: Bool {
+        if self == .chinese {
+            return true
+        }
+        return false
+    }
+}

@@ -9,6 +9,11 @@
 import UIKit
 
 extension UILabel {
+    
+    /// 设置行间距和字体
+    /// - Parameters:
+    ///   - space: 行间距
+    ///   - font: 字体大小
     func setLine(space: CGFloat, font: UIFont) {
         guard let txt = self.text else { return }
         let attributeString = NSMutableAttributedString(string: txt, attributes: [NSAttributedString.Key.font: font])
