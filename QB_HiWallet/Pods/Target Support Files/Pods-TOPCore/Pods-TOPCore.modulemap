@@ -1,6 +1,0 @@
-framework module Pods_TOPCore {
-  umbrella header "Pods-TOPCore-umbrella.h"
-
-  export *
-  module * { export * }
-}
