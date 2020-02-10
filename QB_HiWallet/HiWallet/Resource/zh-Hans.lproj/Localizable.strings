@@ -1,0 +1,13 @@
+/*
+ Localizable.strings
+ HiWallet
+
+ Created by Jax on 2019/7/18.
+ Copyright © 2019 TOP. All rights reserved.
+ */
+
+"备注tx" = "备注";
+"导入钱包_guide" = "导入钱包";
+"导入钱包_title" = "导入钱包";
+"地址簿_address" = "地址簿";
+"地址簿_profile" = "地址簿";

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Gf-W9-gbD">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="wfA-QB-XuF">
+            <objects>
+                <tabBarController id="9Gf-W9-gbD" customClass="TOPTabBarViewController" customModule="HiWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="MyO-Qo-nJe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.306809634" green="0.46174806359999998" blue="0.98195821049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Bxg-qP-SFG" kind="relationship" relationship="viewControllers" id="fN2-l4-I5f"/>
+                        <segue destination="hxE-uH-omS" kind="relationship" relationship="viewControllers" id="ake-4T-YpK"/>
+                        <segue destination="Bru-vV-HuJ" kind="relationship" relationship="viewControllers" id="kBs-4d-ZhS"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z28-Qd-iSq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1846" y="86"/>
+        </scene>
+        <!--钱包-->
+        <scene sceneID="gxf-ep-qhi">
+            <objects>
+                <navigationController id="hxE-uH-omS" customClass="BaseNavigationController" customModule="HiWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="钱包" image="tabbar_wallet_unselected" selectedImage="tabbar_wallet_selected" id="u7m-aB-70t"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="q3R-Si-yRS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="QRm-rw-k9f" kind="relationship" relationship="rootViewController" id="DoT-By-8PI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qNh-Yh-S81" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-614" y="-317"/>
+        </scene>
+        <!--设置-->
+        <scene sceneID="y7W-aU-hpG">
+            <objects>
+                <navigationController id="Bru-vV-HuJ" customClass="BaseNavigationController" customModule="HiWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="设置" image="tabbar_my_unselected" selectedImage="tabbar_my_selected" id="niv-xR-2U3"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="L9d-cS-Gqk">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ngf-mL-s2j" kind="relationship" relationship="rootViewController" id="lU9-YC-uR4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zZb-St-Won" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-614" y="414"/>
+        </scene>
+        <!--Setting-->
+        <scene sceneID="gwg-Rn-uGh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Setting" id="Ngf-mL-s2j" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="JnG-2J-Osd"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xHM-xN-sGv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="303" y="414"/>
+        </scene>
+        <!--Wallet-->
+        <scene sceneID="plx-5T-zOj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Wallet" id="QRm-rw-k9f" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="9qh-96-BiN"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xb9-6J-buS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="304" y="-317"/>
+        </scene>
+        <!--新青年-->
+        <scene sceneID="eia-d7-Zc3">
+            <objects>
+                <navigationController id="Bxg-qP-SFG" customClass="BaseNavigationController" customModule="HiWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="新青年" image="tabbar_home_unselected" selectedImage="tabbar_home_selected" id="NqC-SN-Fek"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7oR-48-KWd">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OYk-WM-1Oa" kind="relationship" relationship="rootViewController" id="b0P-dc-J7Q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7fc-XQ-SKM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-614" y="-1027"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="xkw-zb-kqw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" id="OYk-WM-1Oa" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="kt3-PM-mbP"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6fq-FF-ahx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="304" y="-1027"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tabbar_home_selected" width="22" height="22"/>
+        <image name="tabbar_home_unselected" width="22" height="22"/>
+        <image name="tabbar_my_selected" width="22" height="23"/>
+        <image name="tabbar_my_unselected" width="22" height="23"/>
+        <image name="tabbar_wallet_selected" width="22" height="23"/>
+        <image name="tabbar_wallet_unselected" width="22" height="23"/>
+    </resources>
+</document>

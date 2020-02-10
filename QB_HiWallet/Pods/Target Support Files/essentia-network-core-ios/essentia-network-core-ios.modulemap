@@ -1,0 +1,6 @@
+framework module EssentiaNetworkCore {
+  umbrella header "essentia-network-core-ios-umbrella.h"
+
+  export *
+  module * { export * }
+}

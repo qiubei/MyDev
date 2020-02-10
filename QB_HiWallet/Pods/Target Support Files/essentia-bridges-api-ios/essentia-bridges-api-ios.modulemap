@@ -1,0 +1,6 @@
+framework module EssentiaBridgesApi {
+  umbrella header "essentia-bridges-api-ios-umbrella.h"
+
+  export *
+  module * { export * }
+}
